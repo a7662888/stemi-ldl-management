@@ -1,0 +1,15 @@
+﻿Preventing the Next Heart Attack: LDL Cholesterol Management After STEMI｜離線版使用說明
+
+【開啟】
+雙擊 index.html（建議 Chrome 或 Edge），不需要網路。
+若瀏覽器問「是否允許播放音訊」，請選允許。
+
+【兩種播放方式】（開啟後出現選單）
+・主講模式：自己講、自己翻頁。
+  ← → 翻頁（每按一下出現下一個重點）｜N 逐字稿｜O 全部頁面｜B 黑屏｜F 全螢幕
+・自動播放：配音＋字幕＋配樂自動播完整場，可在選單勾選要不要配音（男聲／女聲）、字幕、配樂。
+  空白鍵 暫停／繼續｜← → 上一句／下一句｜S 字幕｜M 配樂｜移動滑鼠叫出控制列，按「選單」回到選單
+
+【注意】
+整個資料夾要一起帶走（index.html 旁邊的 assets、audio、fonts 都要在），不要只複製 index.html。
+內容：10 頁｜配音 Will (English Male, ~21 yo)｜配樂 有｜打包日期 2026-10-28

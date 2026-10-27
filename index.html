@@ -26,9 +26,10 @@
 .k-head {
   flex: 0 0 auto;
   margin-bottom: 20px;
+  padding-right: 480px; /* Guarantees H2 and subtitle never collide with .k-nav */
 }
 .k-slide h2 {
-  font-size: 56px;
+  font-size: 50px;
   line-height: 1.18;
   font-weight: 900;
   margin: 0;
@@ -36,11 +37,43 @@
   letter-spacing: -0.01em;
 }
 .k-sub {
-  font-size: 28px;
+  font-size: 26px;
   line-height: 1.4;
   color: var(--ink-2);
   margin-top: 8px;
   margin-bottom: 0;
+}
+
+/* Chapter Nav Pills (Top Right) */
+.k-nav {
+  position: absolute;
+  top: 48px;
+  right: var(--pad);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+.k-nav button {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--muted);
+  padding: 6px 15px;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  background: #FFFFFF;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+  transition: all 0.2s ease;
+}
+.k-nav button:hover {
+  border-color: var(--navy);
+  color: var(--navy);
+}
+.k-nav button.on {
+  color: #FFFFFF;
+  background: var(--navy);
+  border-color: var(--navy);
+  box-shadow: 0 2px 8px rgba(30, 40, 51, 0.2);
 }
 
 /* Body fills remaining space cleanly */
@@ -243,7 +276,7 @@
 <main id="k-stage">
 
 
-<section class="k-slide k-cover" data-chapter="Overview" data-title="Title Slide">
+<section class="k-slide k-cover" data-chapter="1. Case" data-title="Title Slide">
   <div class="k-cover-copy" style="top: 140px; width: 1060px;">
     <div style="display: flex; gap: 14px; margin-bottom: 28px;">
       <span class="k-badge navy">Clinical Case Series</span>
@@ -270,7 +303,7 @@
 
 
 
-<section class="k-slide" data-chapter="Case Presentation" data-title="Meet Mr. Hong">
+<section class="k-slide" data-chapter="1. Case" data-title="Meet Mr. Hong">
   <div class="k-head">
     <h2>Meet Mr. Hong: Successful Stent, But Hidden Danger</h2>
     <p class="k-sub">A 48-year-old gentleman revascularized within 38 minutes presents a critical metabolic challenge</p>
@@ -341,7 +374,7 @@
 
 
 
-<section class="k-slide" data-chapter="Vascular Biology" data-title="Stent vs Arteries">
+<section class="k-slide" data-chapter="1. Case" data-title="Stent vs Arteries">
   <div class="k-head">
     <h2>A Stent Fixes 48 Millimeters; Cholesterol Affects All Arteries</h2>
     <p class="k-sub">Why heart attack patients suffer recurrent events in other coronary vessels</p>
@@ -393,7 +426,7 @@
 
 
 
-<section class="k-slide" data-chapter="Clinical Targets" data-title="Target < 55 mg/dL">
+<section class="k-slide" data-chapter="2. Target" data-title="Target < 55 mg/dL">
   <div class="k-head">
     <h2>The Target: What is Mr. Hong's Goal?</h2>
     <p class="k-sub">2026 ACC/AHA and ESC guidelines mandate strict secondary prevention targets</p>
@@ -448,7 +481,7 @@
 
 
 
-<section class="k-slide" data-chapter="Clinical Targets" data-title="The 31.5 mg/dL Gap">
+<section class="k-slide" data-chapter="2. Target" data-title="The 31.5 mg/dL Gap">
   <div class="k-head">
     <h2>The Math: Why Statin Monotherapy Fails Mr. Hong</h2>
     <p class="k-sub">Calculating his response reveals a clear 31.5 mg/dL therapeutic gap</p>
@@ -515,7 +548,7 @@
 
 
 
-<section class="k-slide" data-chapter="Pharmacotherapy" data-title="Statin + Ezetimibe">
+<section class="k-slide" data-chapter="3. Therapy" data-title="Statin + Ezetimibe">
   <div class="k-head">
     <h2>The Solution: Combine Statin with Ezetimibe</h2>
     <p class="k-sub">Targeting both liver production and gut absorption closes the therapeutic gap</p>
@@ -576,7 +609,7 @@
 
 
 
-<section class="k-slide" data-chapter="Clinical Decision" data-title="Quick Decision">
+<section class="k-slide" data-chapter="3. Therapy" data-title="Quick Decision">
   <div class="k-head">
     <h2>Quick Question: What Should We Prescribe at Discharge?</h2>
     <p class="k-sub">Mr. Hong has a baseline LDL of 173 mg/dL. Which strategy is best?</p>
@@ -622,7 +655,7 @@
 
 
 
-<section class="k-slide" data-chapter="Advanced Therapies" data-title="PCSK9 Inhibitors">
+<section class="k-slide" data-chapter="3. Therapy" data-title="PCSK9 Inhibitors">
   <div class="k-head">
     <h2>What If LDL Remains High? Add a PCSK9 Inhibitor</h2>
     <p class="k-sub">The powerful third line of defense for very-high-risk patients</p>
@@ -683,7 +716,7 @@
 
 
 
-<section class="k-slide" data-chapter="Clinical Roadmap" data-title="Action Plan">
+<section class="k-slide" data-chapter="4. Plan" data-title="Action Plan">
   <div class="k-head">
     <h2>Mr. Hong's 4-Step Clinical Action Plan</h2>
     <p class="k-sub">A straightforward timeline from acute admission to long-term survival</p>
@@ -773,7 +806,7 @@
 
 
 
-<section class="k-slide" data-chapter="Conclusion" data-title="Conclusion">
+<section class="k-slide" data-chapter="4. Plan" data-title="Conclusion">
   <div class="k-head">
     <h2>Conclusion: Returning Mr. Hong to a Healthy Life</h2>
     <p class="k-sub">Evidence-based secondary prevention in clinical practice</p>
@@ -859,7 +892,7 @@
       <button class="go sage" id="kgo-auto">Start Auto Play</button>
     </div>
   </div>
-  <p class="kb">版本 20261028-bdde｜Auto Play Controls: Space: Pause/Resume ｜ &larr; &rarr;: Previous/Next Sentence ｜ S: Subtitles ｜ M: Music ｜ Move mouse for toolbar ｜ "Menu" to return here</p>
+  <p class="kb">版本 20261028-d331｜Auto Play Controls: Space: Pause/Resume ｜ &larr; &rarr;: Previous/Next Sentence ｜ S: Subtitles ｜ M: Music ｜ Move mouse for toolbar ｜ "Menu" to return here</p>
 </div></div>
 
 <!-- Playback Controls (100% English) -->
