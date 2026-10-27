@@ -1,0 +1,483 @@
+/* ==========================================================================
+   lecture-deck-workflow 樣板｜視覺系統源自「認識失智症｜家屬照顧者講座」（2026-10-23，業主最喜歡的風格）
+   Canvas 1920x1080；白紙、繪本暖色、Noto Serif TC 大標。自訂 class 一律 k- 前綴。
+   顏色只寫 hex（DOM→PPTX 抽取器讀不到 oklch）。播放器（開場選單、自動播放、字幕、控制列）樣式在檔尾。
+   ========================================================================== */
+
+:root{
+  --paper:#FFFFFF;
+  --ink:#1E2833;
+  --ink-2:#3B4754;
+  --muted:#5F6B77;
+  --line:#E3E6E9;
+  --line-2:#F0F2F4;
+  --terra:#B5482F;      /* 重點、紅燈、別這樣說 */
+  --terra-wash:#FBEDE8;
+  --sage:#3F7A55;       /* 這樣說、綠燈 */
+  --sage-wash:#E9F3EC;
+  --butter:#F3C84B;     /* 只作色塊，不放細字 */
+  --butter-wash:#FDF6DD;
+  --navy:#24476E;       /* 結構、資訊 */
+  --navy-wash:#E8EFF7;
+  --pad:96px;
+}
+
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#D9DDE1;
+  color:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;
+  -webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;text-align:left}
+button:focus-visible{outline:4px solid var(--navy);outline-offset:3px}
+strong{font-weight:900}
+.k-t{color:var(--terra)} .k-s{color:var(--sage)} .k-n{color:var(--navy)}
+
+/* ---------- stage ---------- */
+#k-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;
+  transform-origin:0 0;overflow:hidden;background:var(--paper)}  /* 左上角縮放＋平移：手機不跑版 */
+.k-slide{position:absolute;inset:0;padding:72px var(--pad) 84px;display:none;
+  flex-direction:column;background:var(--paper)}
+.k-slide.is-active{display:flex}
+
+/* ---------- head ---------- */
+.k-head{flex:0 0 auto;margin-bottom:30px;max-width:none;padding-right:var(--navw,0px)}
+.k-slide h2{margin:0;font-family:"Noto Serif TC",serif;font-size:66px;line-height:1.18;
+  font-weight:900;letter-spacing:-.01em}
+.k-sub{margin:14px 0 0;font-size:31px;line-height:1.5;color:var(--ink-2)}
+.k-body{flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
+
+/* ---------- chapter nav (top right) ---------- */
+.k-nav{position:absolute;top:30px;right:var(--pad);display:flex;gap:8px;z-index:6}
+.k-nav button{font-size:18px;font-weight:700;color:var(--muted);padding:6px 14px;
+  border:2px solid var(--line);border-radius:999px;background:#FFFFFF}
+.k-nav button.on{color:#FFFFFF;background:var(--navy);border-color:var(--navy)}
+
+/* ---------- chrome ---------- */
+#k-chrome{position:absolute;left:0;right:0;bottom:0;height:52px;display:flex;align-items:center;
+  gap:22px;padding:0 var(--pad);font-size:19px;color:var(--muted);background:#FFFFFF;
+  border-top:2px solid var(--line-2);z-index:7}
+#k-chapter{font-weight:800;color:var(--navy)}
+#k-track{flex:1 1 auto;height:6px;border-radius:3px;background:var(--line-2);overflow:hidden}
+#k-bar{height:100%;width:0;background:var(--butter);transition:width .3s ease}
+#k-counter{font-variant-numeric:tabular-nums;font-weight:800;color:var(--ink-2);white-space:nowrap}
+.k-cite{flex:0 0 auto;margin:18px 0 0;padding-top:12px;border-top:2px solid var(--line-2);
+  font-size:18px;line-height:1.45;color:var(--muted)}
+
+/* ---------- cover ---------- */
+.k-cover{padding:0}
+.k-cover .k-cover-img{position:absolute;right:0;top:0;width:1620px;height:1080px;object-fit:contain}
+.k-cover-copy{position:absolute;left:var(--pad);top:190px;width:860px}
+.k-cover-copy h1{margin:0;font-family:"Noto Serif TC",serif;font-size:132px;line-height:1.05;
+  font-weight:900;letter-spacing:-.02em}
+.k-cover-copy .k-lede{margin:34px 0 0;font-size:40px;line-height:1.5;color:var(--ink-2);font-weight:500}
+.k-cover-copy .k-lede strong{color:var(--terra)}
+.k-cover-meta{position:absolute;left:var(--pad);bottom:120px;width:820px;padding-top:26px;
+  border-top:4px solid var(--butter)}
+.k-cover-meta p{margin:0;font-size:30px;line-height:1.5}
+.k-cover-meta .k-who{font-weight:900;font-size:36px}
+.k-cover-meta .k-org{color:var(--muted)}
+
+/* ---------- generic blocks ---------- */
+.k-panel{border-radius:20px;padding:30px 34px;background:var(--line-2)}
+.k-panel.navy{background:var(--navy-wash)}
+.k-panel.sage{background:var(--sage-wash)}
+.k-panel.terra{background:var(--terra-wash)}
+.k-panel.butter{background:var(--butter-wash)}
+.k-panel h3{margin:0 0 12px;font-size:34px;line-height:1.3;font-weight:900}
+.k-panel p{margin:0;font-size:28px;line-height:1.55}
+.k-panel p + p{margin-top:10px}
+.k-big{font-family:"Noto Serif TC",serif;font-weight:900;font-size:60px;line-height:1.1}
+
+/* ---------- funnel (p21) ---------- */
+.k-fun{display:grid;grid-template-columns:1fr 640px;gap:44px;flex:1 1 auto;min-height:0}
+.k-gates{display:flex;flex-direction:column;gap:12px}
+.k-gate{display:grid;grid-template-columns:72px 1fr 220px;align-items:center;gap:22px;
+  padding:14px 24px;border-radius:18px;background:var(--navy-wash);border:3px solid transparent}
+.k-gate:nth-child(2){margin-left:36px}
+.k-gate:nth-child(3){margin-left:72px}
+.k-gate:nth-child(4){margin-left:108px}
+.k-gate .k-num{font-family:"Noto Serif TC",serif;font-size:50px;font-weight:900;color:var(--navy);text-align:center}
+.k-gate h3{margin:0;font-size:32px;line-height:1.3;font-weight:900}
+.k-gate p{margin:4px 0 0;font-size:24px;line-height:1.4;color:var(--ink-2)}
+.k-yn{display:flex;gap:10px}
+.k-yn button{flex:1;padding:12px 0;border-radius:12px;font-size:26px;font-weight:900;text-align:center;
+  background:#FFFFFF;border:3px solid var(--line)}
+.k-gate.yes{border-color:var(--sage);background:var(--sage-wash)}
+.k-gate.yes .k-yn .y{background:var(--sage);border-color:var(--sage);color:#FFFFFF}
+.k-gate.no{border-color:var(--terra);background:var(--terra-wash)}
+.k-gate.no .k-yn .n{background:var(--terra);border-color:var(--terra);color:#FFFFFF}
+.k-gate.locked{opacity:.38;pointer-events:none}
+.k-verdict{margin:4px 0 0;padding:16px 26px;border-radius:18px;font-size:29px;line-height:1.5;
+  background:var(--line-2);font-weight:700}
+.k-verdict.ok{background:var(--sage);color:#FFFFFF}
+.k-verdict.stop{background:var(--terra);color:#FFFFFF}
+.k-facts{display:flex;flex-direction:column;gap:18px}
+.k-drug{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.k-drug .k-panel{padding:20px 22px}
+.k-drug h3{font-size:30px;margin-bottom:6px}
+.k-drug p{font-size:25px;line-height:1.45}
+.k-drug .k-en{font-size:22px;color:var(--muted)}
+.k-drug .k-eff{font-size:30px;font-weight:900;color:var(--navy);margin:8px 0 4px}
+.k-warn{background:var(--butter-wash);border-radius:18px;padding:22px 26px}
+.k-warn p{margin:0;font-size:27px;line-height:1.5}
+.k-warn p + p{margin-top:8px}
+
+/* ---------- scenario (p29) ---------- */
+.k-scene-img{position:absolute;right:0;top:110px;width:1320px;height:880px;object-fit:contain}
+.k-scene-copy{position:relative;width:760px;display:flex;flex-direction:column;flex:1 1 auto}
+.k-quote{margin:0;font-family:"Noto Serif TC",serif;font-size:84px;line-height:1.15;font-weight:900;color:var(--terra)}
+.k-scene-copy .k-sub{margin-top:18px}
+.k-opts{display:flex;flex-direction:column;gap:14px;margin-top:30px}
+.k-opt{display:grid;grid-template-columns:64px 1fr;gap:18px;align-items:start;padding:18px 22px;
+  border-radius:16px;border:3px solid var(--line);background:#FFFFFF}
+.k-opt .k-letter{width:56px;height:56px;border-radius:50%;background:var(--navy);color:#FFFFFF;
+  font-size:30px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.k-opt .k-say{display:block;margin:0;font-size:29px;line-height:1.45;font-weight:700}
+.k-opt .k-fb{margin:8px 0 0;font-size:24px;line-height:1.45;display:none}
+.k-opt.shown .k-fb{display:block}
+.k-opt.good.shown{border-color:var(--sage);background:var(--sage-wash)}
+.k-opt.good.shown .k-letter{background:var(--sage)}
+.k-opt.bad.shown{border-color:var(--terra);background:var(--terra-wash)}
+.k-opt.bad.shown .k-letter{background:var(--terra)}
+.k-opt.mid.shown{border-color:var(--butter);background:var(--butter-wash)}
+
+/* ---------- breakdown (p30) ---------- */
+.k-bd{display:grid;grid-template-columns:1fr 1fr 1.25fr;grid-template-rows:auto 1fr;gap:20px;flex:1 1 auto;min-height:0}
+.k-bd .why{grid-column:1 / span 3;display:grid;grid-template-columns:260px 1fr 1fr 1fr;gap:18px;align-items:stretch;
+  background:var(--navy-wash);border-radius:20px;padding:24px 28px}
+.k-bd .why h3{margin:0;font-size:36px;font-weight:900;color:var(--navy);align-self:center}
+.k-bd .why p{margin:0;font-size:27px;line-height:1.45;background:#FFFFFF;border-radius:14px;padding:16px 20px}
+.k-bd .k-panel{display:flex;flex-direction:column}
+.k-bd .k-panel h3{font-size:34px}
+.k-bd .k-line{margin:0 0 16px;font-size:31px;line-height:1.45}
+.k-bd .k-line:last-child{margin-bottom:0}
+.k-bd .sage h3{color:var(--sage)} .k-bd .terra h3{color:var(--terra)}
+.k-redlight{margin-top:18px;display:flex;gap:18px;align-items:center;padding:18px 26px;border-radius:16px;
+  background:var(--terra);color:#FFFFFF}
+.k-redlight p{margin:0;font-size:28px;line-height:1.4}
+.k-redlight .k-lab{font-weight:900;font-size:30px;white-space:nowrap}
+
+/* ---------- money table (p47) ---------- */
+.k-lv{display:flex;gap:10px;align-items:center;margin-bottom:22px}
+.k-lv .k-lvlab{font-size:28px;font-weight:900;margin-right:8px}
+.k-lv button{width:86px;padding:12px 0;border-radius:14px;font-size:28px;font-weight:900;text-align:center;
+  border:3px solid var(--line);background:#FFFFFF}
+.k-lv button.on{background:var(--navy);border-color:var(--navy);color:#FFFFFF}
+.k-lv .k-who2{margin-left:28px;display:flex;gap:10px}
+table.k-table{width:100%;border-collapse:separate;border-spacing:0;font-size:28px}
+table.k-table th{font-size:24px;font-weight:900;color:var(--muted);text-align:left;padding:10px 20px;white-space:nowrap;
+  border-bottom:3px solid var(--line)}
+table.k-table td{padding:18px 20px;border-bottom:2px solid var(--line-2);line-height:1.35;vertical-align:middle}
+table.k-table td.k-item{font-weight:900;font-size:30px;white-space:nowrap}
+table.k-table td.k-amt{font-family:"Noto Serif TC",serif;font-weight:900;font-size:40px;color:var(--navy);white-space:nowrap}
+table.k-table td.k-pay{font-weight:900;font-size:34px;color:var(--terra);white-space:nowrap}
+table.k-table td.k-note{font-size:23px;color:var(--ink-2)}
+table.k-table tr.k-respite td{background:var(--butter-wash)}
+.k-foot2{margin-top:18px;font-size:24px;line-height:1.5;color:var(--ink-2)}
+
+/* ---------- Taipei tile map (p50) ---------- */
+.k-mapwrap{display:grid;grid-template-columns:860px 1fr;gap:48px;flex:1 1 auto;min-height:0}
+.k-map{position:relative;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);gap:12px}
+.k-tile{border-radius:16px;background:var(--navy-wash);border:3px solid transparent;padding:12px 16px;
+  display:flex;flex-direction:column;justify-content:center;gap:6px}
+.k-tile h3{margin:0;font-size:30px;font-weight:900}
+.k-tile p{margin:0;font-size:21px;line-height:1.35;color:var(--ink-2)}
+.k-tile p strong{font-size:26px;color:var(--navy)}
+.k-tile.home{background:var(--butter);}
+.k-tile.home p strong{color:var(--ink)}
+.k-tile.on{border-color:var(--terra)}
+.k-tile.duty{box-shadow:inset 0 -8px 0 var(--terra)}
+.k-detail{display:flex;flex-direction:column;gap:14px}
+.k-detail h3{margin:0;font-family:"Noto Serif TC",serif;font-size:46px;font-weight:900}
+.k-detail .k-panel{padding:22px 26px}
+.k-detail .k-panel h4{margin:0 0 8px;font-size:26px;font-weight:900;color:var(--navy)}
+.k-detail .k-panel p{font-size:24px;line-height:1.4}
+.k-detail .k-panel p + p{margin-top:6px}
+.k-legend{display:flex;gap:26px;font-size:22px;color:var(--ink-2);margin-top:10px}
+.k-legend span{display:inline}
+.k-sw{display:inline-block;width:22px;height:22px;border-radius:5px;vertical-align:-3px;margin-right:6px}
+
+/* ---------- overview & notes ---------- */
+#k-overview{position:fixed;inset:0;background:rgba(30,40,51,.92);display:none;overflow:auto;padding:40px;z-index:20}
+#k-overview.on{display:block}
+#k-ovgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.k-ovcell{background:#FFFFFF;border-radius:10px;padding:14px;font-size:15px;line-height:1.4;min-height:90px}
+.k-ovcell b{display:block;font-size:20px;color:var(--navy)}
+.k-ovcell.cur{outline:4px solid var(--butter)}
+.k-panelx{position:fixed;right:0;top:0;bottom:0;width:520px;background:#FFFFFF;padding:30px;overflow:auto;
+  box-shadow:-10px 0 40px rgba(0,0,0,.2);display:none;z-index:21;font-size:19px;line-height:1.6}
+.k-panelx.on{display:block}
+.k-panelx h3{margin:0 0 12px;font-size:22px}
+
+@media print{
+  html,body{overflow:visible;background:#FFFFFF}
+  #k-chrome,#k-overview,.k-panelx{display:none!important}
+}
+
+/* ==========================================================================
+   全稿元件（2026-10-23）
+   ========================================================================== */
+.k-lead{font-size:34px;line-height:1.55;margin:0}
+.k-small{font-size:24px;line-height:1.5;color:var(--ink-2);margin:0}
+.k-row{display:flex;gap:28px}
+.k-col{display:flex;flex-direction:column;gap:18px}
+.k-g2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.k-g3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.k-g4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.k-g5{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.k-fill{flex:1 1 auto;min-height:0}
+.k-center{justify-content:center}
+
+/* 大數字 */
+.k-hero{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;flex:1 1 auto}
+.k-hero .k-num1{margin:0;font-family:"Noto Serif TC",serif;font-weight:900;font-size:220px;line-height:1;color:var(--terra)}
+.k-hero .k-num1 small{font-size:80px;margin-left:8px}
+.k-hero .k-unit{margin:16px 0 0;font-size:38px;line-height:1.5;font-weight:700}
+
+/* 長條圖（HTML，PPTX 可轉形狀） */
+.k-bars{display:flex;flex-direction:column;gap:14px}
+.k-bar{display:grid;grid-template-columns:200px 1fr 130px;align-items:center;gap:18px}
+.k-bar .k-lab{font-size:28px;font-weight:700;text-align:right}
+.k-bar .k-trk{height:46px;background:var(--line-2);border-radius:8px;overflow:hidden}
+.k-bar .k-fil{height:100%;background:var(--navy);border-radius:8px}
+.k-bar .k-fil.terra{background:var(--terra)} .k-bar .k-fil.sage{background:var(--sage)} .k-bar .k-fil.butter{background:var(--butter)}
+.k-bar .k-val{font-family:"Noto Serif TC",serif;font-size:34px;font-weight:900;color:var(--navy)}
+.k-bars.sm .k-bar{grid-template-columns:330px 1fr 80px}
+.k-bars.sm{gap:7px}
+.k-bars.sm .k-bar .k-trk{height:26px}
+.k-bars.sm .k-bar .k-lab{font-size:24px}
+.k-bars.sm .k-bar .k-val{font-size:26px}
+.k-grp{margin:6px 0 0;font-size:22px;font-weight:900;color:var(--muted)}
+
+/* 堆疊長條 */
+.k-stack{display:flex;height:120px;border-radius:16px;overflow:hidden}
+.k-stack div{display:flex;flex-direction:column;justify-content:center;padding:0 18px;color:#FFFFFF}
+.k-stack p{margin:0;font-size:26px;font-weight:700;line-height:1.25}
+.k-stack p.k-v{font-family:"Noto Serif TC",serif;font-size:38px;font-weight:900}
+
+/* 卡片 */
+.k-card{border-radius:18px;padding:24px 26px;background:var(--line-2)}
+.k-card h3{margin:0 0 8px;font-size:30px;line-height:1.3;font-weight:900}
+.k-card p{margin:0;font-size:25px;line-height:1.5}
+.k-card .k-no{margin:0 0 6px;font-family:"Noto Serif TC",serif;font-size:40px;font-weight:900;color:var(--navy);line-height:1}
+.k-card.navy{background:var(--navy-wash)} .k-card.sage{background:var(--sage-wash)}
+.k-card.terra{background:var(--terra-wash)} .k-card.butter{background:var(--butter-wash)}
+.k-card.solid{background:var(--navy)} .k-card.solid h3,.k-card.solid p{color:#FFFFFF}
+
+/* 點擊翻牌（紅綠牌、迷思） */
+.k-flip{display:flex;flex-direction:column;gap:10px;border-radius:18px;padding:22px 24px;
+  background:#FFFFFF;border:3px solid var(--line)}
+.k-flip .k-q{display:block;margin:0;font-size:29px;line-height:1.45;font-weight:700}
+.k-flip .k-a{display:none;margin:0;font-size:24px;line-height:1.45}
+.k-flip.shown .k-a{display:block}
+.k-flip.red.shown{border-color:var(--terra);background:var(--terra-wash)}
+.k-flip.green.shown{border-color:var(--sage);background:var(--sage-wash)}
+.k-flip .k-tag{display:none;font-weight:900}
+.k-flip.shown .k-tag{display:inline}
+.k-flip.red .k-tag{color:var(--terra)} .k-flip.green .k-tag{color:var(--sage)}
+
+/* 今晚就做 */
+.k-todo{display:grid;grid-template-columns:520px 1fr;gap:60px;align-items:center;flex:1 1 auto}
+.k-sticky{background:var(--butter);border-radius:10px;padding:56px 50px;transform:rotate(-2deg)}
+.k-sticky p{margin:0;font-family:"Noto Serif TC",serif;font-size:56px;line-height:1.25;font-weight:900}
+.k-todo .k-steps2 p{margin:0 0 22px;font-size:34px;line-height:1.5}
+.k-todo .k-steps2 strong{color:var(--terra)}
+
+/* 圖文並排 */
+.k-split{display:grid;grid-template-columns:1fr 1fr;gap:50px;flex:1 1 auto;min-height:0;align-items:center}
+.k-split img{width:100%;height:100%;max-height:760px;object-fit:contain}
+.k-fig{position:relative;flex:1 1 auto;min-height:0}
+.k-fig img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.k-shot{border:2px solid var(--line);border-radius:12px;width:100%;height:100%;object-fit:cover;object-position:top}
+
+/* 步驟流程 */
+.k-flow{display:grid;gap:18px;align-items:stretch}
+.k-step{border-radius:18px;padding:24px 24px;background:var(--navy-wash)}
+.k-step .k-no{margin:0 0 6px;font-family:"Noto Serif TC",serif;font-size:46px;font-weight:900;color:var(--navy);line-height:1}
+.k-step h3{margin:0 0 8px;font-size:31px;font-weight:900;line-height:1.3}
+.k-step p{margin:0;font-size:25px;line-height:1.5}
+.k-step.hl{background:var(--navy)} .k-step.hl h3,.k-step.hl p,.k-step.hl .k-no{color:#FFFFFF}
+
+/* 路線圖（捷運） */
+.k-metro{position:relative;display:grid;gap:12px;padding-top:30px}
+.k-metro .k-line{position:absolute;left:0;right:0;top:66px;height:12px;background:var(--butter);border-radius:6px}
+.k-stn{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
+.k-stn .k-dot{width:84px;height:84px;border-radius:50%;background:#FFFFFF;border:10px solid var(--navy);
+  display:flex;align-items:center;justify-content:center;font-family:"Noto Serif TC",serif;font-size:34px;font-weight:900;color:var(--navy)}
+.k-stn h3{margin:0;font-size:31px;font-weight:900}
+.k-stn p{margin:0;font-size:23px;line-height:1.45;color:var(--ink-2)}
+
+/* 熱線卡 */
+.k-hot{border-radius:22px;padding:30px 30px;display:flex;flex-direction:column;gap:12px}
+.k-hot .k-tel{margin:0;font-family:"Noto Serif TC",serif;font-size:66px;font-weight:900;line-height:1.05}
+.k-hot h3{margin:0;font-size:32px;font-weight:900}
+.k-hot p{margin:0;font-size:25px;line-height:1.5}
+
+/* 引言／證據條 */
+.k-evi{display:flex;gap:22px;align-items:center;padding:20px 26px;border-radius:16px;background:var(--navy-wash)}
+.k-evi .k-big2{font-family:"Noto Serif TC",serif;font-size:58px;font-weight:900;color:var(--navy);white-space:nowrap}
+.k-evi p{margin:0;font-size:26px;line-height:1.45}
+
+/* 簡表 */
+table.k-tb{width:100%;border-collapse:separate;border-spacing:0;font-size:26px}
+table.k-tb th{font-size:23px;font-weight:900;color:var(--muted);text-align:left;padding:10px 16px;border-bottom:3px solid var(--line)}
+table.k-tb td{padding:12px 16px;border-bottom:2px solid var(--line-2);line-height:1.4;vertical-align:top}
+table.k-tb td.b{font-weight:900}
+table.k-tb tr.hl td{background:var(--butter-wash)}
+table.k-tb.sm{font-size:23px}
+table.k-tb.sm td{padding:8px 14px}
+
+/* 情境頁共用 */
+.k-ctx{margin:16px 0 0;font-size:30px;line-height:1.5;color:var(--ink-2)}
+
+/* 收尾 */
+.k-end{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;flex:1 1 auto;align-items:stretch}
+.k-end .k-card{display:flex;flex-direction:column;justify-content:center;padding:40px 36px}
+.k-end .k-card h3{font-size:42px;margin-bottom:16px}
+.k-end .k-card p{font-size:29px}
+
+/* ---- 字級放大（家屬場地 10 公尺投影；2026-10-23 全稿目視後調整） ---- */
+.k-split > .k-fig{align-self:stretch;min-height:520px}
+.k-card{padding:30px 32px}
+.k-card h3{font-size:37px}
+.k-card p{font-size:30px}
+.k-card .k-no{font-size:48px}
+.k-step{padding:30px 30px}
+.k-step .k-no{font-size:56px}
+.k-step h3{font-size:38px}
+.k-step p{font-size:30px}
+table.k-tb{font-size:31px}
+table.k-tb th{font-size:25px}
+table.k-tb td{padding:16px 18px}
+table.k-tb.sm{font-size:26px}
+table.k-tb.sm td{padding:6px 14px}
+.k-evi p{font-size:30px}
+.k-evi .k-big2{font-size:66px}
+.k-todo .k-steps2 p{font-size:40px}
+.k-sticky p{font-size:64px}
+.k-stn h3{font-size:36px}
+.k-stn p{font-size:27px}
+.k-stn .k-dot{width:96px;height:96px;font-size:40px}
+.k-metro .k-line{top:72px}
+.k-hot p{font-size:29px}
+.k-hot h3{font-size:36px}
+.k-flip .k-q{font-size:33px}
+.k-flip .k-a{font-size:28px}
+.k-small{font-size:27px}
+.k-lead{font-size:36px}
+.k-panel p{font-size:30px}
+.k-end .k-card h3{font-size:52px}
+.k-end .k-card p{font-size:34px;line-height:1.6}
+.k-end .k-card .k-no{font-size:72px}
+.k-opt .k-letter,.k-stn .k-dot,.k-gate .k-num{text-align:center}
+
+
+/* ==========================================================================
+   播放器（lecture-deck-workflow）：開場選單、逐步揭示、自動播放、字幕、控制列
+   ========================================================================== */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+template.k-narr{display:none}
+.k-gone{display:none!important}
+/* 分頁按鈕（data-step-btn） */
+.k-tabs{display:flex;gap:10px;margin-bottom:18px}
+.k-tabs button{padding:10px 22px;border-radius:12px;font-size:24px;font-weight:900;border:3px solid var(--line);background:#FFFFFF;box-shadow:0 5px 0 var(--line);text-align:center}
+.k-tabs button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#FFFFFF;box-shadow:0 2px 0 #15304D;transform:translateY(3px)}
+
+/* 逐步揭示：data-s="n" 的元素在第 n 步出現（?all=1、主講模式 N 步到齊皆可見） */
+[data-s]{transition:opacity .45s ease,transform .45s ease}
+.k-slide [data-s]:not(.on){opacity:0;transform:translateY(14px)}
+.k-slide [data-s].hl-once{animation:k-pop .6s ease}
+@keyframes k-pop{0%{transform:scale(.97)}60%{transform:scale(1.02)}100%{transform:scale(1)}}
+
+/* 右上章節膠囊 */
+.k-nav{position:absolute;top:30px;right:var(--pad);display:flex;gap:8px;z-index:6}
+
+/* 字幕（自動播放）：放在底部章節列那一條（1028–1080px），蓋住章節列、不遮任何內容與出處 */
+#k-sub{position:absolute;left:0;right:0;bottom:0;height:52px;padding:0 var(--pad);display:flex;align-items:center;
+  justify-content:center;background:#1E2833;color:#FFFFFF;font-size:32px;font-weight:700;white-space:nowrap;
+  overflow:hidden;opacity:0;transition:opacity .2s;z-index:9;pointer-events:none}
+#k-sub.on{opacity:1}
+
+/* 黑屏（主講模式 B） */
+#k-black{position:fixed;inset:0;background:#000;display:none;z-index:30}
+#k-black.on{display:block}
+
+/* 開場選單 */
+#k-start{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;
+  background:rgba(30,40,51,.55);backdrop-filter:blur(3px)}
+#k-start.off{display:none}
+#k-start .box{width:min(880px,94vw);background:#FFFFFF;border-radius:26px;padding:38px 44px;
+  box-shadow:0 24px 70px rgba(0,0,0,.35);font-size:19px;color:var(--ink)}
+#k-start h1{margin:0 0 6px;font-family:"Noto Serif TC",serif;font-size:40px;line-height:1.2;font-weight:900}
+#k-start .meta{margin:0 0 24px;color:var(--muted);font-size:18px}
+#k-start .modes{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+#k-start .mode{border:3px solid var(--line);border-radius:20px;padding:22px 24px;display:flex;flex-direction:column;gap:10px}
+#k-start .mode h2{margin:0;font-size:26px;font-weight:900}
+#k-start .mode p{margin:0;color:var(--ink-2);line-height:1.5;font-size:17px}
+#k-start .opt{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:17px}
+#k-start .opt b{min-width:44px}
+#k-start .opt label{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border:2px solid var(--line);
+  border-radius:999px;cursor:pointer}
+#k-start .opt label:has(input:checked){border-color:var(--navy);background:var(--navy-wash)}
+#k-start .opt label.dis{opacity:.4;pointer-events:none}
+#k-start .go{margin-top:auto;padding:14px 0;border-radius:14px;font-size:22px;font-weight:900;text-align:center;
+  color:#FFFFFF;background:var(--navy);box-shadow:0 5px 0 #15304D;transition:transform .08s,box-shadow .08s}
+#k-start .go:active{transform:translateY(4px);box-shadow:0 1px 0 #15304D}
+#k-start .go.sage{background:var(--sage);box-shadow:0 5px 0 #2A5A3C}
+#k-start .kb{margin:20px 0 0;font-size:15px;color:var(--muted);line-height:1.6}
+
+/* 控制列（自動播放時；主講模式只在滑鼠移動時出現） */
+#k-ctl{position:fixed;left:50%;bottom:72px;transform:translateX(-50%);display:flex;gap:8px;align-items:center;
+  padding:8px 10px;border-radius:16px;background:rgba(30,40,51,.9);z-index:25;transition:opacity .4s}
+#k-ctl.hide{opacity:0}
+#k-ctl button{color:#FFFFFF;font-size:17px;font-weight:700;padding:8px 14px;border-radius:10px;background:#3B4858;
+  box-shadow:0 3px 0 #252F3A;text-align:center;white-space:nowrap}
+#k-ctl button[aria-pressed="false"]{opacity:.5;text-decoration:line-through}
+#k-ctl button.main{background:var(--sage);box-shadow:0 3px 0 #2A5A3C;min-width:110px}
+#k-ctl .t{color:#C9D2DC;font-size:15px;min-width:92px;text-align:center;font-variant-numeric:tabular-nums}
+body.all #k-ctl{display:none}
+body.present #k-ctl .auto-only{display:none}
+body.auto #k-ctl .present-only{display:none}
+
+/* 播放完畢 */
+#k-end{position:fixed;inset:0;z-index:35;display:none;align-items:center;justify-content:center;background:rgba(30,40,51,.55)}
+#k-end.on{display:flex}
+#k-end .box{background:#FFFFFF;border-radius:22px;padding:34px 40px;text-align:center;font-size:22px}
+#k-end .box button{margin:16px 8px 0;padding:12px 26px;border-radius:12px;font-weight:900;color:#FFFFFF;background:var(--navy)}
+
+/* 講稿面板：目前這一步的句子標亮 */
+#k-notesbody p{margin:0 0 12px}
+#k-notesbody p.now{background:var(--butter-wash);border-left:5px solid var(--butter);padding-left:10px}
+#k-notesbody .st{display:inline-block;min-width:28px;font-weight:900;color:var(--navy)}
+
+
+
+/* 手機控制列：直放移到簡報下方（不壓內容）；橫放隱藏時不可點，點畫面才出現 */
+body.ctl-below #k-ctl{bottom:auto;transform:translateX(-50%)}
+#k-ctl.hide{pointer-events:none}
+body.ctl-tap #k-ctl{bottom:6px}
+body.ctl-tap #k-ctl:not(.hide){background:rgba(30,40,51,.95)}
+
+
+/* 手機：右下角 ☰ 叫出控制列；第一次主講時的操作提示 */
+#k-handle{display:none;position:fixed;right:3px;bottom:6px;z-index:26;width:34px;height:36px;border-radius:10px;
+  background:rgba(30,40,51,.35);color:#FFFFFF;font-size:18px;text-align:center;line-height:36px;padding:0}
+body.ctl-tap #k-handle{display:block}
+body.ctl-tap #k-ctl{right:62px;left:auto;transform:none}
+#k-toast{position:fixed;left:50%;bottom:8px;transform:translateX(-50%);z-index:45;background:rgba(30,40,51,.85);color:#FFFFFF;
+  font-size:13px;padding:5px 12px;border-radius:12px;max-width:94vw;text-align:center;pointer-events:none}
+
+/* 手機直向：開場選單改單欄、可捲動（2026-10-27 手機實測） */
+@media (max-width:700px){
+  #k-start{align-items:flex-start;overflow-y:auto;padding:14px 0 24px}
+  #k-start .box{width:94vw;padding:22px 20px;border-radius:20px}
+  #k-start h1{font-size:26px}
+  #k-start .meta{font-size:15px;margin-bottom:16px}
+  #k-start .modes{grid-template-columns:1fr;gap:14px}
+  #k-start .mode{padding:16px 18px}
+  #k-start .mode h2{font-size:22px}
+  #k-start .kb{font-size:13px}
+  #k-ctl{bottom:8px;gap:4px;padding:6px;flex-wrap:wrap;justify-content:center;max-width:96vw}
+  #k-ctl button{font-size:14px;padding:6px 9px}
+}
+
+@media print{ #k-start,#k-ctl,#k-sub,#k-end,#k-black{display:none!important} .k-slide [data-s]{opacity:1!important;transform:none!important} }
