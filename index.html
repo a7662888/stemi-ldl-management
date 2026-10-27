@@ -8,39 +8,160 @@
 <link rel="stylesheet" href="deck.css?v=039458c3">
 <style>
 
-/* ===== Custom Infographics & Typography Overrides ===== */
-.k-slide h2 { font-size: 52px; line-height: 1.2; font-weight: 900; margin: 0; }
-.k-sub { font-size: 26px; line-height: 1.45; color: var(--ink-2); margin-top: 10px; }
-.k-cite { font-size: 16px; line-height: 1.45; color: var(--muted); margin-top: 14px; padding-top: 10px; border-top: 2px solid var(--line-2); }
-.k-badge { display: inline-block; padding: 6px 16px; border-radius: 999px; font-size: 19px; font-weight: 800; }
+/* ===== Simplified, Zero-Overlap Clean Architecture ===== */
+:root {
+  --pad: 80px;
+}
+.k-slide {
+  padding: 60px var(--pad) 70px;
+  background: var(--paper);
+  justify-content: flex-start;
+}
+.k-head {
+  flex: 0 0 auto;
+  margin-bottom: 24px;
+}
+.k-slide h2 {
+  font-size: 50px;
+  line-height: 1.2;
+  font-weight: 900;
+  margin: 0;
+  color: var(--ink);
+}
+.k-sub {
+  font-size: 25px;
+  line-height: 1.4;
+  color: var(--ink-2);
+  margin-top: 8px;
+}
+.k-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.k-cite {
+  flex: 0 0 auto;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--muted);
+  margin-top: 16px;
+  padding-top: 10px;
+  border-top: 2px solid var(--line-2);
+}
+
+/* Badges */
+.k-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 19px;
+  font-weight: 800;
+}
 .k-badge.navy { background: var(--navy-wash); color: var(--navy); }
 .k-badge.sage { background: var(--sage-wash); color: var(--sage); }
 .k-badge.terra { background: var(--terra-wash); color: var(--terra); }
 .k-badge.butter { background: var(--butter-wash); color: #855d00; }
 
-.k-banner { border-radius: 14px; padding: 14px 22px; font-size: 24px; font-weight: 800; line-height: 1.4; display: flex; align-items: center; gap: 14px; }
-.k-banner.sage { background: var(--sage-wash); color: var(--sage); border-left: 10px solid var(--sage); }
-.k-banner.terra { background: var(--terra-wash); color: var(--terra); border-left: 10px solid var(--terra); }
-.k-banner.navy { background: var(--navy-wash); color: var(--navy); border-left: 10px solid var(--navy); }
-.k-banner.butter { background: var(--butter-wash); color: #855d00; border-left: 10px solid var(--butter); }
+/* Clean Cards (Zero Overlap) */
+.k-card-box {
+  background: var(--line-2);
+  border-radius: 18px;
+  padding: 26px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-left: 10px solid var(--navy);
+}
+.k-card-box.navy { background: var(--navy-wash); border-left-color: var(--navy); }
+.k-card-box.sage { background: var(--sage-wash); border-left-color: var(--sage); }
+.k-card-box.terra { background: var(--terra-wash); border-left-color: var(--terra); }
+.k-card-box.butter { background: var(--butter-wash); border-left-color: #d97706; }
 
-/* KPI stat boxes */
-.k-stat-box { background: white; border-radius: 16px; padding: 18px 22px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); border: 2px solid var(--line); }
-.k-stat-val { font-size: 46px; font-weight: 900; line-height: 1.1; font-family: "Noto Serif TC", serif; }
-.k-stat-lbl { font-size: 20px; font-weight: 700; color: var(--muted); margin-top: 4px; display: block; }
-.k-stat-sub { font-size: 17px; color: var(--ink-2); margin-top: 4px; display: block; }
+.k-card-box h3 {
+  margin: 0 0 14px 0;
+  font-size: 30px;
+  font-weight: 900;
+  color: var(--ink);
+}
+.k-card-box p {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.k-card-box ul {
+  margin: 0;
+  padding-left: 28px;
+  font-size: 23px;
+  line-height: 1.6;
+  color: var(--ink);
+}
 
-/* Timeline flowchart */
-.k-step-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; flex: 1 1 auto; align-items: stretch; }
-.k-step-card { background: white; border-radius: 16px; padding: 22px; border: 2px solid var(--line); display: flex; flex-direction: column; justify-content: space-between; position: relative; }
-.k-step-num { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; color: white; margin-bottom: 12px; }
+/* Stat callouts */
+.k-kpi {
+  font-size: 52px;
+  font-weight: 900;
+  font-family: "Noto Serif TC", serif;
+  line-height: 1.1;
+  display: block;
+}
+.k-kpi-sub {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--muted);
+  display: block;
+  margin-top: 4px;
+}
 
-/* Large options for questions */
-.k-opt-box { display: flex; flex-direction: column; gap: 18px; width: 100%; }
-.k-big-opt { background: white; border: 3px solid var(--line); border-radius: 18px; padding: 22px 28px; font-size: 24px; font-weight: 700; display: flex; align-items: flex-start; gap: 20px; cursor: pointer; transition: all .2s ease; text-align: left; }
-.k-big-opt:hover { border-color: var(--navy); background: var(--navy-wash); }
-.k-big-opt.bad.revealed { border-color: var(--terra); background: var(--terra-wash); }
-.k-big-opt.good.revealed { border-color: var(--sage); background: var(--sage-wash); }
+/* Horizontal Flow (Timeline) */
+.k-timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+.k-time-node {
+  background: white;
+  border-radius: 16px;
+  padding: 22px;
+  border: 2px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.k-time-num {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 900;
+  color: white;
+  margin-bottom: 12px;
+}
+
+/* Interactive Option Buttons */
+.k-opt-btn {
+  background: white;
+  border: 3px solid var(--line);
+  border-radius: 16px;
+  padding: 24px 28px;
+  font-size: 24px;
+  font-weight: 700;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  cursor: pointer;
+  transition: all .2s ease;
+  width: 100%;
+}
+.k-opt-btn:hover { border-color: var(--navy); background: var(--navy-wash); }
+.k-opt-btn.bad.revealed { border-color: var(--terra); background: var(--terra-wash); }
+.k-opt-btn.good.revealed { border-color: var(--sage); background: var(--sage-wash); }
 
 </style>
 </head>
@@ -49,28 +170,28 @@
 <main id="k-stage">
 
 
-<section class="k-slide k-cover" data-chapter="Introduction" data-title="Title & Overview">
+<section class="k-slide k-cover" data-chapter="Overview" data-title="Title Slide">
   <div class="k-cover-copy" style="top: 140px; width: 1000px;">
     <div style="display: flex; gap: 12px; margin-bottom: 24px;">
-      <span class="k-badge navy">Clinical Case Series</span>
+      <span class="k-badge navy">Case Discussion</span>
       <span class="k-badge sage">Secondary Prevention</span>
-      <span class="k-badge butter">Vancouver References</span>
+      <span class="k-badge butter">Lipid Management</span>
     </div>
-    <h1 style="font-size: 64px; line-height: 1.15; font-weight: 900; letter-spacing: -0.01em; margin-bottom: 22px;">
+    <h1 style="font-size: 64px; line-height: 1.15; font-weight: 900; margin-bottom: 20px;">
       Preventing the Next Heart Attack:<br>
       <span style="color: var(--terra);">LDL Cholesterol Management</span> After STEMI
     </h1>
-    <p class="k-lede" style="font-size: 28px; line-height: 1.5; color: var(--ink-2); max-width: 950px; margin-bottom: 28px;">
-      Why opening the blocked artery with a stent is only step one in long-term cardiovascular survival.
+    <p class="k-lede" style="font-size: 28px; line-height: 1.5; color: var(--ink-2); max-width: 950px;">
+      Why opening the blocked artery with a stent is only step one in saving the patient's life.
     </p>
   </div>
   <div class="k-cover-meta" style="width: 920px; bottom: 90px; border-top: 4px solid var(--butter); padding-top: 22px;">
     <p class="k-who" style="font-size: 34px; font-weight: 900; color: var(--ink);">CHEN, CHIH-WEI</p>
     <p class="k-org" style="font-size: 26px; color: var(--navy); font-weight: 700; margin-top: 4px;">Third-Year Medical Student, National Taiwan University</p>
-    <p class="k-org" style="font-size: 21px; color: var(--muted); margin-top: 4px;">2026 Clinical Case Presentation ｜ 10-Minute Oral Presentation</p>
+    <p class="k-org" style="font-size: 21px; color: var(--muted); margin-top: 4px;">2026 Clinical Case Presentation</p>
   </div>
   <template class="k-narr">
-    <p data-step="0">Good morning, professors, doctors, and fellow classmates. My name is Chih-Wei Chen, a third-year medical student from National Taiwan University. Today, we will explore an essential clinical dilemma: Preventing the next heart attack through evidence-based LDL cholesterol management after acute STEMI.</p>
+    <p data-step="0">Good morning, everyone. I am Chih-Wei Chen from National Taiwan University. Today, we look at a critical case: why opening a blocked artery with a stent is only the first step in secondary prevention.</p>
   </template>
 </section>
 
@@ -78,211 +199,185 @@
 
 <section class="k-slide" data-chapter="Case Presentation" data-title="Meet Mr. Hong">
   <div class="k-head">
-    <h2>Mr. Hong: A Successful PCI, But What Lies Ahead?</h2>
-    <p class="k-sub">A 48-year-old gentleman revascularized within 38 minutes presents a critical metabolic challenge</p>
+    <h2>Meet Mr. Hong: Successful Stent, But Hidden Danger</h2>
+    <p class="k-sub">A 48-year-old man suffered an acute anterior STEMI and received emergency catheterization</p>
   </div>
   <div class="k-body">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; flex: 1 1 auto; min-height: 0;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; flex: 1 1 auto;">
       
-      <!-- Left Panel: Cath Lab Success -->
-      <div class="k-panel navy" data-s="1" style="display: flex; flex-direction: column; justify-content: space-between; padding: 26px 30px;">
+      <!-- Card 1: Stent Success -->
+      <div class="k-card-box sage" data-s="1">
         <div>
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-            <h3 style="font-size: 30px; color: var(--navy); margin: 0;">Emergency Catheterization</h3>
-            <span class="k-badge sage" style="font-size: 19px;">Door-to-Balloon: 38 min</span>
-          </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px;">
-            <div class="k-stat-box">
-              <span class="k-stat-val" style="color: var(--sage);">100%</span>
-              <span class="k-stat-lbl">Mid-LAD Occlusion</span>
-              <span class="k-stat-sub">Red thrombus aspirated</span>
-            </div>
-            <div class="k-stat-box">
-              <span class="k-stat-val" style="color: var(--navy);">TIMI III</span>
-              <span class="k-stat-lbl">Flow Restored</span>
-              <span class="k-stat-sub">Synergy DES 2.75 &times; 48 mm</span>
-            </div>
-          </div>
-          <ul style="font-size: 24px; line-height: 1.6; margin: 0; padding-left: 26px; color: var(--ink);">
-            <li><strong>Hemodynamics:</strong> Post-PCI LVEF preserved at 58%</li>
-            <li><strong>Other vessels:</strong> Proximal LAD 40-50% stenosis; RCA patent</li>
+          <span class="k-badge sage" style="margin-bottom: 14px;">Cath Lab Success</span>
+          <h3 style="color: var(--sage);">1. The Blockage is Cleared</h3>
+          <ul>
+            <li><strong>LAD Occlusion:</strong> 100% blocked with red thrombus.</li>
+            <li><strong>Door-to-Balloon:</strong> Just <strong>38 minutes</strong>!</li>
+            <li><strong>Synergy Stent:</strong> 48 mm drug-eluting stent placed.</li>
+            <li><strong>Result:</strong> Full blood flow restored; LVEF is 58%.</li>
           </ul>
         </div>
-        <div class="k-banner sage" style="font-size: 22px;">
-          ✓ Mechanical Success: Myocardium salvaged and flow restored.
+        <div style="background: white; border-radius: 12px; padding: 14px 20px; font-size: 22px; font-weight: 800; color: var(--sage); margin-top: 16px;">
+          ✓ Heart muscle saved today!
         </div>
       </div>
 
-      <!-- Right Panel: The Silent Metabolic Threat -->
-      <div class="k-panel terra" data-s="2" style="display: flex; flex-direction: column; justify-content: space-between; padding: 26px 30px;">
+      <!-- Card 2: Lipid Warning -->
+      <div class="k-card-box terra" data-s="2">
         <div>
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-            <h3 style="font-size: 30px; color: var(--terra); margin: 0;">Laboratory &amp; Lipid Profile</h3>
-            <span class="k-badge terra" style="font-size: 19px;">Atherogenic Burden</span>
-          </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px;">
-            <div class="k-stat-box" style="border-color: var(--terra);">
-              <span class="k-stat-val" style="color: var(--terra);">173</span>
-              <span class="k-stat-lbl">Baseline LDL-C (mg/dL)</span>
-              <span class="k-stat-sub">Markedly elevated</span>
+          <span class="k-badge terra" style="margin-bottom: 14px;">Lab Warning</span>
+          <h3 style="color: var(--terra);">2. The Underlying Threat</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0;">
+            <div style="background: white; border-radius: 12px; padding: 16px; text-align: center; border: 2px solid var(--terra);">
+              <span class="k-kpi" style="color: var(--terra);">173</span>
+              <span class="k-kpi-sub">Baseline LDL (mg/dL)</span>
             </div>
-            <div class="k-stat-box">
-              <span class="k-stat-val" style="color: var(--navy);">756</span>
-              <span class="k-stat-lbl">Peak Troponin T (ng/L)</span>
-              <span class="k-stat-sub">Reference &lt; 14 ng/L</span>
+            <div style="background: white; border-radius: 12px; padding: 16px; text-align: center;">
+              <span class="k-kpi" style="color: var(--navy);">756</span>
+              <span class="k-kpi-sub">Troponin T (ng/L)</span>
             </div>
           </div>
-          <ul style="font-size: 24px; line-height: 1.6; margin: 0; padding-left: 26px; color: var(--ink);">
-            <li><strong>HDL-C:</strong> 38 mg/dL (Low); Fasting glucose: Normal (no diabetes)</li>
-            <li><strong>Post-op Regimen:</strong> DAPT, high-dose statin, beta-blocker, heparin</li>
-          </ul>
+          <p>
+            <strong>The Core Question:</strong> The stent fixed forty-eight millimeters of artery. But with an LDL of 173, what happens to the rest of his heart?
+          </p>
         </div>
-        <div class="k-banner terra" style="font-size: 22px;">
-          ⚠ The Paradox: The stent opened the LAD, but his vascular disease remains active!
+        <div style="background: white; border-radius: 12px; padding: 14px 20px; font-size: 22px; font-weight: 800; color: var(--terra); margin-top: 16px;">
+          ⚠ Systemic vascular risk remains active!
         </div>
       </div>
 
     </div>
-    <p class="k-cite">1. Damluji AA, van Diepen S, Katz JN, et al. Mechanical Complications of Acute Myocardial Infarction. Circulation. 2021;144(2):e16-e35. PMID: 34126759.<br>2. Braunwald's Heart Disease: A Textbook of Cardiovascular Medicine. 13th ed. Philadelphia, PA: Elsevier; 2026. Chapters 34-38.</p>
+    <p class="k-cite">1. Damluji AA, et al. Mechanical Complications of Acute Myocardial Infarction. Circulation. 2021;144(2):e16-e35.<br>2. Braunwald's Heart Disease. 13th ed. Elsevier; 2026. Chapters 34-38.</p>
   </div>
   <template class="k-narr">
-    <p data-step="0">Let us begin with our case: Mr. Hong, a forty-eight-year-old gentleman who presented with acute anterior STEMI.</p>
-    <p data-step="1">The cardiac catheterization team achieved a door-to-balloon time of just thirty-eight minutes. They aspirated a red thrombus and deployed a forty-eight-millimeter drug-eluting stent in the LAD, restoring full TIMI III blood flow with preserved ejection fraction.</p>
-    <p data-step="2">However, the post-PCI blood tests revealed a major warning sign: his baseline LDL cholesterol was 173 milligrams per deciliter. This creates our central dilemma: the acute mechanical blockage is fixed, but what about the rest of his arterial tree?</p>
+    <p data-step="0">Here is our patient, Mr. Hong, a forty-eight-year-old gentleman who had a sudden heart attack.</p>
+    <p data-step="1">The cardiology team did a wonderful job. Within thirty-eight minutes, they cleared the clot and placed a forty-eight-millimeter stent, fully restoring blood flow.</p>
+    <p data-step="2">However, his blood test showed an LDL cholesterol of 173. The stent opened one local pipe, but high cholesterol continues to endanger the rest of his arteries.</p>
   </template>
 </section>
 
 
 
-<section class="k-slide" data-chapter="Vascular Biology" data-title="Stent vs Systemic Atheroma">
+<section class="k-slide" data-chapter="Vascular Biology" data-title="Stent vs Arteries">
   <div class="k-head">
-    <h2>A Stent Covers Millimeters; Atheroma Spans Meters</h2>
-    <p class="k-sub">Why acute mechanical intervention does not cure chronic systemic vascular disease</p>
+    <h2>A Stent Fixes 48 Millimeters; Cholesterol Affects the Entire Body</h2>
+    <p class="k-sub">Why heart attack patients suffer recurrent events in other vessels</p>
   </div>
   <div class="k-body">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; flex: 1 1 auto; min-height: 0;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; flex: 1 1 auto;">
       
-      <!-- Stent: Local fix -->
-      <div class="k-panel navy" data-s="1" style="display: flex; flex-direction: column; justify-content: space-between; padding: 26px 30px;">
+      <!-- Left: Stent -->
+      <div class="k-card-box navy" data-s="1">
         <div>
-          <div class="k-badge navy" style="margin-bottom: 12px; font-size: 19px;">Local Mechanical Scaffolding</div>
-          <h3 style="font-size: 28px; color: var(--navy); margin: 0 0 14px 0;">What the Stent Did</h3>
-          <p style="font-size: 25px; line-height: 1.6; color: var(--ink);">
-            The Synergy stent covered exactly <strong>48 millimeters</strong> of his mid-LAD.
-          </p>
-          <p style="font-size: 25px; line-height: 1.6; color: var(--ink); margin-top: 14px;">
-            It re-opened the compressed lumen and halted acute myocardial necrosis, preventing immediate pump failure.
-          </p>
+          <span class="k-badge navy" style="margin-bottom: 14px;">Local Treatment</span>
+          <h3 style="color: var(--navy);">The Stent is a Mechanical Scaffold</h3>
+          <ul>
+            <li>Treats exactly <strong>48 mm</strong> of the mid-LAD.</li>
+            <li>Restores acute lumen diameter and flow.</li>
+            <li><strong>Zero effect</strong> on the rest of the cardiovascular system.</li>
+          </ul>
         </div>
-        <div style="background: white; border-radius: 12px; padding: 16px 20px; font-size: 22px; font-weight: 800; color: var(--navy); border-left: 8px solid var(--navy);">
-          Stent Treatment Scope = 48 mm of focal lesion
+        <div style="background: white; border-radius: 12px; padding: 16px; font-size: 22px; font-weight: 800; color: var(--navy); margin-top: 16px;">
+          Local salvage &ne; Systemic cure
         </div>
       </div>
 
-      <!-- Systemic: Atherosclerosis -->
-      <div class="k-panel terra" data-s="2" style="display: flex; flex-direction: column; justify-content: space-between; padding: 26px 30px;">
+      <!-- Right: Systemic disease -->
+      <div class="k-card-box terra" data-s="2">
         <div>
-          <div class="k-badge terra" style="margin-bottom: 12px; font-size: 19px;">Systemic Vascular Biology</div>
-          <h3 style="font-size: 28px; color: var(--terra); margin: 0 0 14px 0;">What Remains Untreated</h3>
-          <p style="font-size: 25px; line-height: 1.6; color: var(--ink);">
-            With an LDL of <strong>173 mg/dL</strong>, circulating ApoB particles continue invading arterial walls across the entire coronary tree.
-          </p>
-          <p style="font-size: 25px; line-height: 1.6; color: var(--ink); margin-top: 14px;">
-            They drive macrophage foam cell formation, necrotic cores, and vulnerable thin-cap plaques—such as his <strong>proximal LAD 40-50% stenosis</strong>!
-          </p>
+          <span class="k-badge terra" style="margin-bottom: 14px;">Systemic Reality</span>
+          <h3 style="color: var(--terra);">Cholesterol Drives the Next Rupture</h3>
+          <ul>
+            <li>LDL of 173 mg/dL continues depositing plaque across all arteries.</li>
+            <li>Mr. Hong already has a <strong>40-50% stenosis</strong> in his proximal LAD!</li>
+            <li><strong>PROSPECT Trial:</strong> 50% of recurrent heart attacks occur at <em>non-culprit lesions</em>, not the stented site!</li>
+          </ul>
         </div>
-        <div style="background: white; border-radius: 12px; padding: 16px 20px; font-size: 22px; font-weight: 800; color: var(--terra); border-left: 8px solid var(--terra);">
-          Biological Disease Scope = Entire vascular endothelium
+        <div style="background: white; border-radius: 12px; padding: 16px; font-size: 22px; font-weight: 800; color: var(--terra); margin-top: 16px;">
+          Plaque stabilization prevents the next attack!
         </div>
       </div>
 
     </div>
-
-    <!-- Takeaway from PROSPECT -->
-    <div data-s="3" class="k-banner butter" style="margin-top: 20px; font-size: 23px;">
-      💡 <strong>Landmark PROSPECT Study:</strong> Over 3 years, approximately <strong>50%</strong> of recurrent major cardiac events originate from <em>untreated non-culprit lesions</em>, not the stented site!
-    </div>
-
-    <p class="k-cite">1. Stone GW, Maehara A, Lansky AJ, et al. A prospective natural-history study of coronary atherosclerosis (PROSPECT). N Engl J Med. 2011;364(3):226-235. PMID: 21247313.<br>2. Libby P. The changing nature of atherosclerosis. J Am Coll Cardiol. 2021;78(23):2331-2345. PMID: 34879984.</p>
+    <p class="k-cite">1. Stone GW, et al. A prospective natural-history study of coronary atherosclerosis (PROSPECT). N Engl J Med. 2011;364(3):226-235.<br>2. Libby P. The changing nature of atherosclerosis. J Am Coll Cardiol. 2021;78(23):2331-2345.</p>
   </div>
   <template class="k-narr">
-    <p data-step="0">To understand why aggressive medical therapy is essential, we must appreciate the contrast between mechanical stenting and vascular biology.</p>
-    <p data-step="1">The stent covered exactly forty-eight millimeters of the LAD. It saved dying heart muscle, but it operates purely as a local scaffold.</p>
-    <p data-step="2">Meanwhile, Mr. Hong's circulating LDL of 173 continues to bathe every branch of his coronary arteries, including the moderate forty-to-fifty percent narrowing in his proximal LAD.</p>
-    <p data-step="3">The PROSPECT trial proved that over three years, about half of recurrent heart attacks occur in non-stented, non-culprit plaques. Only lowering systemic LDL can stabilize these vulnerable sites.</p>
+    <p data-step="0">We must distinguish between a local fix and a systemic disease.</p>
+    <p data-step="1">The stent covers exactly forty-eight millimeters of vessel. It saved heart muscle today, but it does nothing to stop disease elsewhere.</p>
+    <p data-step="2">With high cholesterol, plaques continue growing across all vessels. The PROSPECT study showed that half of future heart attacks occur in other, non-stented arteries. We must treat the systemic cholesterol.</p>
   </template>
 </section>
 
 
 
-<section class="k-slide" data-chapter="Clinical Targets" data-title="Guidelines & The 55 Target">
+<section class="k-slide" data-chapter="Clinical Targets" data-title="Target < 55 mg/dL">
   <div class="k-head">
-    <h2>Secondary Prevention Targets: "Lower is Better, Earlier is Better"</h2>
-    <p class="k-sub">Modern guidelines mandate both a relative reduction and an aggressive absolute target</p>
+    <h2>The Target: What is Mr. Hong's Goal?</h2>
+    <p class="k-sub">International guidelines mandate a strict target for secondary prevention</p>
   </div>
   <div class="k-body">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; flex: 1 1 auto; min-height: 0;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; flex: 1 1 auto;">
       
-      <!-- Target Rule Card -->
-      <div class="k-panel sage" data-s="1" style="display: flex; flex-direction: column; justify-content: space-between; padding: 26px 30px;">
+      <!-- Dual Goal -->
+      <div class="k-card-box sage" data-s="1">
         <div>
-          <span class="k-badge sage" style="font-size: 19px; margin-bottom: 12px;">Class I Guideline Recommendation</span>
-          <h3 style="font-size: 28px; color: var(--sage); margin: 0 0 16px 0;">The Dual Goal for Very-High-Risk ASCVD</h3>
+          <span class="k-badge sage" style="margin-bottom: 14px;">Guideline Standard</span>
+          <h3 style="color: var(--sage);">The Post-MI Rule: Two Targets</h3>
           <div style="background: white; border-radius: 14px; padding: 20px; border: 2px solid var(--sage); margin-bottom: 16px;">
-            <div style="font-size: 28px; font-weight: 900; color: var(--sage); margin-bottom: 6px;">Goal 1: &ge; 50% Reduction</div>
-            <p style="font-size: 22px; color: var(--ink); margin: 0;">Substantial relative drop from pre-treatment baseline.</p>
+            <div style="font-size: 30px; font-weight: 900; color: var(--sage);">1. &ge; 50% Reduction</div>
+            <p style="font-size: 22px; margin-top: 4px;">Cut his baseline LDL in half.</p>
           </div>
           <div style="background: white; border-radius: 14px; padding: 20px; border: 2px solid var(--sage);">
-            <div style="font-size: 28px; font-weight: 900; color: var(--sage); margin-bottom: 6px;">Goal 2: Absolute LDL &lt; 55 mg/dL</div>
-            <p style="font-size: 22px; color: var(--ink); margin: 0;">Targeting &lt; 1.4 mmol/L to halt and reverse plaque volume.</p>
+            <div style="font-size: 30px; font-weight: 900; color: var(--sage);">2. Absolute LDL &lt; 55 mg/dL</div>
+            <p style="font-size: 22px; margin-top: 4px;">Strict secondary prevention threshold.</p>
           </div>
         </div>
-        <div style="font-size: 20px; color: var(--muted); font-weight: 700;">
-          Source: 2026 ACC/AHA Dyslipidemia Guideline &amp; 2019/2023 ESC Guidelines
-        </div>
+        <p style="font-size: 20px; color: var(--muted); font-weight: 700;">
+          Source: 2026 ACC/AHA Dyslipidemia Guideline &amp; ESC Guidelines
+        </p>
       </div>
 
-      <!-- Why So Low Card -->
-      <div class="k-panel navy" data-s="2" style="display: flex; flex-direction: column; justify-content: space-between; padding: 26px 30px;">
+      <!-- Why 55? -->
+      <div class="k-card-box navy" data-s="2">
         <div>
-          <span class="k-badge navy" style="font-size: 19px; margin-bottom: 12px;">Scientific Evidence</span>
-          <h3 style="font-size: 28px; color: var(--navy); margin: 0 0 16px 0;">Why Aim for &lt; 55 mg/dL?</h3>
-          <ul style="font-size: 24px; line-height: 1.6; margin: 0; padding-left: 26px; color: var(--ink);">
-            <li><strong>Linear Clinical Benefit:</strong> Each 38.7 mg/dL (1 mmol/L) LDL reduction yields a <strong>22% decrease</strong> in major vascular events (CTT Collaboration).</li>
-            <li><strong>Plaque Regression Threshold:</strong> Serial IVUS imaging confirms atheroma volume regresses reliably only when LDL falls below <strong>60-70 mg/dL</strong>.</li>
-            <li><strong>No Lower Limit of Harm:</strong> Trials safely treating down to &lt; 30 mg/dL demonstrated continued benefit with zero cognitive or hemorrhagic safety flags.</li>
+          <span class="k-badge navy" style="margin-bottom: 14px;">The Evidence</span>
+          <h3 style="color: var(--navy);">Why Must We Go Below 55?</h3>
+          <ul>
+            <li><strong>Fewer Heart Attacks:</strong> Every 39 mg/dL drop in LDL cuts major vascular events by <strong>22%</strong>.</li>
+            <li><strong>Plaque Reversal:</strong> Coronary ultrasound shows plaques only shrink when LDL drops below <strong>60-70 mg/dL</strong>.</li>
+            <li><strong>Proven Safety:</strong> Trials treating down to 30 mg/dL showed no safety issues.</li>
           </ul>
         </div>
-        <div class="k-banner navy" style="font-size: 22px;">
-          ✓ Lower is better, and sooner is better!
+        <div style="background: white; border-radius: 12px; padding: 16px; font-size: 22px; font-weight: 800; color: var(--navy); margin-top: 16px;">
+          ✓ Lower is better, and earlier is better!
         </div>
       </div>
 
     </div>
-    <p class="k-cite">1. Blumenthal RS, Morris PB, Gaudino M, et al. 2026 ACC/AHA Guideline on the Management of Dyslipidemia. Circulation. 2026;153(20):e1-e120. PMID: 41824552.<br>2. Mach F, Baigent C, Catapano AL, et al. 2019 ESC/EAS Guidelines for the management of dyslipidaemias. Eur Heart J. 2020;41(1):111-188. PMID: 31473270.</p>
+    <p class="k-cite">1. Blumenthal RS, et al. 2026 ACC/AHA Dyslipidemia Guideline. Circulation. 2026. PMID: 41824552.<br>2. Mach F, et al. 2019 ESC/EAS Guidelines for the management of dyslipidaemias. Eur Heart J. 2020;41(1):111-188.</p>
   </div>
   <template class="k-narr">
-    <p data-step="0">Let us examine what modern clinical practice guidelines recommend for patients like Mr. Hong.</p>
-    <p data-step="1">Both the 2026 ACC/AHA guidelines and the ESC guidelines mandate a dual target for patients after an acute coronary syndrome: achieving at least a fifty percent reduction from baseline, and reaching an absolute LDL below fifty-five milligrams per deciliter.</p>
-    <p data-step="2">Why target fifty-five? Meta-analyses from the Cholesterol Treatment Trialists show that every thirty-nine milligram per deciliter reduction cuts cardiac events by twenty-two percent. Furthermore, ultrasound studies prove that coronary plaques only begin to shrink when LDL drops below sixty to seventy.</p>
+    <p data-step="0">What is our goal for Mr. Hong? Guidelines recommend two simple rules.</p>
+    <p data-step="1">First, cut his LDL by at least fifty percent. Second, bring his absolute LDL level below fifty-five milligrams per deciliter.</p>
+    <p data-step="2">Why below fifty-five? Because trial evidence proves that plaques only stabilize and shrink below this level, dramatically preventing recurrent attacks.</p>
   </template>
 </section>
 
 
 
-<section class="k-slide" data-chapter="Clinical Targets" data-title="The 31.5 mg/dL Treatment Gap">
+<section class="k-slide" data-chapter="Clinical Targets" data-title="The 31.5 mg/dL Gap">
   <div class="k-head">
-    <h2>The Math: Why Statin Monotherapy Leaves a 31.5 mg/dL Gap</h2>
-    <p class="k-sub">Calculating Mr. Hong's expected response on high-intensity statin monotherapy</p>
+    <h2>The Math: Why Statin Monotherapy Fails Mr. Hong</h2>
+    <p class="k-sub">Calculating his response shows a clear 31.5 mg/dL treatment gap</p>
   </div>
   <div class="k-body">
-    <div style="display: flex; flex-direction: column; justify-content: space-around; flex: 1 1 auto; min-height: 0; background: var(--line-2); border-radius: 20px; padding: 28px 36px;">
+    <div style="display: flex; flex-direction: column; justify-content: space-around; flex: 1 1 auto; background: var(--line-2); border-radius: 18px; padding: 28px 36px;">
       
-      <!-- Baseline Bar -->
-      <div data-s="1" style="display: grid; grid-template-columns: 240px 1fr 180px; align-items: center; gap: 24px; background: white; padding: 18px 24px; border-radius: 14px; border-left: 10px solid var(--terra);">
+      <!-- Bar 1: Baseline -->
+      <div data-s="1" style="display: grid; grid-template-columns: 260px 1fr 180px; align-items: center; gap: 24px; background: white; padding: 18px 24px; border-radius: 14px; border-left: 10px solid var(--terra);">
         <div>
           <strong style="font-size: 26px; color: var(--ink);">Baseline LDL</strong>
-          <span style="font-size: 19px; color: var(--muted); display: block;">At hospital presentation</span>
+          <span style="font-size: 19px; color: var(--muted); display: block;">At hospital admission</span>
         </div>
         <div style="height: 32px; background: var(--line); border-radius: 8px; overflow: hidden;">
           <div style="width: 100%; height: 100%; background: var(--terra);"></div>
@@ -290,11 +385,11 @@
         <div style="text-align: right; font-size: 34px; font-weight: 900; color: var(--terra);">173 <small style="font-size: 19px;">mg/dL</small></div>
       </div>
 
-      <!-- High-Intensity Statin Bar -->
-      <div data-s="2" style="display: grid; grid-template-columns: 240px 1fr 180px; align-items: center; gap: 24px; background: white; padding: 18px 24px; border-radius: 14px; border-left: 10px solid var(--navy);">
+      <!-- Bar 2: High Dose Statin -->
+      <div data-s="2" style="display: grid; grid-template-columns: 260px 1fr 180px; align-items: center; gap: 24px; background: white; padding: 18px 24px; border-radius: 14px; border-left: 10px solid var(--navy);">
         <div>
-          <strong style="font-size: 26px; color: var(--ink);">High-Intensity Statin</strong>
-          <span style="font-size: 19px; color: var(--navy); display: block;">Expected &sim;50% reduction</span>
+          <strong style="font-size: 26px; color: var(--ink);">High-Dose Statin</strong>
+          <span style="font-size: 19px; color: var(--navy); display: block;">Expected 50% drop</span>
         </div>
         <div style="height: 32px; background: var(--line); border-radius: 8px; overflow: hidden;">
           <div style="width: 50%; height: 100%; background: var(--navy);"></div>
@@ -302,11 +397,11 @@
         <div style="text-align: right; font-size: 34px; font-weight: 900; color: var(--navy);">&sim; 86.5 <small style="font-size: 19px;">mg/dL</small></div>
       </div>
 
-      <!-- Target Bar -->
-      <div data-s="3" style="display: grid; grid-template-columns: 240px 1fr 180px; align-items: center; gap: 24px; background: var(--sage-wash); padding: 18px 24px; border-radius: 14px; border: 3px dashed var(--sage); border-left: 10px solid var(--sage);">
+      <!-- Bar 3: Target -->
+      <div data-s="3" style="display: grid; grid-template-columns: 260px 1fr 180px; align-items: center; gap: 24px; background: var(--sage-wash); padding: 18px 24px; border-radius: 14px; border: 3px dashed var(--sage); border-left: 10px solid var(--sage);">
         <div>
           <strong style="font-size: 26px; color: var(--sage);">Guideline Goal</strong>
-          <span style="font-size: 19px; color: var(--sage); display: block;">2026 ACC/AHA &amp; ESC</span>
+          <span style="font-size: 19px; color: var(--sage); display: block;">Target for Mr. Hong</span>
         </div>
         <div style="height: 32px; background: var(--line); border-radius: 8px; overflow: hidden;">
           <div style="width: 32%; height: 100%; background: var(--sage);"></div>
@@ -314,135 +409,127 @@
         <div style="text-align: right; font-size: 34px; font-weight: 900; color: var(--sage);">&lt; 55 <small style="font-size: 19px;">mg/dL</small></div>
       </div>
 
-      <!-- The Deficit Banner -->
-      <div data-s="3" class="k-banner butter" style="display: flex; justify-content: space-between; align-items: center; padding: 18px 26px;">
-        <span style="font-size: 26px;">
-          ⚠ <strong>Therapeutic Deficit:</strong> Even with perfect adherence, statin monotherapy leaves an unmet gap of:
+      <!-- Summary gap box -->
+      <div data-s="3" style="background: white; border-radius: 14px; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; border: 2px solid var(--terra);">
+        <span style="font-size: 25px; font-weight: 800; color: var(--ink);">
+          ⚠ Leftover Gap with Statin Alone:
         </span>
-        <span style="font-size: 38px; font-weight: 900; color: var(--terra);">&Delta; &asymp; 31.5 mg/dL</span>
+        <span style="font-size: 36px; font-weight: 900; color: var(--terra);">
+          31.5 mg/dL above target!
+        </span>
       </div>
 
     </div>
-    <p class="k-cite">1. Blumenthal RS, Morris PB, Gaudino M, et al. 2026 ACC/AHA Dyslipidemia Guideline. Circulation. 2026. PMID: 41824552.<br>2. Ray KK, Molemans B, Schoonen WM, et al. EU-Wide Cross-Sectional Observational Study of Lipid-Modifying Therapy (SANTORINI). Eur Heart J. 2022;43(34):3198-3207.</p>
+    <p class="k-cite">1. 2026 ACC/AHA Guideline on the Management of Dyslipidemia. Circulation. 2026. PMID: 41824552.<br>2. Ray KK, et al. SANTORINI Study. Eur Heart J. 2022;43(34):3198-3207.</p>
   </div>
   <template class="k-narr">
-    <p data-step="0">Now let us do the math for Mr. Hong. What happens if we prescribe high-intensity statin monotherapy?</p>
+    <p data-step="0">Let us do simple math for Mr. Hong.</p>
     <p data-step="1">His starting LDL is 173 milligrams per deciliter.</p>
-    <p data-step="2">A high-intensity statin, such as Atorvastatin eighty milligrams or Rosuvastatin forty milligrams, achieves roughly a fifty percent reduction. That brings his LDL down to approximately 86.5.</p>
-    <p data-step="3">However, our guideline target is strictly below fifty-five. That leaves a therapeutic gap of more than thirty-one milligrams per deciliter. This mathematical reality means statin monotherapy is simply not enough for Mr. Hong.</p>
+    <p data-step="2">A high-intensity statin lowers LDL by about fifty percent. That brings him down to 86.5.</p>
+    <p data-step="3">However, our target is below fifty-five. That leaves a gap of over thirty-one milligrams. A statin alone simply cannot get him to goal.</p>
   </template>
 </section>
 
 
 
-<section class="k-slide" data-chapter="Pharmacotherapy" data-title="Statin + Ezetimibe Synergy">
+<section class="k-slide" data-chapter="Pharmacotherapy" data-title="Statin + Ezetimibe">
   <div class="k-head">
-    <h2>Dual Inhibition: Liver Synthesis + Intestinal Absorption</h2>
-    <p class="k-sub">How combining a statin with ezetimibe closes the therapeutic gap</p>
+    <h2>The Solution: Combine Statin with Ezetimibe</h2>
+    <p class="k-sub">Targeting both liver production and gut absorption closes the gap</p>
   </div>
   <div class="k-body">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; flex: 1 1 auto; min-height: 0;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; flex: 1 1 auto;">
       
       <!-- Statin Card -->
-      <div class="k-panel navy" data-s="1" style="display: flex; flex-direction: column; justify-content: space-between; padding: 26px 30px;">
+      <div class="k-card-box navy" data-s="1">
         <div>
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <span class="k-badge navy" style="font-size: 19px;">Pillar 1: Hepatic Target</span>
-            <span style="font-size: 26px; font-weight: 900; color: var(--navy);">&sim; 50% Drop</span>
-          </div>
-          <h3 style="font-size: 30px; color: var(--navy); margin: 0 0 14px 0;">High-Intensity Statin</h3>
-          <p style="font-size: 24px; line-height: 1.6; color: var(--ink);">
-            <strong>Mechanism:</strong> Competitively inhibits HMG-CoA reductase in hepatocytes.
-          </p>
-          <p style="font-size: 24px; line-height: 1.6; color: var(--ink); margin-top: 12px;">
-            Depleting intracellular cholesterol forces hepatocytes to upregulate surface LDL receptors, pulling LDL out of circulation.
-          </p>
-        </div>
-        <div style="background: white; border-radius: 12px; padding: 14px 18px; font-size: 21px; font-weight: 700; color: var(--navy);">
-          Regimens: Atorvastatin 80 mg or Rosuvastatin 20-40 mg
+          <span class="k-badge navy" style="margin-bottom: 12px;">Pillar 1: Liver</span>
+          <h3 style="color: var(--navy);">High-Intensity Statin</h3>
+          <ul>
+            <li><strong>Action:</strong> Blocks cholesterol production in the liver.</li>
+            <li><strong>Effect:</strong> Pulls LDL out of the bloodstream.</li>
+            <li><strong>Dose:</strong> Atorvastatin 80 mg or Rosuvastatin 20-40 mg.</li>
+            <li><strong>Drop:</strong> Lowers LDL by <strong>&sim;50%</strong>.</li>
+          </ul>
         </div>
       </div>
 
       <!-- Ezetimibe Card -->
-      <div class="k-panel sage" data-s="2" style="display: flex; flex-direction: column; justify-content: space-between; padding: 26px 30px;">
+      <div class="k-card-box sage" data-s="2">
         <div>
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <span class="k-badge sage" style="font-size: 19px;">Pillar 2: Intestinal Target</span>
-            <span style="font-size: 26px; font-weight: 900; color: var(--sage);">+ 15-20% Drop</span>
-          </div>
-          <h3 style="font-size: 30px; color: var(--sage); margin: 0 0 14px 0;">Ezetimibe 10 mg</h3>
-          <p style="font-size: 24px; line-height: 1.6; color: var(--ink);">
-            <strong>Mechanism:</strong> Selectively blocks the <strong>NPC1L1</strong> transporter in the jejunal brush border.
-          </p>
-          <p style="font-size: 24px; line-height: 1.6; color: var(--ink); margin-top: 12px;">
-            Prevents intestinal absorption of both dietary and biliary cholesterol, shutting down the compensatory feedback loop!
-          </p>
-        </div>
-        <div style="background: white; border-radius: 12px; padding: 14px 18px; font-size: 21px; font-weight: 700; color: var(--sage);">
-          Combination Result: Total ~65% LDL reduction!
+          <span class="k-badge sage" style="margin-bottom: 12px;">Pillar 2: Gut</span>
+          <h3 style="color: var(--sage);">Ezetimibe 10 mg</h3>
+          <ul>
+            <li><strong>Action:</strong> Blocks cholesterol absorption in the intestine.</li>
+            <li><strong>Synergy:</strong> Adds another <strong>15-20% drop</strong>!</li>
+            <li><strong>IMPROVE-IT Trial:</strong> In 18,000 post-MI patients, reached LDL <strong>54 mg/dL</strong> and prevented heart attacks.</li>
+          </ul>
         </div>
       </div>
 
     </div>
 
-    <!-- IMPROVE-IT Trial Callout -->
-    <div data-s="3" class="k-banner sage" style="margin-top: 20px; font-size: 23px;">
-      🏆 <strong>IMPROVE-IT Trial (NEJM 2015, n=18,144):</strong> In post-ACS patients, adding ezetimibe lowered median LDL to <strong>53.7 mg/dL</strong> and significantly reduced major adverse cardiovascular events (HR 0.936, p=0.016).
+    <!-- Combination summary box -->
+    <div data-s="3" style="background: var(--sage-wash); border-radius: 14px; padding: 18px 24px; border: 2px solid var(--sage); display: flex; justify-content: space-between; align-items: center; margin-top: 18px;">
+      <span style="font-size: 25px; font-weight: 800; color: var(--sage);">
+        ✓ Statin + Ezetimibe delivers ~65% total reduction &mdash; reaching &lt; 55 mg/dL!
+      </span>
+      <span class="k-badge sage" style="font-size: 20px;">Target Achieved</span>
     </div>
 
-    <p class="k-cite">1. Cannon CP, Blazing MA, Giugliano RP, et al. Ezetimibe Added to Statin Therapy after Acute Coronary Syndromes (IMPROVE-IT). N Engl J Med. 2015;372(25):2387-2397. PMID: 26039521.<br>2. Mach F, Baigent C, Catapano AL, et al. Eur Heart J. 2020;41(1):111-188.</p>
+    <p class="k-cite">1. Cannon CP, et al. IMPROVE-IT Trial. N Engl J Med. 2015;372(25):2387-2397. PMID: 26039521.<br>2. Kim BK, et al. RACING Trial. Lancet. 2022;400(10349):380-390. PMID: 35863373.</p>
   </div>
   <template class="k-narr">
-    <p data-step="0">To close this thirty-one milligram gap, we employ two complementary mechanisms.</p>
-    <p data-step="1">The first pillar is high-intensity statin therapy. By blocking hepatic cholesterol synthesis, statins prompt liver cells to pull LDL out of the blood.</p>
-    <p data-step="2">The second pillar is ezetimibe. It blocks the NPC1L1 transporter in the gut, stopping cholesterol absorption. Together, statin plus ezetimibe delivers about sixty-five percent total LDL lowering.</p>
-    <p data-step="3">In the IMPROVE-IT trial of over eighteen thousand post-ACS patients, adding ezetimibe brought average LDL down to fifty-four milligrams per deciliter, leading to a significant reduction in recurrent cardiovascular events.</p>
+    <p data-step="0">How do we close this gap? By combining two medications.</p>
+    <p data-step="1">The statin stops the liver from producing cholesterol, providing a fifty percent reduction.</p>
+    <p data-step="2">Ezetimibe blocks the gut from absorbing cholesterol, adding another fifteen to twenty percent drop.</p>
+    <p data-step="3">Together, they lower LDL by sixty-five percent, safely bringing Mr. Hong right down to our target.</p>
   </template>
 </section>
 
 
 
-<section class="k-slide" data-chapter="Clinical Decision" data-title="What Would You Prescribe?">
+<section class="k-slide" data-chapter="Clinical Decision" data-title="Quick Decision">
   <div class="k-head">
-    <h2>Interactive Decision: What is Mr. Hong's Discharge Strategy?</h2>
-    <p class="k-sub">Consider his baseline LDL of 173 mg/dL and recent STEMI. Which path would you choose?</p>
+    <h2>Quick Question: What Should We Prescribe at Discharge?</h2>
+    <p class="k-sub">Mr. Hong has a baseline LDL of 173 mg/dL. Which strategy is best?</p>
   </div>
   <div class="k-body">
-    <div class="k-opt-box" style="flex: 1 1 auto; justify-content: center;">
+    <div style="display: flex; flex-direction: column; gap: 24px; flex: 1 1 auto; justify-content: center;">
       
       <!-- Option A -->
-      <button class="k-big-opt bad" data-reveal="1">
-        <span class="k-badge terra" style="font-size: 24px; padding: 10px 20px;">A</span>
+      <button class="k-opt-btn bad" data-reveal="1">
+        <span class="k-badge terra" style="font-size: 26px; padding: 10px 22px;">A</span>
         <div style="flex: 1 1 auto;">
-          <div style="font-size: 26px; color: var(--ink); margin-bottom: 8px;">
-            <strong>Stepwise Escalation:</strong> Discharge on Atorvastatin 80 mg monotherapy; re-check lipid panel in 3 months.
+          <div style="font-size: 26px; color: var(--ink); margin-bottom: 6px;">
+            <strong>Statin Alone:</strong> Prescribe Atorvastatin 80 mg; re-check lipids in 3 months.
           </div>
-          <div class="k-fb" style="font-size: 22px; color: var(--terra); line-height: 1.5;">
-            ✗ <strong>Suboptimal (Clinical Inertia):</strong> As our math proved, he will remain at ~86 mg/dL. Delaying combination therapy leaves his vulnerable plaques exposed during the highest-risk early post-MI window!
+          <div class="k-fb" style="font-size: 22px; color: var(--terra);">
+            ✗ <strong>Wrong (Clinical Inertia):</strong> As our math proved, he will remain at ~86 mg/dL. Waiting 3 months leaves his heart vulnerable!
           </div>
         </div>
       </button>
 
       <!-- Option B -->
-      <button class="k-big-opt good" data-reveal="2">
-        <span class="k-badge sage" style="font-size: 24px; padding: 10px 20px;">B</span>
+      <button class="k-opt-btn good" data-reveal="2">
+        <span class="k-badge sage" style="font-size: 26px; padding: 10px 22px;">B</span>
         <div style="flex: 1 1 auto;">
-          <div style="font-size: 26px; color: var(--ink); margin-bottom: 8px;">
-            <strong>Upfront Combination:</strong> Discharge on Atorvastatin 80 mg + Ezetimibe 10 mg; re-check lipids at 4 to 6 weeks.
+          <div style="font-size: 26px; color: var(--ink); margin-bottom: 6px;">
+            <strong>Upfront Combination:</strong> Prescribe Statin + Ezetimibe; re-check lipids in 4 to 6 weeks.
           </div>
-          <div class="k-fb" style="font-size: 22px; color: var(--sage); line-height: 1.5;">
-            ✓ <strong>Recommended (Guideline-Aligned):</strong> Reaches ~60 mg/dL rapidly, closing the deficit. A 4-6 week follow-up allows swift addition of a PCSK9 inhibitor if he remains &ge;55 mg/dL!
+          <div class="k-fb" style="font-size: 22px; color: var(--sage);">
+            ✓ <strong>Correct (Guideline-Aligned):</strong> Reaches target fast. An early 4-6 week check lets us add a PCSK9 inhibitor if needed!
           </div>
         </div>
       </button>
 
     </div>
-    <p class="k-cite">1. Ray KK, Molemans B, Schoonen WM, et al. EU-Wide Cross-Sectional Observational Study of Lipid-Modifying Therapy (SANTORINI). Eur Heart J. 2022;43(34):3198-3207.<br>2. 2026 ACC/AHA Guideline on the Management of Dyslipidemia. Circulation. 2026. PMID: 41824552.</p>
+    <p class="k-cite">1. 2026 ACC/AHA Guideline on the Management of Dyslipidemia. Circulation. 2026.<br>2. Ray KK, et al. Eur Heart J. 2022;43(34):3198-3207.</p>
   </div>
   <template class="k-narr">
-    <p data-step="0">Now, put yourselves in the shoes of Mr. Hong's attending physician. What should we prescribe upon discharge?</p>
-    <p data-step="1">Option A represents traditional stepped care: prescribing statin monotherapy and waiting three months. But this leads to therapeutic inertia. Mr. Hong's LDL will stay around eighty-six during the vulnerable early post-infarct window.</p>
-    <p data-step="2">Option B is the modern, guideline-aligned approach: starting combination statin plus ezetimibe upfront during hospitalization, with a lipid re-evaluation in four to six weeks. This ensures prompt target attainment.</p>
+    <p data-step="0">Let us decide Mr. Hong's discharge prescription.</p>
+    <p data-step="1">Option A is to give a statin alone and wait three months. But this delays care and leaves his cholesterol above eighty.</p>
+    <p data-step="2">Option B is the correct choice: start both statin and ezetimibe upfront before he goes home, and check his levels in four to six weeks.</p>
   </template>
 </section>
 
@@ -450,322 +537,183 @@
 
 <section class="k-slide" data-chapter="Advanced Therapies" data-title="PCSK9 Inhibitors">
   <div class="k-head">
-    <h2>Pillar 3: PCSK9 Inhibition — The Ultimate Clearance Defense</h2>
-    <p class="k-sub">Preserving LDL receptors on the hepatocyte surface for dramatic lipid lowering</p>
+    <h2>What If LDL Remains High? Add a PCSK9 Inhibitor</h2>
+    <p class="k-sub">The powerful third line of defense for very-high-risk patients</p>
   </div>
   <div class="k-body">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; flex: 1 1 auto; min-height: 0;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; flex: 1 1 auto;">
       
-      <!-- Mechanism Card -->
-      <div class="k-panel terra" data-s="1" style="display: flex; flex-direction: column; justify-content: space-between; padding: 26px 30px;">
+      <!-- Mechanism -->
+      <div class="k-card-box terra" data-s="1">
         <div>
-          <span class="k-badge terra" style="font-size: 19px; margin-bottom: 12px;">Biological Mechanism</span>
-          <h3 style="font-size: 28px; color: var(--terra); margin: 0 0 14px 0;">How PCSK9 Blockade Works</h3>
-          <p style="font-size: 24px; line-height: 1.6; color: var(--ink);">
-            Normally, circulating PCSK9 binds hepatic LDL receptors, directing them to lysosomes for destruction.
-          </p>
-          <p style="font-size: 24px; line-height: 1.6; color: var(--ink); margin-top: 14px;">
-            Monoclonal antibodies (<strong>Evolocumab / Alirocumab</strong>) or siRNA (<strong>Inclisiran</strong>) block PCSK9, enabling receptors to recycle back to the cell surface over 150 times!
-          </p>
-        </div>
-        <div style="background: white; border-radius: 12px; padding: 14px 18px; font-size: 22px; font-weight: 800; color: var(--terra); border-left: 8px solid var(--terra);">
-          Efficacy: Additional 50% to 60% LDL reduction on top of statins!
+          <span class="k-badge terra" style="margin-bottom: 12px;">Pillar 3</span>
+          <h3 style="color: var(--terra);">How PCSK9 Inhibitors Work</h3>
+          <ul>
+            <li><strong>The Problem:</strong> PCSK9 destroys LDL receptors on liver cells.</li>
+            <li><strong>The Drug:</strong> Injections (Evolocumab / Alirocumab / Inclisiran) block PCSK9.</li>
+            <li><strong>Result:</strong> Liver cells keep their receptors and rapidly clear cholesterol from the blood!</li>
+            <li><strong>Power:</strong> Adds another <strong>50% to 60% reduction</strong>.</li>
+          </ul>
         </div>
       </div>
 
-      <!-- Landmark Evidence Card -->
-      <div class="k-panel navy" data-s="2" style="display: flex; flex-direction: column; justify-content: space-between; padding: 26px 30px;">
+      <!-- Trial evidence -->
+      <div class="k-card-box navy" data-s="2">
         <div>
-          <span class="k-badge navy" style="font-size: 19px; margin-bottom: 12px;">Landmark RCT Evidence</span>
-          <h3 style="font-size: 28px; color: var(--navy); margin: 0 0 14px 0;">FOURIER &amp; ODYSSEY OUTCOMES</h3>
-          <ul style="font-size: 24px; line-height: 1.6; margin: 0; padding-left: 26px; color: var(--ink);">
-            <li><strong>Unprecedented LDL Control:</strong> Achieved median LDL-C of <strong>30 to 40 mg/dL</strong>.</li>
-            <li><strong>MACE Reduction:</strong> Consistent <strong>15% reduction</strong> in major ischemic events (p&lt;0.001).</li>
-            <li><strong>Mortality Benefit:</strong> In ODYSSEY OUTCOMES, patients with baseline LDL &ge;100 mg/dL achieved a significant reduction in all-cause mortality!</li>
+          <span class="k-badge navy" style="margin-bottom: 12px;">Trial Evidence</span>
+          <h3 style="color: var(--navy);">FOURIER &amp; ODYSSEY Trials</h3>
+          <ul>
+            <li><strong>Massive Drop:</strong> Lowered median LDL to <strong>30-40 mg/dL</strong>.</li>
+            <li><strong>Event Reduction:</strong> <strong>15% fewer</strong> heart attacks and strokes.</li>
+            <li><strong>Survival:</strong> Significantly reduced overall mortality in high-baseline patients!</li>
           </ul>
         </div>
-        <div class="k-banner navy" style="font-size: 22px;">
-          ✓ Triple therapy achieves &gt;80% overall LDL reduction!
+        <div style="background: white; border-radius: 12px; padding: 14px; font-size: 21px; font-weight: 800; color: var(--navy); margin-top: 14px;">
+          Triple therapy achieves &gt;80% overall LDL drop!
         </div>
       </div>
 
     </div>
-    <p class="k-cite">1. Sabatine MS, Giugliano RP, Keech AC, et al. Evolocumab and Clinical Outcomes (FOURIER). N Engl J Med. 2017;376(18):1713-1722. PMID: 28304224.<br>2. Schwartz GG, Steg PG, Szarek M, et al. Alirocumab and Cardiovascular Outcomes (ODYSSEY OUTCOMES). N Engl J Med. 2018;379(22):2097-2107. PMID: 30403574.</p>
+    <p class="k-cite">1. Sabatine MS, et al. FOURIER Trial. N Engl J Med. 2017;376:1713-1722. PMID: 28304224.<br>2. Schwartz GG, et al. ODYSSEY OUTCOMES Trial. N Engl J Med. 2018;379:2097-2107. PMID: 30403574.</p>
   </div>
   <template class="k-narr">
-    <p data-step="0">If combination statin and ezetimibe still leaves Mr. Hong above fifty-five, we have our third pillar: PCSK9 inhibition.</p>
-    <p data-step="1">The PCSK9 protein normally causes LDL receptors to be degraded. Monoclonal antibodies like evolocumab and alirocumab, or the siRNA inclisiran, preserve these receptors, allowing rapid recycling and continuous blood clearance.</p>
-    <p data-step="2">In the FOURIER and ODYSSEY OUTCOMES trials, PCSK9 inhibitors achieved median LDL levels of thirty to forty milligrams per deciliter, leading to a fifteen percent reduction in major adverse cardiovascular events and improved survival in high-baseline patients.</p>
+    <p data-step="0">What if Mr. Hong's LDL is still above fifty-five at follow-up?</p>
+    <p data-step="1">We add our third weapon: a PCSK9 inhibitor. These injectable therapies stop the destruction of LDL receptors, clearing massive amounts of cholesterol.</p>
+    <p data-step="2">In major trials, adding a PCSK9 inhibitor lowered LDL down to thirty or forty, cutting cardiovascular events by fifteen percent.</p>
   </template>
 </section>
 
 
 
-<section class="k-slide" data-chapter="Clinical Evidence" data-title="Trial Insights: RACING & Ez-PAVE">
+<section class="k-slide" data-chapter="Clinical Roadmap" data-title="Action Plan">
   <div class="k-head">
-    <h2>Trial Insights: The Power of Early Combination Therapy</h2>
-    <p class="k-sub">Overcoming statin intolerance and speeding up goal attainment post-ACS</p>
+    <h2>Mr. Hong's 4-Step Clinical Action Plan</h2>
+    <p class="k-sub">A straightforward timeline from acute admission to long-term survival</p>
   </div>
   <div class="k-body">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; flex: 1 1 auto; min-height: 0;">
-      
-      <!-- RACING Trial -->
-      <div class="k-panel sage" data-s="1" style="display: flex; flex-direction: column; justify-content: space-between; padding: 26px 30px;">
-        <div>
-          <span class="k-badge sage" style="font-size: 19px; margin-bottom: 12px;">Lancet 2022 (n=3,780)</span>
-          <h3 style="font-size: 28px; color: var(--sage); margin: 0 0 14px 0;">The RACING Trial</h3>
-          <p style="font-size: 24px; line-height: 1.6; color: var(--ink);">
-            Compared <strong>moderate statin + ezetimibe</strong> vs. <strong>high-intensity statin monotherapy</strong> in cardiovascular disease.
-          </p>
-          <ul style="font-size: 23px; line-height: 1.6; margin: 12px 0 0 0; padding-left: 24px; color: var(--ink);">
-            <li><strong>Non-inferior 3-year MACE:</strong> Identical cardiovascular efficacy (9.1% vs 9.9%).</li>
-            <li><strong>Fewer Side Effects:</strong> Significant reduction in drug intolerance or dose discontinuation (4.8% vs 8.2%).</li>
-          </ul>
-        </div>
-        <div style="background: white; border-radius: 12px; padding: 14px 18px; font-size: 21px; font-weight: 700; color: var(--sage);">
-          Combination provides equal efficacy with better tolerability
-        </div>
-      </div>
-
-      <!-- Ez-PAVE / In-hospital -->
-      <div class="k-panel navy" data-s="2" style="display: flex; flex-direction: column; justify-content: space-between; padding: 26px 30px;">
-        <div>
-          <span class="k-badge navy" style="font-size: 19px; margin-bottom: 12px;">Acute Care Strategy</span>
-          <h3 style="font-size: 28px; color: var(--navy); margin: 0 0 14px 0;">In-Hospital Initiation (Ez-PAVE)</h3>
-          <p style="font-size: 24px; line-height: 1.6; color: var(--ink);">
-            Starting combination therapy <strong>before hospital discharge</strong> changes long-term patient trajectory:
-          </p>
-          <ul style="font-size: 23px; line-height: 1.6; margin: 12px 0 0 0; padding-left: 24px; color: var(--ink);">
-            <li><strong>Target Attainment:</strong> Over <strong>75%</strong> reach LDL &lt;55 mg/dL within 6 weeks, compared to &lt;30% with monotherapy.</li>
-            <li><strong>Overcomes Inertia:</strong> Outpatient dose titration rarely happens; upfront treatment locks in adherence early.</li>
-          </ul>
-        </div>
-        <div style="background: white; border-radius: 12px; padding: 14px 18px; font-size: 21px; font-weight: 700; color: var(--navy);">
-          Early in-hospital initiation guarantees long-term compliance
-        </div>
-      </div>
-
-    </div>
-
-    <div data-s="3" class="k-banner butter" style="margin-top: 20px; font-size: 23px;">
-      📌 <strong>Clinical Rule:</strong> If baseline LDL is &gt; 110 mg/dL, upfront combination therapy should be standard of care!
-    </div>
-
-    <p class="k-cite">1. Kim BK, Hong SJ, Lee YJ, et al. Long-term efficacy and safety of moderate-intensity statin with ezetimibe (RACING). Lancet. 2022;400(10349):380-390. PMID: 35863373.<br>2. 2026 ACC/AHA Guideline on the Management of Dyslipidemia. Circulation. 2026.</p>
-  </div>
-  <template class="k-narr">
-    <p data-step="0">Recent trials provide strong clinical justification for upfront combination therapy.</p>
-    <p data-step="1">The RACING trial published in The Lancet demonstrated that moderate statin plus ezetimibe was non-inferior to high-intensity statin monotherapy in reducing cardiovascular events, but had significantly fewer muscle-related side effects and drug discontinuations.</p>
-    <p data-step="2">Furthermore, trials like Ez-PAVE show that starting combination therapy before hospital discharge increases target attainment from under thirty percent to over seventy-five percent.</p>
-    <p data-step="3">The takeaway rule is simple: whenever baseline LDL exceeds one hundred and ten, upfront combination therapy should be our standard approach.</p>
-  </template>
-</section>
-
-
-
-<section class="k-slide" data-chapter="Clinical Roadmap" data-title="Post-ACS Action Plan">
-  <div class="k-head">
-    <h2>Mr. Hong's Post-ACS Roadmap: A 4-Step Clinical Pathway</h2>
-    <p class="k-sub">A structured, stepwise timeline from acute admission to long-term plaque stability</p>
-  </div>
-  <div class="k-body">
-    <div class="k-step-flow">
+    <div class="k-timeline" style="flex: 1 1 auto; align-items: stretch;">
       
       <!-- Step 1 -->
-      <div class="k-step-card" data-s="1">
+      <div class="k-time-node" data-s="1">
         <div>
-          <div class="k-step-num" style="background: var(--terra);">1</div>
+          <div class="k-time-num" style="background: var(--terra);">1</div>
           <span class="k-badge terra" style="font-size: 16px; margin-bottom: 8px;">Day 1 (Admission)</span>
-          <h3 style="font-size: 24px; color: var(--ink); margin: 0 0 10px 0;">Acute Stenting &amp; Upfront Rx</h3>
-          <p style="font-size: 20px; line-height: 1.5; color: var(--ink-2); margin: 0;">
-            Primary PCI completed. Baseline lipid panel drawn. Initiate <strong>Atorvastatin 80 mg + Ezetimibe 10 mg</strong> before discharge.
+          <h3 style="font-size: 24px; margin: 0 0 10px 0;">Stent + Upfront Rx</h3>
+          <p style="font-size: 20px; line-height: 1.5; color: var(--ink-2);">
+            Place LAD stent. Start <strong>Statin + Ezetimibe</strong> before discharge.
           </p>
-        </div>
-        <div style="background: var(--line-2); border-radius: 8px; padding: 10px; font-size: 17px; font-weight: 700; color: var(--navy); margin-top: 12px;">
-          Lock in combination therapy early
         </div>
       </div>
 
       <!-- Step 2 -->
-      <div class="k-step-card" data-s="2">
+      <div class="k-time-node" data-s="2">
         <div>
-          <div class="k-step-num" style="background: var(--navy);">2</div>
-          <span class="k-badge navy" style="font-size: 16px; margin-bottom: 8px;">Weeks 4 to 6</span>
-          <h3 style="font-size: 24px; color: var(--ink); margin: 0 0 10px 0;">First Follow-up Lipid Check</h3>
-          <p style="font-size: 20px; line-height: 1.5; color: var(--ink-2); margin: 0;">
-            Check fasting lipid profile, ALT/AST, and medication adherence. Evaluate whether LDL has crossed below <strong>55 mg/dL</strong>.
+          <div class="k-time-num" style="background: var(--navy);">2</div>
+          <span class="k-badge navy" style="font-size: 16px; margin-bottom: 8px;">Week 4 to 6</span>
+          <h3 style="font-size: 24px; margin: 0 0 10px 0;">Check Lipid Panel</h3>
+          <p style="font-size: 20px; line-height: 1.5; color: var(--ink-2);">
+            Re-test fasting LDL. Did he cross below <strong>55 mg/dL</strong>?
           </p>
-        </div>
-        <div style="background: var(--line-2); border-radius: 8px; padding: 10px; font-size: 17px; font-weight: 700; color: var(--navy); margin-top: 12px;">
-          Early check prevents therapeutic delay
         </div>
       </div>
 
       <!-- Step 3 -->
-      <div class="k-step-card" data-s="3">
+      <div class="k-time-node" data-s="3">
         <div>
-          <div class="k-step-num" style="background: var(--sage);">3</div>
-          <span class="k-badge sage" style="font-size: 16px; margin-bottom: 8px;">Week 6 (Decision)</span>
-          <h3 style="font-size: 24px; color: var(--ink); margin: 0 0 10px 0;">Escalate if LDL &ge; 55</h3>
-          <p style="font-size: 20px; line-height: 1.5; color: var(--ink-2); margin: 0;">
-            If LDL &ge; 55 mg/dL, add <strong>PCSK9 inhibitor</strong> (Evolocumab 140 mg Q2W) or Inclisiran without hesitation.
+          <div class="k-time-num" style="background: var(--sage);">3</div>
+          <span class="k-badge sage" style="font-size: 16px; margin-bottom: 8px;">Decision Point</span>
+          <h3 style="font-size: 24px; margin: 0 0 10px 0;">Escalate if Needed</h3>
+          <p style="font-size: 20px; line-height: 1.5; color: var(--ink-2);">
+            If LDL is still &ge; 55 mg/dL, add <strong>PCSK9 inhibitor</strong> promptly.
           </p>
-        </div>
-        <div style="background: var(--line-2); border-radius: 8px; padding: 10px; font-size: 17px; font-weight: 700; color: var(--sage); margin-top: 12px;">
-          Triple therapy achieves goal
         </div>
       </div>
 
       <!-- Step 4 -->
-      <div class="k-step-card" data-s="4">
+      <div class="k-time-node" data-s="4">
         <div>
-          <div class="k-step-num" style="background: var(--navy);">4</div>
-          <span class="k-badge butter" style="font-size: 16px; margin-bottom: 8px; color: var(--ink);">Long-Term</span>
-          <h3 style="font-size: 24px; color: var(--ink); margin: 0 0 10px 0;">Plaque Regression &amp; Lifestyle</h3>
-          <p style="font-size: 20px; line-height: 1.5; color: var(--ink-2); margin: 0;">
-            Maintain LDL &lt; 55 mg/dL. Cardiac rehabilitation, reduced overtime, family support, and annual lipid monitoring.
+          <div class="k-time-num" style="background: var(--navy);">4</div>
+          <span class="k-badge butter" style="font-size: 16px; margin-bottom: 8px; color: var(--ink);">Long Term</span>
+          <h3 style="font-size: 24px; margin: 0 0 10px 0;">Maintain &amp; Live Well</h3>
+          <p style="font-size: 20px; line-height: 1.5; color: var(--ink-2);">
+            Keep LDL &lt; 55 mg/dL. Cardiac rehab, reduce overtime, visit family.
           </p>
-        </div>
-        <div style="background: var(--line-2); border-radius: 8px; padding: 10px; font-size: 17px; font-weight: 700; color: var(--navy); margin-top: 12px;">
-          Long-term event-free survival
         </div>
       </div>
 
     </div>
 
-    <div data-s="4" class="k-banner sage" style="margin-top: 20px; font-size: 23px;">
-      🎯 <strong>Goal Achieved:</strong> Sustained LDL suppression drives fibrous cap thickening and active atheroma regression across all coronary branches.
+    <div data-s="4" style="background: var(--sage-wash); border-radius: 14px; padding: 18px 24px; border: 2px solid var(--sage); font-size: 23px; font-weight: 800; color: var(--sage); margin-top: 18px;">
+      🎯 <strong>Goal:</strong> Early combination therapy halts atherosclerosis and prevents the next heart attack!
     </div>
 
-    <p class="k-cite">1. 2026 ACC/AHA Guideline on the Management of Dyslipidemia. Circulation. 2026. PMID: 41824552.<br>2. Mach F, et al. 2019 ESC/EAS Guidelines for the management of dyslipidaemias. Eur Heart J. 2020;41(1):111-188.</p>
+    <p class="k-cite">1. 2026 ACC/AHA Dyslipidemia Guideline. Circulation. 2026. PMID: 41824552.<br>2. Mach F, et al. Eur Heart J. 2020;41(1):111-188.</p>
   </div>
   <template class="k-narr">
-    <p data-step="0">Here is our comprehensive four-step clinical roadmap for Mr. Hong.</p>
-    <p data-step="1">Step one takes place on day one in the hospital: revascularize the culprit lesion and initiate upfront high-intensity statin plus ezetimibe before discharge.</p>
-    <p data-step="2">Step two is scheduled at four to six weeks: order a repeat lipid panel to measure the actual response and verify tolerance.</p>
-    <p data-step="3">Step three is the decision fork: if his LDL remains fifty-five or higher, escalate immediately by adding a PCSK9 inhibitor.</p>
-    <p data-step="4">Finally, step four ensures long-term plaque stability through cardiac rehab, lifestyle balance, and continuous lipid control.</p>
+    <p data-step="0">Here is our clear four-step roadmap for Mr. Hong.</p>
+    <p data-step="1">Step one: place the stent and start combination statin plus ezetimibe before discharge.</p>
+    <p data-step="2">Step two: re-test his cholesterol in four to six weeks.</p>
+    <p data-step="3">Step three: if he is not below fifty-five, add a PCSK9 inhibitor without delay.</p>
+    <p data-step="4">Step four: maintain low cholesterol and healthy lifestyle for long-term survival.</p>
   </template>
 </section>
 
 
 
-<section class="k-slide" data-chapter="Summary" data-title="Four Clinical Pearls">
+<section class="k-slide" data-chapter="Conclusion" data-title="Conclusion">
   <div class="k-head">
-    <h2>Take-Home Pearls: What Every Young Clinician Must Remember</h2>
-    <p class="k-sub">Four core principles that translate trial evidence into bedside clinical practice</p>
+    <h2>Conclusion: Mr. Hong's Healthy Future</h2>
+    <p class="k-sub">How evidence-based secondary prevention saved his heart and life</p>
   </div>
   <div class="k-body">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; flex: 1 1 auto; min-height: 0;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; flex: 1 1 auto;">
       
-      <div class="k-panel navy" data-s="1" style="padding: 22px 28px; display: flex; flex-direction: column; justify-content: space-between;">
+      <!-- Left: Outcome -->
+      <div class="k-card-box sage" data-s="1">
         <div>
-          <span class="k-badge navy" style="font-size: 18px; margin-bottom: 8px;">Pearl 1</span>
-          <h3 style="font-size: 26px; color: var(--navy); margin: 0 0 10px 0;">Stenting Saves Today; Lipids Save Tomorrow</h3>
-          <p style="font-size: 23px; line-height: 1.55; color: var(--ink); margin: 0;">
-            A stent only covers millimeters of focal obstruction. Atherosclerosis is a systemic, progressive vascular disease. Over 50% of recurrent infarctions stem from non-culprit sites.
-          </p>
+          <span class="k-badge sage" style="margin-bottom: 12px;">Patient Outcome</span>
+          <h3 style="color: var(--sage);">Mr. Hong is Thriving</h3>
+          <ul>
+            <li>Discharged on <strong>Statin + Ezetimibe</strong> combination.</li>
+            <li>At 6-week follow-up, his LDL dropped to <strong>52 mg/dL</strong>!</li>
+            <li>Goal successfully achieved without needing PCSK9 escalation.</li>
+            <li>Completed cardiac rehab, reduced overtime, visits parents weekly.</li>
+          </ul>
+        </div>
+        <div style="background: white; border-radius: 12px; padding: 14px 20px; font-size: 22px; font-weight: 800; color: var(--sage); margin-top: 14px;">
+          ✓ Secondary heart attack prevented!
         </div>
       </div>
 
-      <div class="k-panel sage" data-s="2" style="padding: 22px 28px; display: flex; flex-direction: column; justify-content: space-between;">
+      <!-- Right: Q&A & QR -->
+      <div class="k-card-box navy" data-s="2">
         <div>
-          <span class="k-badge sage" style="font-size: 18px; margin-bottom: 8px;">Pearl 2</span>
-          <h3 style="font-size: 26px; color: var(--sage); margin: 0 0 10px 0;">Remember the Target: &lt; 55 mg/dL</h3>
-          <p style="font-size: 23px; line-height: 1.55; color: var(--ink); margin: 0;">
-            In post-MI secondary prevention, the mandatory target is both a &ge;50% reduction from baseline AND an absolute LDL &lt; 55 mg/dL (1.4 mmol/L). Plaque regresses only below this threshold.
-          </p>
-        </div>
-      </div>
-
-      <div class="k-panel terra" data-s="3" style="padding: 22px 28px; display: flex; flex-direction: column; justify-content: space-between;">
-        <div>
-          <span class="k-badge terra" style="font-size: 18px; margin-bottom: 8px;">Pearl 3</span>
-          <h3 style="font-size: 26px; color: var(--terra); margin: 0 0 10px 0;">Do the Arithmetic: Upfront Combination</h3>
-          <p style="font-size: 23px; line-height: 1.55; color: var(--ink); margin: 0;">
-            If baseline LDL is &gt;110 mg/dL, statin monotherapy cannot mathematically reach &lt;55 mg/dL. Prescribe upfront Statin + Ezetimibe to avoid therapeutic inertia.
-          </p>
-        </div>
-      </div>
-
-      <div class="k-panel butter" data-s="4" style="padding: 22px 28px; display: flex; flex-direction: column; justify-content: space-between;">
-        <div>
-          <span class="k-badge butter" style="font-size: 18px; margin-bottom: 8px; color: var(--ink);">Pearl 4</span>
-          <h3 style="font-size: 26px; color: #855d00; margin: 0 0 10px 0;">Re-evaluate Early at 4 to 6 Weeks</h3>
-          <p style="font-size: 23px; line-height: 1.55; color: var(--ink); margin: 0;">
-            Do not wait 3 to 6 months. Check fasting lipids at 4-6 weeks to evaluate response and rapidly escalate to PCSK9 inhibitors if still above goal.
-          </p>
-        </div>
-      </div>
-
-    </div>
-    <p class="k-cite">1. 2026 ACC/AHA Dyslipidemia Guideline. Circulation. 2026. PMID: 41824552.<br>2. 2019 ESC/EAS Guidelines for the management of dyslipidaemias. Eur Heart J. 2020;41(1):111-188. PMID: 31473270.</p>
-  </div>
-  <template class="k-narr">
-    <p data-step="0">To summarize today's discussion, here are four essential pearls for clinical practice.</p>
-    <p data-step="1">First: Stenting saves the patient today, but aggressive lipid control saves them tomorrow. Half of future events come from non-culprit lesions.</p>
-    <p data-step="2">Second: Keep the target in mind: at least a fifty percent reduction and an absolute LDL below fifty-five milligrams per deciliter.</p>
-    <p data-step="3">Third: Always do the math early. If baseline LDL exceeds one hundred and ten, start combination statin and ezetimibe upfront.</p>
-    <p data-step="4">Fourth: Re-evaluate lipids at four to six weeks. Do not let clinical inertia delay life-saving escalation with PCSK9 inhibitors.</p>
-  </template>
-</section>
-
-
-
-<section class="k-slide" data-chapter="Conclusion" data-title="Conclusion & Discussion">
-  <div class="k-head">
-    <h2>Conclusion &amp; Case Resolution</h2>
-    <p class="k-sub">Returning Mr. Hong to a healthy, productive life with evidence-based secondary prevention</p>
-  </div>
-  <div class="k-body">
-    <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 32px; flex: 1 1 auto; min-height: 0;">
-      
-      <!-- Left: Case resolution -->
-      <div class="k-panel sage" data-s="1" style="display: flex; flex-direction: column; justify-content: space-between; padding: 26px 30px;">
-        <div>
-          <span class="k-badge sage" style="font-size: 19px; margin-bottom: 12px;">Case Resolution</span>
-          <h3 style="font-size: 28px; color: var(--sage); margin: 0 0 14px 0;">Mr. Hong's Outcome</h3>
-          <p style="font-size: 24px; line-height: 1.6; color: var(--ink);">
-            Following cardiac rehabilitation, Mr. Hong returned home safely. He reduced work overtime, began regular exercise, and visits his parents more frequently.
-          </p>
-          <p style="font-size: 24px; line-height: 1.6; color: var(--ink); margin-top: 14px;">
-            Discharged on <strong>Atorvastatin 80 mg + Ezetimibe 10 mg</strong>, his 6-week follow-up LDL reached <strong>52 mg/dL</strong>, successfully meeting the secondary prevention target without requiring PCSK9 escalation!
-          </p>
-        </div>
-        <div class="k-banner sage" style="font-size: 22px;">
-          ✓ Target Met: Plaque stabilized, secondary heart attack prevented.
-        </div>
-      </div>
-
-      <!-- Right: Q&A / Presenter card -->
-      <div class="k-panel navy" data-s="2" style="display: flex; flex-direction: column; justify-content: space-between; padding: 26px 30px;">
-        <div>
-          <span class="k-badge navy" style="font-size: 19px; margin-bottom: 12px;">Open for Discussion</span>
-          <h3 style="font-size: 32px; color: var(--navy); margin: 0 0 14px 0;">Thank You for Your Attention</h3>
-          <div style="background: white; border-radius: 14px; padding: 18px 22px; border: 2px solid var(--navy); margin-top: 14px; display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+          <span class="k-badge navy" style="margin-bottom: 12px;">Open for Discussion</span>
+          <h3 style="color: var(--navy);">Thank You!</h3>
+          <div style="background: white; border-radius: 14px; padding: 18px 22px; border: 2px solid var(--navy); display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 12px;">
             <div style="flex: 1 1 auto;">
               <p style="font-size: 26px; font-weight: 900; color: var(--ink); margin: 0;">CHEN, CHIH-WEI</p>
-              <p style="font-size: 20px; color: var(--navy); font-weight: 700; margin: 4px 0 0 0;">Third-Year Medical Student, National Taiwan University</p>
-              <p style="font-size: 17px; color: var(--muted); margin: 6px 0 0 0;">Case Unit 3: Cardiovascular System</p>
+              <p style="font-size: 20px; color: var(--navy); font-weight: 700; margin: 4px 0 0 0;">Third-Year Medical Student, NTU</p>
+              <p style="font-size: 17px; color: var(--muted); margin: 4px 0 0 0;">Case Unit 3: Cardiovascular System</p>
             </div>
             <div style="text-align: center; flex: 0 0 130px;">
               <img src="assets/qrcode.png" alt="Mobile QR Code" style="width: 120px; height: 120px; border-radius: 8px; border: 1px solid var(--line);">
-              <span style="display: block; font-size: 14px; font-weight: 800; color: var(--navy); margin-top: 4px;">Mobile Deck</span>
+              <span style="display: block; font-size: 14px; font-weight: 800; color: var(--navy); margin-top: 4px;">Scan for Mobile</span>
             </div>
           </div>
         </div>
-        <div style="background: white; border-radius: 12px; padding: 16px 20px; font-size: 22px; font-weight: 800; color: var(--navy); text-align: center;">
-          💬 Questions, comments, and discussion are welcome!
+        <div style="background: white; border-radius: 12px; padding: 14px 20px; font-size: 22px; font-weight: 800; color: var(--navy); text-align: center; margin-top: 14px;">
+          💬 Questions and discussion are warmly welcomed!
         </div>
       </div>
 
     </div>
-    <p class="k-cite">1. Braunwald's Heart Disease: A Textbook of Cardiovascular Medicine. 13th ed. Philadelphia, PA: Elsevier; 2026.<br>2. 2026 ACC/AHA Guideline on the Management of Dyslipidemia. Circulation. 2026. PMID: 41824552.</p>
+    <p class="k-cite">1. 2026 ACC/AHA Dyslipidemia Guideline. Circulation. 2026. PMID: 41824552.<br>2. Braunwald's Heart Disease: A Textbook of Cardiovascular Medicine. 13th ed. Elsevier; 2026.</p>
   </div>
   <template class="k-narr">
-    <p data-step="0">In conclusion, Mr. Hong's journey exemplifies modern cardiovascular care.</p>
-    <p data-step="1">Thanks to prompt primary stenting and upfront combination lipid therapy, his six-week LDL-C dropped to fifty-two milligrams per deciliter, successfully achieving our target and protecting his coronary tree.</p>
-    <p data-step="2">Thank you very much for your time and attention. I am now delighted to take any questions or comments from the audience.</p>
+    <p data-step="0">To conclude, Mr. Hong's story shows the power of early combination treatment.</p>
+    <p data-step="1">With statin plus ezetimibe, his six-week LDL reached fifty-two, beating our target.</p>
+    <p data-step="2">Thank you very much for listening. I welcome any questions or discussion.</p>
   </template>
 </section>
 
@@ -798,7 +746,7 @@
       <button class="go sage" id="kgo-auto">Start Auto Play</button>
     </div>
   </div>
-  <p class="kb">版本 20261028-b1ae｜Auto Play Controls: Space: Pause/Resume ｜ &larr; &rarr;: Previous/Next Sentence ｜ S: Subtitles ｜ M: Music ｜ Move mouse for toolbar ｜ "Menu" to return here</p>
+  <p class="kb">版本 20261028-f243｜Auto Play Controls: Space: Pause/Resume ｜ &larr; &rarr;: Previous/Next Sentence ｜ S: Subtitles ｜ M: Music ｜ Move mouse for toolbar ｜ "Menu" to return here</p>
 </div></div>
 
 <!-- Playback Controls (100% English) -->
@@ -829,7 +777,7 @@
 
 <audio id="k-voice" preload="auto"></audio>
 <audio id="k-bgm" preload="auto" loop></audio>
-<script src="beats.js?v=88f2890b"></script>
+<script src="beats.js?v=141614fd"></script>
 <script src="deck.js?v=f3c39f3e"></script>
 </body>
 </html>
