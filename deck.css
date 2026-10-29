@@ -34,8 +34,8 @@ strong{font-weight:900}
 /* ---------- stage ---------- */
 #k-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;
   transform-origin:0 0;overflow:hidden;background:var(--paper)}  /* 左上角縮放＋平移：手機不跑版 */
-.k-slide{position:absolute;inset:0;padding:72px var(--pad) 84px;display:none;
-  flex-direction:column;background:var(--paper)}
+.k-slide{position:absolute;inset:0;padding:52px var(--pad) 68px;display:none;
+  flex-direction:column;background:var(--paper);box-sizing:border-box}
 .k-slide.is-active{display:flex}
 
 /* ---------- head ---------- */
@@ -59,8 +59,8 @@ strong{font-weight:900}
 #k-track{flex:1 1 auto;height:6px;border-radius:3px;background:var(--line-2);overflow:hidden}
 #k-bar{height:100%;width:0;background:var(--butter);transition:width .3s ease}
 #k-counter{font-variant-numeric:tabular-nums;font-weight:800;color:var(--ink-2);white-space:nowrap}
-.k-cite{flex:0 0 auto;margin:18px 0 0;padding-top:12px;border-top:2px solid var(--line-2);
-  font-size:18px;line-height:1.45;color:var(--muted)}
+.k-cite{flex:0 0 auto;margin-top:auto;padding-top:10px;border-top:1.5px solid var(--line-2);
+  font-size:19px;line-height:1.4;color:var(--muted);min-height:32px}
 
 /* ---------- cover ---------- */
 .k-cover{padding:0}
