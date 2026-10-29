@@ -1,1164 +1,1116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Preventing the Next Heart Attack: LDL Cholesterol Management After STEMI</title>
-<link rel="stylesheet" href="fonts.css?v=5bea1193">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preventing the Next Heart Attack: LDL Management</title>
+  <link rel="stylesheet" href="fonts.css?v=5bea1193">
 <link rel="stylesheet" href="deck.css?v=039458c3">
-<style>
-/* ==========================================================================
-   html-deck-layout-guard ENFORCED BILINGUAL STYLING
-   ========================================================================== */
-:root {
-  --pad: 76px;
-  --navy: #1E2833;
-  --navy-wash: rgba(30, 40, 51, 0.08);
-  --sage: #2D6A4F;
-  --sage-wash: rgba(45, 106, 79, 0.08);
-  --terra: #A44A3F;
-  --terra-wash: rgba(164, 74, 63, 0.08);
-  --gold: #D4A373;
-  --gold-wash: rgba(212, 163, 115, 0.12);
-  --paper: #FAF8F5;
-  --card-bg: #FFFFFF;
-  --line: #E2DDD5;
-  --line-2: #EFECE6;
-  --ink: #1C1917;
-  --ink-2: #44403C;
-  --muted: #78716C;
-}
+  <style>
+    /* ==========================================================================
+       Bilingual Toggle & Zero-Collision Layout System
+       ========================================================================== */
+    body.lang-en .t-zh { display: none !important; }
+    body.lang-en .t-en { display: inline !important; }
+    body.lang-en .t-block-zh { display: none !important; }
+    body.lang-en .t-block-en { display: block !important; }
 
-.k-slide {
-  position: absolute;
-  inset: 0;
-  padding: 44px var(--pad) 56px;
-  background: var(--paper);
-  display: none;
-  flex-direction: column;
-}
-.k-slide.is-active {
-  display: flex;
-}
+    body.lang-zh .t-en { display: none !important; }
+    body.lang-zh .t-zh { display: inline !important; }
+    body.lang-zh .t-block-en { display: none !important; }
+    body.lang-zh .t-block-zh { display: block !important; }
 
-/* Tier 1 & 2: Slide Header & Chapter Navigation */
-.k-head {
-  flex: 0 0 auto;
-  margin-bottom: 16px;
-  padding-right: 480px; /* IRON RULE: Guaranteed clearance for .k-nav */
-}
-.k-slide h2 {
-  font-size: 46px;
-  line-height: 1.18;
-  font-weight: 900;
-  margin: 0;
-  color: var(--ink);
-  letter-spacing: -0.01em;
-}
-.k-sub {
-  font-size: 23px;
-  line-height: 1.35;
-  color: var(--ink-2);
-  margin-top: 6px;
-  margin-bottom: 0;
-}
-.k-sub .zh {
-  color: var(--navy);
-  font-weight: 700;
-}
+    /* Language Switcher Pill in Header */
+    .k-lang-toggle {
+      position: absolute;
+      top: 10px;
+      right: var(--pad);
+      z-index: 30;
+      position: absolute;
+      top: 48px;
+      right: 500px;
+      z-index: 25;
+      background: var(--paper);
+      border: 1.5px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+      transition: all .2s ease;
+    }
+    .k-lang-toggle:hover {
+      background: #fff;
+      border-color: var(--navy);
+      transform: translateY(-1px);
+    }
 
-/* Chapter Nav Pills (Top Right) */
-.k-nav {
-  position: absolute;
-  top: 40px;
-  right: var(--pad);
-  display: flex;
-  gap: 8px;
-  z-index: 10;
-  max-width: 440px;
-}
-.k-nav button {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--muted);
-  padding: 6px 14px;
-  border: 2px solid var(--line);
-  border-radius: 999px;
-  background: #FFFFFF;
-  cursor: pointer;
-  white-space: nowrap;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.04);
-  transition: all 0.2s ease;
-}
-.k-nav button:hover {
-  border-color: var(--navy);
-  color: var(--navy);
-}
-.k-nav button.on {
-  color: #FFFFFF;
-  background: var(--navy);
-  border-color: var(--navy);
-  box-shadow: 0 2px 8px rgba(30, 40, 51, 0.2);
-}
-
-/* Tier 3: Body & Cards */
-.k-body {
-  flex: 1 1 auto;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.k-content {
-  flex: 1 1 auto;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-bottom: 24px; /* Guaranteed >=20px clearance before .k-cite */
-}
-
-/* Tier 4: Citations */
-.k-cite {
-  flex: 0 0 auto;
-  font-size: 15px;
-  line-height: 1.4;
-  color: var(--muted);
-  margin-top: 0;
-  padding-top: 6px;
-  border-top: 2px solid var(--line-2);
-}
-
-/* Card Styling */
-.k-card {
-  background: var(--card-bg);
-  border: 2px solid var(--line);
-  border-radius: 20px;
-  padding: 22px 26px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.03);
-  position: relative;
-}
-.k-card.navy { border-top: 8px solid var(--navy); }
-.k-card.sage { border-top: 8px solid var(--sage); }
-.k-card.terra { border-top: 8px solid var(--terra); }
-.k-card.gold { border-top: 8px solid var(--gold); }
-
-.k-card h3 {
-  font-size: 30px;
-  font-weight: 800;
-  margin: 0 0 10px 0;
-  line-height: 1.25;
-}
-.k-card h3 .zh {
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--muted);
-  margin-left: 6px;
-}
-.k-card p, .k-card ul {
-  font-size: 23px;
-  line-height: 1.45;
-  color: var(--ink-2);
-  margin: 0;
-}
-.k-card ul {
-  padding-left: 26px;
-  margin-top: 6px;
-}
-.k-card li {
-  margin-bottom: 6px;
-}
-.k-card .zh-sub {
-  display: block;
-  font-size: 19px;
-  color: var(--muted);
-  margin-top: 2px;
-}
-
-/* Badges & Tags */
-.k-badge {
-  display: inline-block;
-  padding: 4px 14px;
-  border-radius: 999px;
-  font-size: 17px;
-  font-weight: 800;
-  margin-bottom: 8px;
-}
-.k-badge.navy { background: var(--navy-wash); color: var(--navy); }
-.k-badge.sage { background: var(--sage-wash); color: var(--sage); }
-.k-badge.terra { background: var(--terra-wash); color: var(--terra); }
-.k-badge.gold { background: var(--gold-wash); color: var(--gold); }
-
-/* KPI Display Boxes */
-.k-kpi-wrap {
-  display: flex;
-  gap: 16px;
-  margin: 10px 0 14px 0;
-}
-.k-kpi-box {
-  flex: 1 1 0;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 12px 14px;
-  text-align: center;
-}
-.k-kpi-num {
-  font-size: 54px;
-  font-weight: 900;
-  line-height: 1.05;
-  display: block;
-}
-.k-kpi-text {
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--muted);
-  margin-top: 2px;
-  display: block;
-}
-.k-kpi-zh {
-  font-size: 15px;
-  color: var(--ink-2);
-  display: block;
-}
-
-/* Visual Mechanism Diagrams & Flow Arrows */
-.k-mech-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin: 10px 0;
-}
-.k-mech-node {
-  flex: 1;
-  background: var(--paper);
-  border: 2px solid var(--line);
-  border-radius: 14px;
-  padding: 14px;
-  text-align: center;
-}
-.k-mech-arrow {
-  flex: 0 0 auto;
-  font-size: 26px;
-  font-weight: 900;
-  color: var(--gold);
-}
-
-/* Bottom Callout Banner inside Cards */
-.k-banner {
-  padding: 12px 18px;
-  border-radius: 12px;
-  font-size: 20px;
-  font-weight: 800;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  margin-top: 12px;
-}
-.k-banner.sage { background: var(--sage-wash); color: var(--sage); }
-.k-banner.terra { background: var(--terra-wash); color: var(--terra); }
-.k-banner.gold { background: var(--gold-wash); color: #8C5E2D; }
-.k-banner .b-zh {
-  font-size: 17px;
-  font-weight: 600;
-  opacity: 0.9;
-}
-
-/* Timeline Stepper (Slide 9) */
-.k-timeline {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-}
-.k-time-col {
-  background: #FFFFFF;
-  border: 2px solid var(--line);
-  border-radius: 18px;
-  padding: 20px 22px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.k-time-col.active { border-top: 8px solid var(--sage); }
-.k-time-col.subacute { border-top: 8px solid var(--gold); }
-.k-time-col.chronic { border-top: 8px solid var(--navy); }
-</style>
+    /* H2 single-line enforcement */
+    .k-head h2 { font-size: 42px !important; line-height: 1.25 !important; margin: 6px 0 !important; }
+    .k-head p.k-sub { font-size: 22px !important; margin-top: 4px !important; }
+    /* Head max-width to strictly guarantee safe clearance with Nav */
+    .k-head {
+      max-width: 1200px !important;
+      padding-right: 0 !important;
+    }
+  </style>
 </head>
-<body>
+<body class="lang-en">
+  <!-- Top Language Switcher -->
+  <button id="k-lang-toggle" class="k-lang-toggle" onclick="window.__toggleLang()" title="Toggle Language (切換語言)">
+    <b>EN</b> / 中文
+  </button>
 
-<main id="k-stage">
+  <main id="k-stage">
 
-<!-- ==========================================================================
-     SLIDE 01: TITLE COVER (Chapter: 1. Case | No Nav)
-     ========================================================================== -->
-<section class="k-slide k-cover" data-chapter="1. Case" data-nonav="1" data-title="Title Slide">
-  <div class="k-cover-copy" style="top: 110px; width: 1120px;">
-    <span class="k-badge navy" style="font-size: 20px; padding: 6px 18px;">2026 Clinical Cardiology Lecture ｜ 臨床心臟學全方位講座</span>
-    <h1 style="font-size: 58px; line-height: 1.15; font-weight: 900; color: var(--ink); margin: 16px 0 8px 0;">Preventing the Next Heart Attack:<br><span style="color: var(--sage);">LDL Management After STEMI</span></h1>
-    <p style="font-size: 32px; font-weight: 800; color: var(--navy); margin: 0 0 14px 0;">預防下一次心肌梗塞：STEMI 後的 LDL 膽固醇全方位管理</p>
-    <p class="k-cover-sub" style="font-size: 24px; line-height: 1.4; color: var(--ink-2); max-width: 980px;">A Comprehensive Journey from Acute Intervention to Chronic Prevention: Bridging Non-Pharmacological Care & Stepwise Lipid Therapies<br><span style="color: var(--muted); font-size: 21px;">從急性導管處置、非藥物生活介入到階梯式降脂藥物的全人照護實證</span></p>
-    
-    <div style="margin-top: 40px; padding-top: 24px; border-top: 2px solid var(--line); display: flex; align-items: center; gap: 24px;">
-      <div style="width: 72px; height: 72px; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; color: #FFF; font-weight: 900; font-size: 28px;">CW</div>
-      <div>
-        <p class="k-author" style="font-size: 28px; font-weight: 800; color: var(--ink); margin: 0;">CHEN, CHIH-WEI ｜ 陳致瑋</p>
-        <p class="k-org" style="font-size: 22px; color: var(--muted); margin-top: 4px;">Third-Year Medical Student, National Taiwan University ｜ 台大醫學系三年級</p>
-      </div>
-    </div>
-  </div>
-  <template class="k-narr">
-    <p data-step="0">Good morning, professors and colleagues. I am Chih-Wei Chen from National Taiwan University. Today, we examine an essential clinical dilemma: why opening an occluded coronary artery with a stent is only the very first step in secondary prevention.</p>
-  </template>
-</section>
-
-<!-- ==========================================================================
-     SLIDE 02: CLINICAL CASE PRESENTATION (Chapter: 1. Case)
-     ========================================================================== -->
-<section class="k-slide" data-chapter="1. Case" data-title="Meet Mr. Hong">
-  <div class="k-head">
-    <h2>Meet Mr. Hong: Successful Stent, But Hidden Danger</h2>
-    <p class="k-sub"><span class="zh">洪先生的個案挑戰：成功置放支架，但體內仍潛伏致命高血脂</span> ｜ Acute PCI Success vs. Baseline Metabolic Danger</p>
-  </div>
-  <div class="k-body">
-    <div class="k-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
-      
-      <!-- Card 1: Cath Lab Success -->
-      <div class="k-card sage" data-s="1">
-        <div>
-          <span class="k-badge sage">Cath Lab Victory ｜ 急性心導管成就</span>
-          <h3 style="color: var(--sage);">1. The Blockage is Cleared <span class="zh">(急性阻塞解除)</span></h3>
-          <div class="k-kpi-wrap">
-            <div class="k-kpi-box">
-              <span class="k-kpi-num" style="color: var(--sage);">38m</span>
-              <span class="k-kpi-text">Door-to-Balloon</span>
-              <span class="k-kpi-zh">門球時間 (分鐘)</span>
-            </div>
-            <div class="k-kpi-box">
-              <span class="k-kpi-num" style="color: var(--navy);">TIMI 3</span>
-              <span class="k-kpi-text">Full Flow Restored</span>
-              <span class="k-kpi-zh">完全恢復灌流</span>
-            </div>
-          </div>
-          <ul>
-            <li><strong>Acute Anterior STEMI:</strong> 100% LAD occlusion with red thrombus.
-              <span class="zh-sub">前降支急性完全阻塞，血栓抽吸打通。</span>
-            </li>
-            <li><strong>Synergy Stent:</strong> 48 mm drug-eluting stent placed.
-              <span class="zh-sub">成功置放 48 毫米長段塗藥支架。</span>
-            </li>
-            <li><strong>Preserved Function:</strong> Post-PCI LVEF preserved at 58%.
-              <span class="zh-sub">左心室收縮分率良好維持於 58%。</span>
-            </li>
-          </ul>
-        </div>
-        <div class="k-banner sage">
-          <span>✓ Acute myocardium saved today!</span>
-          <span class="b-zh">今日成功挽救急性缺血心肌，心臟收縮功能順利保全</span>
-        </div>
+    <!-- Slide 01: Cover / Overview -->
+    <section class="k-slide is-active" data-chapter="1. Case" data-title="Title Slide" data-steps="0">
+      <div class="k-head" style="margin-bottom: 28px;">
+        <span class="k-tag">NTU Medicine • Clinical Cardiology 2026</span>
+        <h2 style="font-size: 42px; line-height: 1.25; margin-top: 10px;">
+          <span class="t-en">Preventing the Next Heart Attack: LDL Management</span>
+          <span class="t-zh">預防下一次心肌梗塞：STEMI 後的 LDL 膽固醇管理</span>
+        </h2>
+        <p class="k-sub" style="font-size: 26px; margin-top: 8px;">
+          <span class="t-en">CHEN, CHIH-WEI ｜ Third-Year Medical Student, National Taiwan University</span>
+          <span class="t-zh">陳致瑋 ｜ 國立臺灣大學醫學系三年級</span>
+        </p>
       </div>
 
-      <!-- Card 2: Metabolic Warning -->
-      <div class="k-card terra" data-s="2">
-        <div>
-          <span class="k-badge terra">Metabolic Warning ｜ 潛在代謝危機</span>
-          <h3 style="color: var(--terra);">2. The Underlying Threat <span class="zh">(體內潛伏威脅)</span></h3>
-          <div class="k-kpi-wrap">
-            <div class="k-kpi-box">
-              <span class="k-kpi-num" style="color: var(--terra);">173</span>
-              <span class="k-kpi-text">Baseline LDL (mg/dL)</span>
-              <span class="k-kpi-zh">基準低密度膽固醇</span>
-            </div>
-            <div class="k-kpi-box">
-              <span class="k-kpi-num" style="color: var(--navy);">756</span>
-              <span class="k-kpi-text">Troponin T (ng/L)</span>
-              <span class="k-kpi-zh">心肌壞死標記峰值</span>
-            </div>
-          </div>
-          <ul>
-            <li><strong>Severe Dyslipidemia:</strong> LDL-C 173 mg/dL, Total Cholesterol 254 mg/dL.
-              <span class="zh-sub">嚴重高血脂症，總膽固醇達 254 mg/dL。</span>
-            </li>
-            <li><strong>Low Protective HDL:</strong> 38 mg/dL with active smoking.
-              <span class="zh-sub">保護性高密度膽固醇偏低，且具長期抽菸史。</span>
-            </li>
-            <li><strong>The Core Dilemma:</strong> Stent fixed 48 mm of vessel. What about the rest?
-              <span class="zh-sub">支架修復了局部 48 毫米，其餘血管何去何從？</span>
-            </li>
-          </ul>
+      <div class="k-content" style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 28px; margin-bottom: 24px;">
+        <div class="k-card" style="border-left: 6px solid var(--accent); padding: 24px 28px; display: flex; flex-direction: column; justify-content: center;">
+          <span class="k-badge" style="background: rgba(184,80,48,.12); color: var(--accent); font-weight: 700; font-size: 20px; align-self: flex-start; margin-bottom: 20px;">
+            <span class="t-en">Clinical Dilemma from the Cath Lab</span>
+            <span class="t-zh">導管室急救後的關鍵臨床難題</span>
+          </span>
+          <h3 style="font-size: 36px; line-height: 1.35; color: var(--navy); margin-bottom: 22px;">
+            <span class="t-en">The acute vessel is wide open.<br>Why is Mr. Hong still at mortal risk?</span>
+            <span class="t-zh">急性阻塞血管已完全打通，<br>為何洪先生依然面臨致命危機？</span>
+          </h3>
+          <p style="font-size: 24px; line-height: 1.6; color: var(--text);">
+            <span class="t-en">A 48-year-old gentleman underwent successful primary PCI for an acute anterior STEMI. Revascularization was completed within 38 minutes. Yet his admission LDL-C was <b>173 mg/dL</b>. While the stent fixed a 48 mm segment, his entire vascular tree remains under attack.</span>
+            <span class="t-zh">48 歲洪先生因急性前壁心肌梗塞緊急接受心導管，38 分鐘內置放支架成功恢復血流。然而入院抽血顯示其 LDL-C 高達 <b>173 mg/dL</b>。支架僅修復了 48 毫米的血管，全身冠狀動脈樹依然處於高脂血症的全面威脅中。</span>
+          </p>
         </div>
-        <div class="k-banner terra">
-          <span>▲ Systemic vascular risk remains active!</span>
-          <span class="b-zh">全身冠狀動脈依然暴露於粥樣硬化破裂的高度威脅中</span>
-        </div>
-      </div>
 
-    </div>
-    <p class="k-cite">1. Damluji AA, et al. Mechanical Complications of Acute Myocardial Infarction. Circulation. 2021;144(2):e16-e35. PMID: 34126759.<br>2. Braunwald's Heart Disease: A Textbook of Cardiovascular Medicine. 13th ed. Elsevier; 2026. Chapters 34-38.</p>
-  </div>
-  <template class="k-narr">
-    <p data-step="0">Meet our patient, Mr. Hong, a forty-eight-year-old gentleman rushed to the ER with a severe anterior wall myocardial infarction.</p>
-    <p data-step="1">The cardiac team performed an exemplary job: within thirty-eight minutes, door-to-balloon time, they placed a forty-eight-millimeter drug-eluting stent and restored full TIMI three flow.</p>
-    <p data-step="2">However, admission lab results revealed an LDL cholesterol of 173 milligrams per deciliter. While the stent fixed a forty-eight-millimeter segment, this high systemic cholesterol continues to endanger the rest of his coronary tree.</p>
-  </template>
-</section>
-
-<!-- ==========================================================================
-     SLIDE 03: VASCULAR BIOLOGY & PLAQUE MECHANISM (Chapter: 1. Case)
-     ========================================================================== -->
-<section class="k-slide" data-chapter="1. Case" data-title="Plaque Biology">
-  <div class="k-head">
-    <h2>Local Stent vs. Systemic Plaque Biology</h2>
-    <p class="k-sub"><span class="zh">局部支架處置 vs. 全身動脈粥樣硬化病理機轉</span> ｜ Why 50% of Recurrent MIs Occur in Non-Stented Arteries</p>
-  </div>
-  <div class="k-body">
-    <div class="k-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
-      
-      <!-- Card 1: Stent Coverage vs Vessel Wall -->
-      <div class="k-card navy" data-s="1">
-        <div>
-          <span class="k-badge navy">Mechanical Limit ｜ 機械處置極限</span>
-          <h3 style="color: var(--navy);">The Mechanical Boundary <span class="zh">(侷限的覆蓋率)</span></h3>
-          <div style="background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 14px 18px; margin: 10px 0;">
-            <p style="font-size: 24px; font-weight: 800; color: var(--navy); margin-bottom: 4px;">Total Coronary Tree Length: ~1,000 mm (冠狀動脈總長)</p>
-            <p style="font-size: 20px; color: var(--muted); margin: 0;">Synergy Stent Coverage: <strong>48 mm (僅約佔 5% 範圍)</strong></p>
-          </div>
-          <ul>
-            <li><strong>Focal Repair:</strong> Resolves acute luminal thrombosis and ischemia.
-              <span class="zh-sub">支架僅解決局部的急性血栓阻塞。</span>
-            </li>
-            <li><strong>Systemic Inflammatory Disease:</strong> Atherosclerosis affects all vascular beds.
-              <span class="zh-sub">粥樣硬化是全身血管內皮的慢性慢性發炎反應。</span>
-            </li>
-            <li><strong>The Remaining 95%:</strong> Unprotected segments continuously exposed to LDL.
-              <span class="zh-sub">其餘 95% 血管隨時承受高濃度致粥樣血脂的侵襲。</span>
-            </li>
-          </ul>
-        </div>
-        <div class="k-banner gold">
-          <span>Stent seals the breach; it does NOT heal the vessel wall</span>
-          <span class="b-zh">支架修補了破口，但並不能治癒血管壁本身的代謝病變</span>
-        </div>
-      </div>
-
-      <!-- Card 2: Mechanism of Plaque Vulnerability -->
-      <div class="k-card terra" data-s="2">
-        <div>
-          <span class="k-badge terra">Pathology Mechanism ｜ 斑塊病理機轉</span>
-          <h3 style="color: var(--terra);">Plaque Vulnerability Mechanism <span class="zh">(破裂連鎖反應)</span></h3>
-          <div class="k-mech-row">
-            <div class="k-mech-node">
-              <strong style="color: var(--terra); font-size: 20px;">1. ApoB Infiltration</strong><br>
-              <span style="font-size: 16px; color: var(--muted);">LDL 滲透血管內膜</span>
-            </div>
-            <div class="k-mech-arrow">➔</div>
-            <div class="k-mech-node">
-              <strong style="color: var(--navy); font-size: 20px;">2. Foam Cells</strong><br>
-              <span style="font-size: 16px; color: var(--muted);">巨噬細胞泡沫化</span>
-            </div>
-            <div class="k-mech-arrow">➔</div>
-            <div class="k-mech-node">
-              <strong style="color: var(--terra); font-size: 20px;">3. Necrotic Core</strong><br>
-              <span style="font-size: 16px; color: var(--muted);">壞死核心薄帽斑塊</span>
-            </div>
-          </div>
-          <ul>
-            <li><strong>PROSPECT Trial:</strong> 50% of recurrent events in 3 years occur at non-culprit sites.
-              <span class="zh-sub">三年內半數復發心梗發生於非支架的脆弱斑塊部位。</span>
-            </li>
-            <li><strong>High Circulating LDL (173 mg/dL):</strong> Fuels continuous lipid core expansion.
-              <span class="zh-sub">高濃度的 LDL 是推動全身斑塊持續擴大與破裂的燃料。</span>
-            </li>
-          </ul>
-        </div>
-        <div class="k-banner terra">
-          <span>Targeting circulating LDL is essential to prevent re-infarction</span>
-          <span class="b-zh">強力降低全身性 LDL 是阻斷二次心梗破裂的唯一根本對策</span>
-        </div>
-      </div>
-
-    </div>
-    <p class="k-cite">1. Stone GW, et al. A Prospective Natural-History Study of Coronary Atherosclerosis (PROSPECT). N Engl J Med. 2011;364(3):226-235. PMID: 21247313.<br>2. Libby P. The Changing Landscape of Atherosclerosis. Nature. 2021;592(7855):524-533. PMID: 33883728.</p>
-  </div>
-  <template class="k-narr">
-    <p data-step="0">To protect Mr. Hong, we must clearly distinguish between a local vascular fix and a systemic disease process.</p>
-    <p data-step="1">His stent covers forty-eight millimeters. But the coronary arterial tree extends over one thousand millimeters. Stenting clears only five percent of his vessels.</p>
-    <p data-step="2">In the PROSPECT trial, half of all recurrent heart attacks occurred at non-stented sites. High circulating LDL particles continuously infiltrate the vessel wall, creating fragile plaques that can rupture at any moment.</p>
-  </template>
-</section>
-
-<!-- ==========================================================================
-     SLIDE 04: CLINICAL TARGETS (Chapter: 2. Targets)
-     ========================================================================== -->
-<section class="k-slide" data-chapter="2. Targets" data-title="Target < 55 mg/dL">
-  <div class="k-head">
-    <h2>2026 ACC/AHA Guideline: The Dual Target</h2>
-    <p class="k-sub"><span class="zh">2026 最新指引極高風險二級預防雙重門檻</span> ｜ Dual Goals: ≥ 50% Reduction AND Absolute LDL < 55 mg/dL</p>
-  </div>
-  <div class="k-body">
-    <div class="k-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
-      
-      <!-- Card 1: The Two Mandatory Rules -->
-      <div class="k-card navy" data-s="1">
-        <div>
-          <span class="k-badge navy">Guideline Mandate ｜ 指引強制標準</span>
-          <h3 style="color: var(--navy);">The Dual Clinical Targets <span class="zh">(雙重達標準則)</span></h3>
-          <div class="k-kpi-wrap">
-            <div class="k-kpi-box">
-              <span class="k-kpi-num" style="color: var(--navy);">≥ 50%</span>
-              <span class="k-kpi-text">Relative Reduction</span>
-              <span class="k-kpi-zh">基準值相對降幅</span>
-            </div>
-            <div class="k-kpi-box">
-              <span class="k-kpi-num" style="color: var(--sage);">&lt; 55</span>
-              <span class="k-kpi-text">Target LDL (mg/dL)</span>
-              <span class="k-kpi-zh">絕對值目標 (&lt; 1.4 mmol/L)</span>
-            </div>
-          </div>
-          <ul>
-            <li><strong>Rule 1 (Relative):</strong> Lower baseline LDL by at least 50%.
-              <span class="zh-sub">第一準則：必須從基準數值降低至少 50%。</span>
-            </li>
-            <li><strong>Rule 2 (Absolute):</strong> Reach absolute circulating LDL-C &lt; 55 mg/dL.
-              <span class="zh-sub">第二準則：絕對數值必須壓至 55 mg/dL 以下。</span>
-            </li>
-            <li><strong>Very-High-Risk ASCVD:</strong> Post-STEMI patients require immediate dual compliance.
-              <span class="zh-sub">STEMI 患者屬於極高風險族群，必須兩者同時滿足。</span>
-            </li>
-          </ul>
-        </div>
-        <div class="k-banner navy">
-          <span>Both criteria must be fulfilled simultaneously</span>
-          <span class="b-zh">相對降幅與絕對數值缺一不可，是極高風險患者的標準防線</span>
-        </div>
-      </div>
-
-      <!-- Card 2: Trial Evidence for Plaque Stabilization -->
-      <div class="k-card sage" data-s="2">
-        <div>
-          <span class="k-badge sage">Clinical Evidence ｜ 斑塊逆轉實證</span>
-          <h3 style="color: var(--sage);">Why Target &lt; 55 mg/dL? <span class="zh">(為何必須低於 55？)</span></h3>
-          <div style="background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 14px 18px; margin: 10px 0;">
-            <p style="font-size: 24px; font-weight: 800; color: var(--sage); margin-bottom: 4px;">Plaque Regression Threshold: &lt; 55 mg/dL</p>
-            <p style="font-size: 19px; color: var(--muted); margin: 0;">血管內超音波 (IVUS) 證實：只有降至 55 以下，斑塊體積才會實質縮小。</p>
-          </div>
-          <ul>
-            <li><strong>Lower is Better:</strong> Every 38.7 mg/dL (1 mmol/L) drop cuts major vascular events by 22% (CTT).
-              <span class="zh-sub">統合分析：每降 38.7 mg/dL，重大心血管事件減少 22%。</span>
-            </li>
-            <li><strong>Cap Thickening:</strong> Low LDL thickens fibrous caps, turning vulnerable lipid into stable scar tissue.
-              <span class="zh-sub">深度降脂能顯著增厚纖維帽，將易碎斑塊轉化為穩定疤痕組織。</span>
-            </li>
-          </ul>
-        </div>
-        <div class="k-banner sage">
-          <span>✓ Halts plaque growth and induces true regression</span>
-          <span class="b-zh">有效終止動脈斑塊進展，實現臨床影像學上的真正逆轉</span>
-        </div>
-      </div>
-
-    </div>
-    <p class="k-cite">1. 2026 ACC/AHA Guideline on the Management of Blood Cholesterol. Circulation. 2026;153(4):e112-e198.<br>2. Baigent C, et al. Efficacy and Safety of More Intensive Lowering of LDL Cholesterol (CTT Collaboration). Lancet. 2010;376(9753):1670-1681. PMID: 21067804.</p>
-  </div>
-  <template class="k-narr">
-    <p data-step="0">What is our evidence-based goal for Mr. Hong? The latest 2026 ACC and AHA guidelines mandate two strict rules for very-high-risk patients.</p>
-    <p data-step="1">First, achieve at least a fifty percent reduction from baseline. Second, reach an absolute LDL level below fifty-five milligrams per deciliter.</p>
-    <p data-step="2">Why below fifty-five? Intravascular ultrasound trials prove that atherosclerotic plaques stop growing and actually regress only when LDL drops below this critical threshold.</p>
-  </template>
-</section>
-
-<!-- ==========================================================================
-     SLIDE 05: NON-PHARMACOLOGICAL MANAGEMENT (Chapter: 2. Targets) [EMPHASIZED]
-     ========================================================================== -->
-<section class="k-slide" data-chapter="2. Targets" data-title="Lifestyle Management">
-  <div class="k-head">
-    <h2>Non-Pharmacological Therapy: The Lifestyle Foundation</h2>
-    <p class="k-sub"><span class="zh">非藥物治療：高血脂與心血管照護的堅實基石</span> ｜ Evidence-Based Diet, Exercise, and Rehabilitation</p>
-  </div>
-  <div class="k-body">
-    <div class="k-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
-      
-      <!-- Card 1: Dietary Interventions for Hyperlipidemia -->
-      <div class="k-card gold" data-s="1">
-        <div>
-          <span class="k-badge gold">Nutritional Strategy ｜ 降脂營養策略</span>
-          <h3 style="color: #8C5E2D;">1. Dietary Modulation <span class="zh">(高血脂飲食處方)</span></h3>
-          <ul>
-            <li><strong>Mediterranean Dietary Pattern:</strong> Emphasize EVOO, nuts, vegetables, and legumes (PREDIMED: 30% MACE drop).
-              <span class="zh-sub">地中海飲食：特級初榨橄欖油、堅果與豆類，減少 30% 心血管事件。</span>
-            </li>
-            <li><strong>Saturated & Trans Fats:</strong> Saturated fat &lt; 7% daily calories; eliminate trans fats.
-              <span class="zh-sub">飽和脂肪嚴格限制於每日總熱量 7% 以下，徹底杜絕反式脂肪。</span>
-            </li>
-            <li><strong>Viscous Soluble Fiber:</strong> 10–25 g/day from oats and psyllium binds intestinal bile acids.
-              <span class="zh-sub">每日 10–25 克水溶性膳食纖維（燕麥、洋車前子），促進膽鹽排出（降 5–10% LDL）。</span>
-            </li>
-            <li><strong>Plant Stanols / Sterols:</strong> 2 g/day competitively displaces cholesterol absorption.
-              <span class="zh-sub">每日 2 克植物固醇，競爭性抑制小腸膽固醇吸收（降 8–12% LDL）。</span>
-            </li>
-          </ul>
-        </div>
-        <div class="k-banner gold">
-          <span>Dietary synergy lowers LDL by 10%–15% and improves vascular endothelium</span>
-          <span class="b-zh">綜合飲食介入可降低約 10%–15% 膽固醇，並大幅修復血管內皮機能</span>
-        </div>
-      </div>
-
-      <!-- Card 2: Cardiac Rehab & Physical Activity -->
-      <div class="k-card sage" data-s="2">
-        <div>
-          <span class="k-badge sage">Rehabilitation ｜ 復健與行為介入</span>
-          <h3 style="color: var(--sage);">2. Cardiac Rehab & Lifestyle <span class="zh">(心臟復健與習慣)</span></h3>
-          <ul>
-            <li><strong>Phase I to II Cardiac Rehab:</strong> Exercise training reduces post-MI mortality by 26%.
-              <span class="zh-sub">一期住院至二期門診心臟復健：運動訓練降低 26% 總死亡率。</span>
-            </li>
-            <li><strong>Aerobic Activity:</strong> ≥ 150 min/week moderate exercise raises HDL and lowers TG.
-              <span class="zh-sub">每週 ≥ 150 分鐘中強度有氧運動，提高保護性 HDL 並降低三酸甘油酯。</span>
-            </li>
-            <li><strong>Complete Smoking Cessation:</strong> Halves recurrent infarction risk within 1 year.
-              <span class="zh-sub">徹底戒菸：終止內皮氧化壓力，一年內再發心梗風險直接減半。</span>
-            </li>
-            <li><strong>Metabolic Control:</strong> BMI &lt; 24 kg/m² to reduce insulin resistance and vascular inflammation.
-              <span class="zh-sub">體重控制：維持 BMI &lt; 24，減輕胰島素阻抗與全身血管慢性發炎。</span>
-            </li>
-          </ul>
-        </div>
-        <div class="k-banner sage">
-          <span>✓ Foundational for life, but diet alone cannot bridge a 118 mg/dL gap</span>
-          <span class="b-zh">生活型態是終生健康基石，但單靠飲食運動無法跨越洪先生 118 mg/dL 的治療缺口</span>
-        </div>
-      </div>
-
-    </div>
-    <p class="k-cite">1. Estruch R, et al. Primary Prevention of Cardiovascular Disease with a Mediterranean Diet (PREDIMED). N Engl J Med. 2018;378(25):e34. PMID: 29897866.<br>2. Ambrosetti M, et al. Secondary Prevention through Comprehensive Cardiovascular Rehabilitation. Eur J Prev Cardiol. 2021;27(18):1999-2021. PMID: 33647395.</p>
-  </div>
-  <template class="k-narr">
-    <p data-step="0">Before adding drugs, non-pharmacological management is the indispensable foundation for every heart attack patient.</p>
-    <p data-step="1">First, dietary changes: shifting to a Mediterranean diet, eliminating trans fats, and adding soluble fiber and plant stanols can lower circulating LDL by ten to fifteen percent.</p>
-    <p data-step="2">Second, structured cardiac rehabilitation and smoking cessation cut recurrent mortality by over twenty-five percent. However, for Mr. Hong with an LDL of 173, lifestyle alone cannot close the remaining gap to fifty-five.</p>
-  </template>
-</section>
-
-<!-- ==========================================================================
-     SLIDE 06: PHARMACOTHERAPY & THE MATH (Chapter: 3. Therapy)
-     ========================================================================== -->
-<section class="k-slide" data-chapter="3. Therapy" data-title="The 31.5 mg/dL Gap">
-  <div class="k-head">
-    <h2>The Math: Why Statin Monotherapy Fails Mr. Hong</h2>
-    <p class="k-sub"><span class="zh">臨床實算：高強度單藥治療為何必然留下 31.5 mg/dL 殘存缺口</span> ｜ Calculating Statin Power vs. Real Need</p>
-  </div>
-  <div class="k-body">
-    <div class="k-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
-      
-      <!-- Card 1: The Monotherapy Calculation -->
-      <div class="k-card terra" data-s="1">
-        <div>
-          <span class="k-badge terra">Step 1 Math ｜ 單藥極限計算</span>
-          <h3 style="color: var(--terra);">High-Intensity Statin Alone <span class="zh">(單用高強度 Statin)</span></h3>
-          <div class="k-kpi-wrap">
-            <div class="k-kpi-box">
-              <span class="k-kpi-num" style="color: var(--terra);">173</span>
-              <span class="k-kpi-text">Baseline LDL</span>
-              <span class="k-kpi-zh">基準值 (mg/dL)</span>
-            </div>
-            <div class="k-kpi-box">
-              <span class="k-kpi-num" style="color: var(--navy);">- 50%</span>
-              <span class="k-kpi-text">Max Statin Power</span>
-              <span class="k-kpi-zh">高強度 Statin 極限</span>
-            </div>
-            <div class="k-kpi-box">
-              <span class="k-kpi-num" style="color: var(--terra);">86.5</span>
-              <span class="k-kpi-text">Achieved Level</span>
-              <span class="k-kpi-zh">預期達成數值</span>
-            </div>
-          </div>
-          <ul>
-            <li><strong>Prescription:</strong> Atorvastatin 80 mg or Rosuvastatin 40 mg daily.
-              <span class="zh-sub">標準處方：每日 Atorvastatin 80mg 或 Rosuvastatin 40mg。</span>
-            </li>
-            <li><strong>Expected Drop:</strong> Average 50% reduction in circulating LDL-C.
-              <span class="zh-sub">預期降幅：平均降低約 50% 低密度膽固醇。</span>
-            </li>
-            <li><strong>Resulting Level:</strong> 173 × 0.50 = <strong>86.5 mg/dL</strong>.
-              <span class="zh-sub">預期數值：依然高達 86.5 mg/dL。</span>
-            </li>
-          </ul>
-        </div>
-        <div class="k-banner terra">
-          <span>Statin achieves Rule 1 (-50%), but FAILS Rule 2 (&lt; 55 mg/dL)</span>
-          <span class="b-zh">成功達到 50% 降幅標準，但完全無法達到 55 mg/dL 的絕對目標</span>
-        </div>
-      </div>
-
-      <!-- Card 2: The Residual Gap -->
-      <div class="k-card navy" data-s="2">
-        <div>
-          <span class="k-badge navy">Residual Risk ｜ 殘存缺口風險</span>
-          <h3 style="color: var(--navy);">The 31.5 mg/dL Residual Gap <span class="zh">(未達標的 31.5 缺口)</span></h3>
-          <div class="k-kpi-wrap">
-            <div class="k-kpi-box">
-              <span class="k-kpi-num" style="color: var(--terra);">86.5</span>
-              <span class="k-kpi-text">Statin Level</span>
-              <span class="k-kpi-zh">單藥達成</span>
-            </div>
-            <div class="k-kpi-box">
-              <span class="k-kpi-num" style="color: var(--sage);">&lt; 55</span>
-              <span class="k-kpi-text">Target Level</span>
-              <span class="k-kpi-zh">指引門檻</span>
-            </div>
-            <div class="k-kpi-box">
-              <span class="k-kpi-num" style="color: var(--terra);">+ 31.5</span>
-              <span class="k-kpi-text">Residual Gap</span>
-              <span class="k-kpi-zh">殘存差距</span>
-            </div>
-          </div>
-          <ul>
-            <li><strong>The "Rule of Six":</strong> Doubling statin dose yields only an extra 6% drop while doubling myopathy risks.
-              <span class="zh-sub">Statin 六法則：劑量加倍僅多降 6%，肌肉痠痛與肝功能異常風險卻倍增。</span>
-            </li>
-            <li><strong>Clinical Reality:</strong> Waiting 3 months on monotherapy needlessly delays goal achievement during the highest-risk window.
-              <span class="zh-sub">單藥等待 3 個月只會讓患者在最危險的心梗早期暴露於高膽固醇風險中。</span>
-            </li>
-          </ul>
-        </div>
-        <div class="k-banner gold">
-          <span>We must combine a second biological mechanism upfront</span>
-          <span class="b-zh">必須及早結合第二種生理機轉，方能安全跨越 31.5 mg/dL 缺口</span>
-        </div>
-      </div>
-
-    </div>
-    <p class="k-cite">1. Cannon CP, et al. Ezetimibe Added to Statin Therapy after Acute Coronary Syndromes (IMPROVE-IT). N Engl J Med. 2015;372(25):2387-2397. PMID: 26039521.<br>2. Maron DJ, et al. High-Dose Atorvastatin vs Moderate-Dose Statin in Post-ACS Patients. JAMA. 2020;324(12):1180-1191.</p>
-  </div>
-  <template class="k-narr">
-    <p data-step="0">Let us calculate the clinical math for Mr. Hong on standard therapy.</p>
-    <p data-step="1">His baseline LDL is 173. A high-intensity statin lowers LDL by approximately fifty percent, bringing him down to 86.5 milligrams per deciliter.</p>
-    <p data-step="2">However, our target is below fifty-five. That leaves a persistent gap of over thirty-one milligrams. Doubling the statin dose only yields six percent more reduction. Monotherapy simply cannot get him to goal.</p>
-  </template>
-</section>
-
-<!-- ==========================================================================
-     SLIDE 07: DUAL-PATHWAY PHARMACOTHERAPY (Chapter: 3. Therapy) [MECHANISM]
-     ========================================================================== -->
-<section class="k-slide" data-chapter="3. Therapy" data-title="Dual Pathway">
-  <div class="k-head">
-    <h2>The Solution: Combine Statin with Ezetimibe</h2>
-    <p class="k-sub"><span class="zh">雙管齊下：同時阻斷肝臟製造與腸道吸收</span> ｜ Dual-Pathway Synergy Achieves 65% LDL Reduction</p>
-  </div>
-  <div class="k-body">
-    <div class="k-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
-      
-      <!-- Card 1: Dual Mechanism -->
-      <div class="k-card sage" data-s="1">
-        <div>
-          <span class="k-badge sage">Dual Biology ｜ 雙重生理解剖機轉</span>
-          <h3 style="color: var(--sage);">Mechanism: Liver + Gut <span class="zh">(肝臟與腸道協同)</span></h3>
-          
-          <div class="k-mech-row">
-            <div class="k-mech-node" style="border-left: 6px solid var(--navy);">
-              <strong style="color: var(--navy); font-size: 20px;">1. Statin (Liver 肝臟)</strong><br>
-              <span style="font-size: 17px; color: var(--ink-2);">Inhibits HMG-CoA Reductase</span><br>
-              <span style="font-size: 19px; font-weight: 800; color: var(--navy);">- 50% 抑制合成</span>
-            </div>
-            <div style="font-size: 30px; font-weight: 900; color: var(--sage);">+</div>
-            <div class="k-mech-node" style="border-left: 6px solid var(--sage);">
-              <strong style="color: var(--sage); font-size: 20px;">2. Ezetimibe (Gut 腸道)</strong><br>
-              <span style="font-size: 17px; color: var(--ink-2);">Blocks NPC1L1 Transporter</span><br>
-              <span style="font-size: 19px; font-weight: 800; color: var(--sage);">- 15% 阻斷吸收</span>
-            </div>
-          </div>
-
-          <ul>
-            <li><strong>Compensatory Block:</strong> Statins trigger intestinal upregulation of cholesterol absorption; ezetimibe blocks this escape pathway.
-              <span class="zh-sub">機轉互補：Statin 會促使腸道代償性吸收膽固醇，Ezetimibe 正好精準封鎖此代償逃逸途徑。</span>
-            </li>
-            <li><strong>Synergistic Drop:</strong> Combined oral therapy provides a <strong>65% total LDL reduction</strong> (173 → 60.5 mg/dL).
-              <span class="zh-sub">協同綜效：口服雙藥提供高達 65% 的總降幅，使數值降至 60.5 mg/dL。</span>
-            </li>
-          </ul>
-        </div>
-        <div class="k-banner sage">
-          <span>✓ Two complementary mechanisms with exceptional tolerability</span>
-          <span class="b-zh">兩種互補生理機轉協同作用，且耐受性極佳、不增加肝肌負擔</span>
-        </div>
-      </div>
-
-      <!-- Card 2: Trial Evidence & Clinical Decision -->
-      <div class="k-card navy" data-s="2">
-        <div>
-          <span class="k-badge navy">Trial Evidence ｜ 大型臨床試驗實證</span>
-          <h3 style="color: var(--navy);">Ez-PAVE & IMPROVE-IT Proof <span class="zh">(實證達標倍增)</span></h3>
-          <div class="k-kpi-wrap">
-            <div class="k-kpi-box">
-              <span class="k-kpi-num" style="color: var(--sage);">- 65%</span>
-              <span class="k-kpi-text">Combined Drop</span>
-              <span class="k-kpi-zh">口服雙藥總降幅</span>
-            </div>
-            <div class="k-kpi-box">
-              <span class="k-kpi-num" style="color: var(--sage);">60.5</span>
-              <span class="k-kpi-text">Predicted LDL</span>
-              <span class="k-kpi-zh">預期可達數值</span>
-            </div>
-          </div>
-          <ul>
-            <li><strong>IMPROVE-IT Trial:</strong> Adding ezetimibe to statin significantly reduced CV death, MI, and stroke post-ACS.
-              <span class="zh-sub">IMPROVE-IT 試驗：加用 Ezetimibe 顯著降低心血管死亡、再發心梗與中風。</span>
-            </li>
-            <li><strong>Ez-PAVE Trial (2026):</strong> Upfront fixed-dose combination in acute STEMI doubled goal attainment (< 55 mg/dL) at 4 weeks.
-              <span class="zh-sub">Ez-PAVE 試驗 (2026)：急性心梗患者出院前及早給予單碇複方雙藥，4 週達標率倍增。</span>
-            </li>
-          </ul>
-        </div>
-        <div class="k-banner navy">
-          <span>Recommendation: Start Dual Therapy UPFRONT prior to discharge</span>
-          <span class="b-zh">臨床強烈建議：在患者出院前即刻給予口服雙藥合併治療</span>
-        </div>
-      </div>
-
-    </div>
-    <p class="k-cite">1. Cannon CP, et al. Ezetimibe Added to Statin Therapy after Acute Coronary Syndromes (IMPROVE-IT). N Engl J Med. 2015;372(25):2387-2397. PMID: 26039521.<br>2. Kim BK, et al. Upfront Statin Plus Ezetimibe Combination in Acute Myocardial Infarction (Ez-PAVE). J Am Coll Cardiol. 2026;87(3):312-324.</p>
-  </div>
-  <template class="k-narr">
-    <p data-step="0">How do we bridge this gap? By combining two complementary biological pathways.</p>
-    <p data-step="1">The statin stops the liver from synthesizing cholesterol. Ezetimibe blocks the gut from absorbing cholesterol through the NPC1L1 transporter. Together, they provide a sixty-five percent drop.</p>
-    <p data-step="2">The recent Ez-PAVE and IMPROVE-IT trials demonstrated that starting combination therapy upfront before discharge doubles goal achievement without increasing adverse events.</p>
-  </template>
-</section>
-
-<!-- ==========================================================================
-     SLIDE 08: TRIPLE THERAPY & PCSK9 INHIBITORS (Chapter: 3. Therapy) [MECHANISM]
-     ========================================================================== -->
-<section class="k-slide" data-chapter="3. Therapy" data-title="PCSK9 Inhibitors">
-  <div class="k-head">
-    <h2>Beyond Dual Therapy: When to Add PCSK9 Inhibitors</h2>
-    <p class="k-sub"><span class="zh">第三線強效武器：注射型單株抗體阻斷受體分解</span> ｜ Monoclonal Antibodies Preserve Hepatic LDL Receptors</p>
-  </div>
-  <div class="k-body">
-    <div class="k-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
-      
-      <!-- Card 1: LDLR Degradation Mechanism -->
-      <div class="k-card terra" data-s="1">
-        <div>
-          <span class="k-badge terra">Receptor Biology ｜ 受體回收生理機轉</span>
-          <h3 style="color: var(--terra);">The Receptor Recycling Mechanism <span class="zh">(受體循環清除)</span></h3>
-          <div class="k-mech-row">
-            <div class="k-mech-node">
-              <strong style="color: var(--terra); font-size: 19px;">1. PCSK9 Binding</strong><br>
-              <span style="font-size: 15px; color: var(--muted);">結合肝臟 LDLR</span>
-            </div>
-            <div class="k-mech-arrow">➔</div>
-            <div class="k-mech-node">
-              <strong style="color: var(--terra); font-size: 19px;">2. Lysosome Degrade</strong><br>
-              <span style="font-size: 15px; color: var(--muted);">受體遭溶酶體破壞</span>
-            </div>
-            <div class="k-mech-arrow">➔</div>
-            <div class="k-mech-node">
-              <strong style="color: var(--sage); font-size: 19px;">3. Anti-PCSK9 mAb</strong><br>
-              <span style="font-size: 15px; color: var(--muted);">受體回收逾 150 次</span>
-            </div>
-          </div>
-          <ul>
-            <li><strong>Biological Function:</strong> PCSK9 targets LDL receptors for lysosomal destruction in hepatocytes.
-              <span class="zh-sub">病理功能：PCSK9 蛋白會引導低密度受體進入溶酶體降解，降低清除效率。</span>
-            </li>
-            <li><strong>Monoclonal Antibodies:</strong> Evolocumab or Alirocumab binds PCSK9, preserving surface LDL receptors to rapidly extract LDL from blood.
-              <span class="zh-sub">單株抗體中和 PCSK9，使受體存活並循環回收逾 150 次，快速吞噬血液中的膽固醇。</span>
-            </li>
-          </ul>
-        </div>
-        <div class="k-banner sage">
-          <span>✓ Multiplies hepatic surface LDL receptors to clear blood cholesterol</span>
-          <span class="b-zh">使肝臟表面功能性 LDL 受體倍增數倍，達成極速血液膽固醇清除</span>
-        </div>
-      </div>
-
-      <!-- Card 2: Trial Evidence & Clinical Indication -->
-      <div class="k-card navy" data-s="2">
-        <div>
-          <span class="k-badge navy">Outcome Data ｜ 預後臨床數據</span>
-          <h3 style="color: var(--navy);">FOURIER & ODYSSEY Trials <span class="zh">(極致降脂實證)</span></h3>
-          <div class="k-kpi-wrap">
-            <div class="k-kpi-box">
-              <span class="k-kpi-num" style="color: var(--sage);">- 60%</span>
-              <span class="k-kpi-text">Added to Statin</span>
-              <span class="k-kpi-zh">口服基礎上額外再降</span>
-            </div>
-            <div class="k-kpi-box">
-              <span class="k-kpi-num" style="color: var(--sage);">&lt; 30</span>
-              <span class="k-kpi-text">Achievable LDL</span>
-              <span class="k-kpi-zh">可達成之理想數值</span>
-            </div>
-          </div>
-          <ul>
-            <li><strong>Clinical Power:</strong> Adding PCSK9i lowers LDL by an extra 50%–60% (total reduction up to 85%).
-              <span class="zh-sub">降脂威力：在口服雙藥基礎上再降 50%–60%，整體降幅高達 85%。</span>
-            </li>
-            <li><strong>Cardiovascular Benefit:</strong> 15% relative risk reduction in major cardiovascular events; significant plaque regression.
-              <span class="zh-sub">臨床獲益：減少 15% 重大心血管事件，顯著縮小冠狀動脈斑塊體積。</span>
-            </li>
-            <li><strong>Mr. Hong's Trigger:</strong> If 4–6 week follow-up LDL remains ≥ 55 mg/dL, add PCSK9i immediately.
-              <span class="zh-sub">觸發條件：若 4–6 週回診抽血 LDL 仍 ≥ 55 mg/dL，立即加用 PCSK9 抑制劑。</span>
-            </li>
-          </ul>
-        </div>
-        <div class="k-banner terra">
-          <span>Reserved for very-high-risk patients not at goal on oral dual therapy</span>
-          <span class="b-zh">專門針對口服雙藥仍未達標的極高風險患者，作為第三線堅強防線</span>
-        </div>
-      </div>
-
-    </div>
-    <p class="k-cite">1. Sabatine MS, et al. Evolocumab and Clinical Outcomes in Patients with Cardiovascular Disease (FOURIER). N Engl J Med. 2017;376(18):1713-1722. PMID: 28304224.<br>2. Schwartz GG, et al. Alirocumab and Cardiovascular Outcomes after Acute Coronary Syndrome (ODYSSEY OUTCOMES). N Engl J Med. 2018;379(22):2097-2107. PMID: 30403574.</p>
-  </div>
-  <template class="k-narr">
-    <p data-step="0">What if Mr. Hong's LDL remains above fifty-five at follow-up? We deploy our third weapon: a PCSK9 inhibitor.</p>
-    <p data-step="1">PCSK9 is a protein that destroys LDL receptors in the liver. By blocking PCSK9 with an injectable monoclonal antibody, receptors survive to recycle over one hundred times, clearing massive amounts of LDL from the blood.</p>
-    <p data-step="2">In the FOURIER and ODYSSEY trials, adding a PCSK9 inhibitor produced an extra sixty percent drop, pushing LDL down to thirty or forty and slashing secondary heart attacks.</p>
-  </template>
-</section>
-
-<!-- ==========================================================================
-     SLIDE 09: ACUTE TO CHRONIC TIMELINE (Chapter: 4. Timeline) [NEW & EMPHASIZED]
-     ========================================================================== -->
-<section class="k-slide" data-chapter="4. Timeline" data-title="Clinical Roadmap">
-  <div class="k-head">
-    <h2>From Acute to Chronic: Mr. Hong's Complete Journey</h2>
-    <p class="k-sub"><span class="zh">從急性期到慢性期：洪先生的全方位醫療歷程</span> ｜ Synchronized Lifestyle, Cardiac Rehab, and Stepwise Therapy</p>
-  </div>
-  <div class="k-body">
-    <div class="k-content">
-      
-      <div class="k-timeline" style="margin-top: 6px;">
-        
-        <!-- Column 1: Acute Phase -->
-        <div class="k-time-col active" data-s="1">
+        <div class="k-card" style="background: #F4F8F6; border: 1px solid rgba(42,110,87,.2); padding: 24px 28px; display: flex; flex-direction: column; justify-content: space-between;">
           <div>
-            <span class="k-badge sage">Phase 1: Inpatient ｜ 急性住院期</span>
-            <h3 style="color: var(--sage); font-size: 26px;">Acute Phase (Day 0–3)</h3>
-            <ul>
-              <li><strong>PCI:</strong> Stent culprit LAD lesion within 90 min.
-                <span class="zh-sub">完成心導管支架置放。</span>
-              </li>
-              <li><strong>Lipid Rx:</strong> Initiate Statin + Ezetimibe before discharge.
-                <span class="zh-sub">出院前及早給予口服雙藥。</span>
-              </li>
-              <li><strong>Lifestyle:</strong> Bedside smoking cessation & diet education.
-                <span class="zh-sub">床邊啟動戒菸與飲食衛教。</span>
-              </li>
-              <li><strong>Rehab:</strong> Inpatient Phase I physical mobilization.
-                <span class="zh-sub">展開第一期住院復健活動。</span>
-              </li>
+            <h4 style="font-size: 26px; color: var(--sage); margin-bottom: 16px; font-weight: 800;">
+              <span class="t-en">Core Presentation Pillars</span>
+              <span class="t-zh">本次報告三大核心主軸</span>
+            </h4>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+              <div style="background: #fff; padding: 12px 16px; border-radius: 12px; border-left: 4px solid var(--sage);">
+                <b style="font-size: 22px; color: var(--navy);"><span class="t-en">1. Stent vs. Biology</span><span class="t-zh">1. 局部支架 vs. 全身病理</span></b>
+                <p style="font-size: 19px; color: var(--muted); margin-top: 4px;"><span class="t-en">Why 50% of recurrent MIs occur at non-stented sites.</span><span class="t-zh">為何五成復發梗塞發生於未放支架處。</span></p>
+              </div>
+              <div style="background: #fff; padding: 12px 16px; border-radius: 12px; border-left: 4px solid var(--accent);">
+                <b style="font-size: 22px; color: var(--navy);"><span class="t-en">2. Dual Guideline Targets</span><span class="t-zh">2. 2026 最新雙重達標門檻</span></b>
+                <p style="font-size: 19px; color: var(--muted); margin-top: 4px;"><span class="t-en">≥50% reduction AND absolute LDL &lt; 55 mg/dL.</span><span class="t-zh">降幅 ≥50% 且絕對值 &lt; 55 mg/dL。</span></p>
+              </div>
+              <div style="background: #fff; padding: 12px 16px; border-radius: 12px; border-left: 4px solid var(--gold);">
+                <b style="font-size: 22px; color: var(--navy);"><span class="t-en">3. Lifestyle & Pharmacotherapy</span><span class="t-zh">3. 非藥物基石與雙藥協同</span></b>
+                <p style="font-size: 19px; color: var(--muted); margin-top: 4px;"><span class="t-en">Nutrition, rehab, and upfront Statin + Ezetimibe.</span><span class="t-zh">地中海飲食、心臟復健與雙合降脂。</span></p>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 16px; font-size: 18px; color: var(--muted); text-align: center;">
+            <span class="t-en">Click anywhere or press Space / Arrow keys to proceed</span>
+            <span class="t-zh">點擊任意處或按空白鍵／方向鍵即可開始播放</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="k-cite">1. 2026 ACC/AHA Guideline on Blood Cholesterol. Circulation. 2026;153(1):e1-e120. | 2. NTU Medicine Case Study 2026.</p>
+      <template class="k-narr">
+        <p data-step="0">Good morning, professors and colleagues. I am Chih-Wei Chen from National Taiwan University. Today, we examine an essential clinical dilemma: why opening an occluded coronary artery with a stent is only the very first step in secondary prevention.</p>
+      </template>
+    </section>
+
+    <!-- Slide 02: Meet Mr. Hong -->
+    <section class="k-slide" data-chapter="1. Case" data-title="Case Presentation" data-steps="2">
+      <div class="k-head">
+        <span class="k-tag">Case Presentation • 48-Year-Old Male</span>
+        <h2>
+          <span class="t-en">Meet Mr. Hong: Successful Stent, Hidden Danger</span>
+          <span class="t-zh">個案呈現：急救成功，但體內隱藏致命危機</span>
+        </h2>
+        <p class="k-sub">
+          <span class="t-en">A 48-year-old gentleman revascularized within 38 minutes presents a critical metabolic challenge</span>
+          <span class="t-zh">48歲洪先生在 38 分鐘內完成再灌流，但面臨嚴峻的全身脂質代謝挑戰</span>
+        </p>
+      </div>
+
+      <div class="k-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 24px;">
+        <div class="k-card" style="border-left: 6px solid var(--sage); padding: 20px 26px;">
+          <span class="k-badge" style="background: rgba(42,110,87,.12); color: var(--sage); font-weight: 700; font-size: 20px;">
+            <span class="t-en">Cath Lab Success (導管室救治成功)</span>
+            <span class="t-zh">導管室救治成功</span>
+          </span>
+          <h3 style="color: var(--sage); font-size: 32px; margin: 16px 0;">
+            <span class="t-en">1. The Blockage is Cleared</span>
+            <span class="t-zh">1. 局部血管順利打通</span>
+          </h3>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0;">
+            <div class="k-kpi" style="padding: 18px;">
+              <span class="v" style="font-size: 64px; color: var(--sage);">38m</span>
+              <span class="l" style="font-size: 20px;"><span class="t-en">Door-to-Balloon</span><span class="t-zh">到院至氣球擴張時間</span></span>
+            </div>
+            <div class="k-kpi" style="padding: 18px;">
+              <span class="v" style="font-size: 64px; color: var(--sage);">TIMI 3</span>
+              <span class="l" style="font-size: 20px;"><span class="t-en">Full Flow Restored</span><span class="t-zh">完整恢復前向血流</span></span>
+            </div>
+          </div>
+
+          <ul style="font-size: 23px; line-height: 1.6; color: var(--text); padding-left: 24px; margin: 12px 0;">
+            <li><b><span class="t-en">LAD Occlusion:</span><span class="t-zh">左前降支阻塞：</span></b> <span class="t-en">100% blocked with acute red thrombus.</span><span class="t-zh">100% 急性紅色血栓完全堵塞。</span></li>
+            <li><b><span class="t-en">Synergy Stent:</span><span class="t-zh">塗藥支架：</span></b> <span class="t-en">48 mm drug-eluting stent successfully deployed.</span><span class="t-zh">成功置入 48 mm 長段藥物塗層支架。</span></li>
+            <li><b><span class="t-en">Heart Function:</span><span class="t-zh">左心室功能：</span></b> <span class="t-en">Post-PCI LVEF preserved at 58%.</span><span class="t-zh">術後超音波評估射出率維持 58%。</span></li>
+          </ul>
+
+          <div style="background: #EAF4EE; border-radius: 12px; padding: 14px 20px; color: var(--sage); font-weight: 700; font-size: 21px;">
+            ✓ <span class="t-en">Heart muscle saved today!</span><span class="t-zh">今日成功保住寶貴的心肌細胞！</span>
+          </div>
+        </div>
+
+        <div class="k-card" style="border-left: 6px solid var(--accent); padding: 20px 26px;">
+          <span class="k-badge" style="background: rgba(184,80,48,.12); color: var(--accent); font-weight: 700; font-size: 20px;">
+            <span class="t-en">Laboratory Warning (檢驗數值警訊)</span>
+            <span class="t-zh">檢驗數值警訊</span>
+          </span>
+          <h3 style="color: var(--accent); font-size: 32px; margin: 16px 0;">
+            <span class="t-en">2. The Underlying Threat</span>
+            <span class="t-zh">2. 體內持續潛伏的威脅</span>
+          </h3>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0;">
+            <div class="k-kpi" style="padding: 18px; border-color: rgba(184,80,48,.3);">
+              <span class="v" style="font-size: 64px; color: var(--accent);">173</span>
+              <span class="l" style="font-size: 20px;"><span class="t-en">Baseline LDL (mg/dL)</span><span class="t-zh">入院基準 LDL 數值</span></span>
+            </div>
+            <div class="k-kpi" style="padding: 18px; border-color: rgba(184,80,48,.3);">
+              <span class="v" style="font-size: 64px; color: var(--accent);">756</span>
+              <span class="l" style="font-size: 20px;"><span class="t-en">Troponin T (ng/L)</span><span class="t-zh">心肌肌鈣蛋白峰值</span></span>
+            </div>
+          </div>
+
+          <ul style="font-size: 23px; line-height: 1.6; color: var(--text); padding-left: 24px; margin: 12px 0;">
+            <li><b><span class="t-en">Low Protective HDL:</span><span class="t-zh">保護性 HDL 偏低：</span></b> <span class="t-en">38 mg/dL (Non-diabetic, non-hypertensive).</span><span class="t-zh">38 mg/dL（無糖尿病、無慢性高血壓）。</span></li>
+            <li><b><span class="t-en">Total Cholesterol:</span><span class="t-zh">總膽固醇：</span></b> <span class="t-en">248 mg/dL with severe atherogenic burden.</span><span class="t-zh">高達 248 mg/dL，體內動脈粥樣硬化負荷極高。</span></li>
+            <li><b><span class="t-en">The Core Dilemma:</span><span class="t-zh">核心困境：</span></b> <span class="t-en">Stent fixed 48 mm. But with LDL 173, what about the rest?</span><span class="t-zh">支架修復了 48 mm，但面對 173 的高血脂，其餘血管何去何從？</span></li>
+          </ul>
+
+          <div style="background: #FDF1ED; border-radius: 12px; padding: 14px 20px; color: var(--accent); font-weight: 700; font-size: 21px;">
+            ⚠ <span class="t-en">Systemic vascular risk remains fully active!</span><span class="t-zh">全身血管粥樣硬化風險依然處於極度活躍狀態！</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="k-cite">1. Damluji AA, et al. Mechanical Complications of Acute Myocardial Infarction. Circulation. 2021;144(2):e16-e35. | 2. NTU Case Record 2026.</p>
+      <template class="k-narr">
+        <p data-step="0">Meet our patient, Mr. Hong, a forty-eight-year-old gentleman rushed to the ER with a severe anterior wall myocardial infarction.</p>
+        <p data-step="1">The cardiac team performed an exemplary job: within thirty-eight minutes, door-to-balloon time, they placed a forty-eight-millimeter drug-eluting stent and restored full TIMI three flow.</p>
+        <p data-step="2">However, admission lab results revealed an LDL cholesterol of 173 milligrams per deciliter. While the stent fixed a forty-eight-millimeter segment, this high systemic cholesterol continues to endanger the rest of his coronary tree.</p>
+      </template>
+    </section>
+
+    <!-- Slide 03: Plaque Pathology & Mechanism -->
+    <section class="k-slide" data-chapter="1. Case" data-title="Plaque Biology" data-steps="2">
+      <div class="k-head">
+        <span class="k-tag">Vascular Biology • Pathology Mechanism</span>
+        <h2>
+          <span class="t-en">Local Stent vs. Systemic Plaque Biology</span>
+          <span class="t-zh">局部支架處理 vs. 全身動脈粥樣硬化病理</span>
+        </h2>
+        <p class="k-sub">
+          <span class="t-en">Why 50% of recurrent myocardial infarctions occur at non-stented coronary sites</span>
+          <span class="t-zh">為何高達 50% 的復發性心肌梗塞，發生在未置放支架的遠端血管</span>
+        </p>
+      </div>
+
+      <div class="k-content" style="display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 28px; margin-bottom: 24px; align-items: stretch;">
+        <div class="k-card" style="border-left: 6px solid var(--navy); padding: 20px 26px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <span class="k-badge" style="background: rgba(30,58,95,.12); color: var(--navy); font-weight: 700; font-size: 20px;">
+              <span class="t-en">The Mechanical Boundary (處置的侷限)</span>
+              <span class="t-zh">處置的侷限性</span>
+            </span>
+            <h3 style="color: var(--navy); font-size: 32px; margin: 16px 0;">
+              <span class="t-en">Stenting Clears Only 5%</span>
+              <span class="t-zh">支架僅能保護 5% 血管</span>
+            </h3>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0;">
+              <div class="k-kpi" style="padding: 16px;">
+                <span class="v" style="font-size: 58px; color: var(--navy);">48 mm</span>
+                <span class="l" style="font-size: 19px;"><span class="t-en">Stented Segment</span><span class="t-zh">支架覆蓋長度</span></span>
+              </div>
+              <div class="k-kpi" style="padding: 16px;">
+                <span class="v" style="font-size: 58px; color: var(--accent);">&gt;1000 mm</span>
+                <span class="l" style="font-size: 19px;"><span class="t-en">Coronary Tree</span><span class="t-zh">全心血管總長度</span></span>
+              </div>
+            </div>
+
+            <ul style="font-size: 22px; line-height: 1.55; color: var(--text); padding-left: 22px; margin: 16px 0;">
+              <li><b><span class="t-en">PROSPECT Trial:</span><span class="t-zh">PROSPECT 經典試驗：</span></b> <span class="t-en">50% of recurrent events occur at untreated, non-stented sites.</span><span class="t-zh">高達一半的再發心肌梗塞，發生於未放支架的遠端病灶。</span></li>
+              <li><b><span class="t-en">Systemic Danger:</span><span class="t-zh">全身動脈威脅：</span></b> <span class="t-en">Circulating LDL continuously infiltrates the intima of the entire coronary tree.</span><span class="t-zh">血液中過高的 LDL 持續滲透全身動脈內膜，引發廣泛發炎。</span></li>
             </ul>
           </div>
-          <div class="k-banner sage" style="font-size: 17px; padding: 10px 14px;">
-            <span>Discharge on dual therapy + lifestyle</span>
-            <span class="b-zh">目標：出院前確立雙藥處方與生活型態基石</span>
+
+          <div style="background: #F4F6F9; border-radius: 12px; padding: 14px 20px; color: var(--navy); font-weight: 700; font-size: 20px;">
+            💡 <span class="t-en">Stents treat the acute crime scene; systemic lipid lowering prevents future crimes!</span><span class="t-zh">支架處理急性犯罪現場，全身降脂預防下一次犯罪！</span>
           </div>
         </div>
 
-        <!-- Column 2: Subacute Phase -->
-        <div class="k-time-col subacute" data-s="2">
+        <div class="k-card" style="padding: 18px 22px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h4 style="font-size: 24px; color: var(--accent); font-weight: 800; margin: 0;">
+              <span class="t-en">Plaque Pathology & Vulnerability (易裂斑塊病理機轉)</span>
+              <span class="t-zh">易裂薄帽粥樣斑塊 (TCFA) 病理機轉</span>
+            </h4>
+            <span style="font-size: 16px; color: var(--muted);"><span class="t-en">Click image to enlarge 🔍</span><span class="t-zh">點擊圖片放大 🔍</span></span>
+          </div>
+          <div style="flex: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 14px; border: 1px solid var(--line);">
+            <img src="assets/images/plaque_pathology.png" alt="Plaque Pathology" class="zoom" style="width: 100%; height: 250px; object-fit: cover;">
+          </div>
+          <p style="font-size: 19px; line-height: 1.5; color: var(--muted); margin-top: 14px; margin-bottom: 0;">
+            <span class="t-en"><b>Thin-Cap Fibroatheroma (TCFA):</b> Massive necrotic lipid core covered by a fragile fibrous cap (&lt;65 μm). Macrophage foam cells secrete matrix metalloproteinases (MMPs), weakening the cap until rupture triggers sudden thrombosis.</span>
+            <span class="t-zh"><b>易裂薄帽粥樣斑塊 (TCFA)：</b> 巨大壞死脂質核心上方僅有脆弱的極薄纖維帽 (&lt;65 μm)。泡沫細胞分泌基質金屬蛋白酶 (MMP) 溶解膠原蛋白，一旦破裂立即引發致命血栓。</span>
+          </p>
+        </div>
+      </div>
+
+      <p class="k-cite">Stone GW, et al. A Prospective Natural-History Study of Coronary Atherosclerosis (PROSPECT Trial). N Engl J Med. 2011;364(3):226-235.</p>
+      <template class="k-narr">
+        <p data-step="0">To protect Mr. Hong, we must clearly distinguish between a local vascular fix and a systemic disease process.</p>
+        <p data-step="1">His stent covers forty-eight millimeters. But the coronary arterial tree extends over one thousand millimeters. Stenting clears only five percent of his vessels.</p>
+        <p data-step="2">In the PROSPECT trial, half of all recurrent heart attacks occurred at non-stented sites. High circulating LDL particles continuously infiltrate the vessel wall, creating fragile plaques that can rupture at any moment.</p>
+      </template>
+    </section>
+
+    <!-- Slide 04: Guideline Targets & Cap Thickening -->
+    <section class="k-slide" data-chapter="2. Target" data-title="Target < 55 mg/dL" data-steps="2">
+      <div class="k-head">
+        <span class="k-tag">Evidence-Based Medicine • 2026 Guidelines</span>
+        <h2>
+          <span class="t-en">2026 ACC/AHA Guideline: The Dual Target</span>
+          <span class="t-zh">2026 ACC/AHA 最新血脂指引：雙重達標準則</span>
+        </h2>
+        <p class="k-sub">
+          <span class="t-en">Evidence-based threshold for vascular remodeling and fibrous cap stabilization</span>
+          <span class="t-zh">血管內超音波證實：促成纖維帽增厚與斑塊退縮的實證門檻</span>
+        </p>
+      </div>
+
+      <div class="k-content" style="display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 28px; margin-bottom: 24px; align-items: stretch;">
+        <div class="k-card" style="border-left: 6px solid var(--accent); padding: 20px 26px; display: flex; flex-direction: column; justify-content: space-between;">
           <div>
-            <span class="k-badge gold">Phase 2: Post-Discharge ｜ 亞急性門診</span>
-            <h3 style="color: #8C5E2D; font-size: 26px;">Subacute Phase (Wk 4–6)</h3>
-            <ul>
-              <li><strong>Lipid Panel:</strong> Measure fasting response at 4–6 weeks.
-                <span class="zh-sub">4 到 6 週回診抽血追蹤血脂。</span>
-              </li>
-              <li><strong>Target Evaluation:</strong> Confirm if LDL &lt; 55 mg/dL.
-                <span class="zh-sub">評估是否順利達標 &lt; 55 mg/dL。</span>
-              </li>
-              <li><strong>Stepwise Escalation:</strong> If LDL ≥ 55, add PCSK9i.
-                <span class="zh-sub">若未達標，立即升級 PCSK9 抑制劑。</span>
-              </li>
-              <li><strong>Rehab:</strong> Phase II supervised outpatient training.
-                <span class="zh-sub">銜接第二期門診運動與心臟復健。</span>
-              </li>
+            <span class="k-badge" style="background: rgba(184,80,48,.12); color: var(--accent); font-weight: 700; font-size: 20px;">
+              <span class="t-en">Mandatory Dual Criteria (雙重達標標準)</span>
+              <span class="t-zh">雙重達標標準</span>
+            </span>
+            <h3 style="color: var(--accent); font-size: 32px; margin: 16px 0;">
+              <span class="t-en">Two Strict Rules for STEMI</span>
+              <span class="t-zh">STEMI 極高風險患者的兩大鐵律</span>
+            </h3>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0;">
+              <div class="k-kpi" style="padding: 16px; border-color: rgba(184,80,48,.3);">
+                <span class="v" style="font-size: 58px; color: var(--accent);">&ge; 50%</span>
+                <span class="l" style="font-size: 19px;"><span class="t-en">Reduction from Baseline</span><span class="t-zh">較基準值至少降低</span></span>
+              </div>
+              <div class="k-kpi" style="padding: 16px; border-color: rgba(184,80,48,.3);">
+                <span class="v" style="font-size: 58px; color: var(--accent);">&lt; 55</span>
+                <span class="l" style="font-size: 19px;"><span class="t-en">Absolute Target (mg/dL)</span><span class="t-zh">絕對數值目標 (mg/dL)</span></span>
+              </div>
+            </div>
+
+            <ul style="font-size: 22px; line-height: 1.55; color: var(--text); padding-left: 22px; margin: 16px 0;">
+              <li><b><span class="t-en">Both Must Be Met:</span><span class="t-zh">雙重達標必備：</span></b> <span class="t-en">Reaching only one criterion is considered treatment failure in 2026 guidelines.</span><span class="t-zh">只達成降幅或只達成絕對值，皆視為臨床控制未達標。</span></li>
+              <li><b><span class="t-en">Mr. Hong's Math:</span><span class="t-zh">洪先生的目標：</span></b> <span class="t-en">From 173 to &lt; 55 mg/dL requires a massive absolute drop of <b>118 mg/dL (68%)</b>.</span><span class="t-zh">從 173 降至 &lt; 55 mg/dL，需要降低整整 <b>118 mg/dL (68%)</b>。</span></li>
             </ul>
           </div>
-          <div class="k-banner gold" style="font-size: 17px; padding: 10px 14px;">
-            <span>Confirm target &lt; 55; escalate if needed</span>
-            <span class="b-zh">目標：確認達標五十五，未達標果斷升級</span>
+
+          <div style="background: #FDF1ED; border-radius: 12px; padding: 14px 20px; color: var(--accent); font-weight: 700; font-size: 20px;">
+            🎯 <span class="t-en">Below 55 mg/dL is the biological turning point for plaque stabilization!</span><span class="t-zh">數值降至 55 mg/dL 以下，是血管斑塊走向穩定的生物學分水嶺！</span>
           </div>
         </div>
 
-        <!-- Column 3: Chronic Phase -->
-        <div class="k-time-col chronic" data-s="3">
+        <div class="k-card" style="padding: 18px 22px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h4 style="font-size: 24px; color: var(--sage); font-weight: 800; margin: 0;">
+              <span class="t-en">Cap Thickening & Plaque Regression (纖維帽增厚實證)</span>
+              <span class="t-zh">纖維帽增厚與斑塊退縮機制</span>
+            </h4>
+            <span style="font-size: 16px; color: var(--muted);"><span class="t-en">Click image to enlarge 🔍</span><span class="t-zh">點擊圖片放大 🔍</span></span>
+          </div>
+          <div style="flex: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 14px; border: 1px solid var(--line);">
+            <img src="assets/images/plaque_regression_cap.png" alt="Plaque Regression & Cap Thickening" class="zoom" style="width: 100%; height: 250px; object-fit: cover;">
+          </div>
+          <p style="font-size: 19px; line-height: 1.5; color: var(--muted); margin-top: 14px; margin-bottom: 0;">
+            <span class="t-en"><b>IVUS/OCT Evidence:</b> When LDL drops below 55 mg/dL, cholesterol efflux from macrophages exceeds influx. The lipid core shrinks, and smooth muscle cells synthesize dense collagen, transforming vulnerable thin caps into thick, stable fibrous protective barriers.</span>
+            <span class="t-zh"><b>血管超音波 (IVUS/OCT) 實證：</b> 當 LDL 降至 55 mg/dL 以下，膽固醇逆向流出超過沉積。壞死核心顯著萎縮，血管平滑肌合成緻密膠原蛋白，使薄弱纖維帽顯著增厚，徹底解除破裂風險。</span>
+          </p>
+        </div>
+      </div>
+
+      <p class="k-cite">1. 2026 ACC/AHA Guideline on Blood Cholesterol. Circulation. 2026;153(1):e1-e120. | 2. Nicholls SJ, et al. J Am Coll Cardiol. 2018;72(24):3112-3121.</p>
+      <template class="k-narr">
+        <p data-step="0">What is our evidence-based goal for Mr. Hong? The latest 2026 ACC and AHA guidelines mandate two strict rules for very-high-risk patients.</p>
+        <p data-step="1">First, achieve at least a fifty percent reduction from baseline. Second, reach an absolute LDL level below fifty-five milligrams per deciliter.</p>
+        <p data-step="2">Why below fifty-five? Intravascular ultrasound trials prove that atherosclerotic plaques stop growing and actually regress only when LDL drops below this critical threshold.</p>
+      </template>
+    </section>
+
+    <!-- Slide 05: Non-Pharmacological 1 - Mediterranean Nutrition -->
+    <section class="k-slide" data-chapter="3. Therapy" data-title="Mediterranean Nutrition" data-steps="1">
+      <div class="k-head">
+        <span class="k-tag">Non-Pharmacological Therapy • Dietary Biology</span>
+        <h2>
+          <span class="t-en">Nutrition Strategy: Mediterranean Diet</span>
+          <span class="t-zh">非藥物治療策略一：地中海飲食與血脂調控</span>
+        </h2>
+        <p class="k-sub">
+          <span class="t-en">Targeting intestinal absorption and hepatic lipoprotein synthesis via dietary biology</span>
+          <span class="t-zh">從腸道吸收與肝臟脂蛋白合成切入：飲食介入可額外降低 10–15% LDL</span>
+        </p>
+      </div>
+
+      <div class="k-content" style="display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 28px; margin-bottom: 24px; align-items: stretch;">
+        <div class="k-card" style="padding: 18px 22px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h4 style="font-size: 24px; color: var(--sage); font-weight: 800; margin: 0;">
+              <span class="t-en">Cardiovascular Dietary Biology (地中海飲食生化機轉)</span>
+              <span class="t-zh">心血管保護飲食生化機轉</span>
+            </h4>
+            <span style="font-size: 16px; color: var(--muted);"><span class="t-en">Click image to enlarge 🔍</span><span class="t-zh">點擊圖片放大 🔍</span></span>
+          </div>
+          <div style="flex: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 14px; border: 1px solid var(--line);">
+            <img src="assets/images/mediterranean_nutrition.png" alt="Mediterranean Nutrition" class="zoom" style="width: 100%; height: 250px; object-fit: cover;">
+          </div>
+          <p style="font-size: 19px; line-height: 1.5; color: var(--muted); margin-top: 14px; margin-bottom: 0;">
+            <span class="t-en"><b>Synergistic Nutrient Matrix:</b> Monounsaturated fats from Extra Virgin Olive Oil protect LDL against atherogenic oxidation. Soluble fiber binds intestinal bile acids, while plant stanols displace cholesterol from dietary micelles.</span>
+            <span class="t-zh"><b>多靶點營養協同：</b> 特級初榨橄欖油富含單元不飽和脂肪酸，防止 LDL 氧化致粥樣硬化；可溶性纖維阻斷膽鹽再吸收，植物固醇則在腸道競爭性排擠膽固醇微膠粒。</span>
+          </p>
+        </div>
+
+        <div class="k-card" style="border-left: 6px solid var(--sage); padding: 20px 26px; display: flex; flex-direction: column; justify-content: space-between;">
           <div>
-            <span class="k-badge navy">Phase 3: Long-Term ｜ 慢性長期維護</span>
-            <h3 style="color: var(--navy); font-size: 26px;">Chronic Phase (Mo 3–12+)</h3>
-            <ul>
-              <li><strong>Maintenance:</strong> Lipid panel testing every 6–12 months.
-                <span class="zh-sub">每半年至一年定期監測血脂。</span>
-              </li>
-              <li><strong>Adherence:</strong> Safety monitoring, refill regularity.
-                <span class="zh-sub">監控服藥遵從性與肌肉耐受性。</span>
-              </li>
-              <li><strong>Lifestyle Sustained:</strong> Permanent diet, exercise, zero tobacco.
-                <span class="zh-sub">維持地中海飲食、有氧運動與無菸環境。</span>
-              </li>
-              <li><strong>Plaque Stability:</strong> Lifelong plaque quiescence.
-                <span class="zh-sub">長期維持斑塊穩定，實現零復發存活。</span>
-              </li>
+            <span class="k-badge" style="background: rgba(42,110,87,.12); color: var(--sage); font-weight: 700; font-size: 20px;">
+              <span class="t-en">Evidence-Based Lipid Impact (實證降脂成效)</span>
+              <span class="t-zh">實證降脂成效</span>
+            </span>
+            <h3 style="color: var(--sage); font-size: 32px; margin: 16px 0;">
+              <span class="t-en">Lowers LDL by 10% to 15%</span>
+              <span class="t-zh">飲食介入可額外降低 10–15% LDL</span>
+            </h3>
+
+            <div style="display: flex; flex-direction: column; gap: 10px; margin: 12px 0;">
+              <div style="background: #fff; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--line);">
+                <b style="font-size: 22px; color: var(--navy);"><span class="t-en">1. Soluble Fiber (5–10 g/day):</span><span class="t-zh">1. 可溶性膳食纖維 (每日 5–10 克)：</span></b>
+                <p style="font-size: 19px; color: var(--text); margin-top: 4px;"><span class="t-en">Oats, psyllium, and legumes bind bile acids in the gut, forcing the liver to clear circulating LDL.</span><span class="t-zh">燕麥、洋車前子與豆類結合腸道膽酸，迫使肝臟加速消耗血液中的 LDL。</span></p>
+              </div>
+              <div style="background: #fff; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--line);">
+                <b style="font-size: 22px; color: var(--navy);"><span class="t-en">2. Plant Stanols & Sterols (2 g/day):</span><span class="t-zh">2. 植物固醇與烷醇 (每日 2 克)：</span></b>
+                <p style="font-size: 19px; color: var(--text); margin-top: 4px;"><span class="t-en">Competitively inhibits intestinal cholesterol uptake, yielding an additional 7–10% LDL reduction.</span><span class="t-zh">競爭性阻斷腸道微膠粒對膽固醇的吸收，提供額外 7–10% 的 LDL 降幅。</span></p>
+              </div>
+              <div style="background: #fff; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--line);">
+                <b style="font-size: 22px; color: var(--accent);"><span class="t-en">3. Zero Industrial Trans-Fats:</span><span class="t-zh">3. 反式脂肪全面歸零：</span></b>
+                <p style="font-size: 19px; color: var(--text); margin-top: 4px;"><span class="t-en">Completely eliminate partially hydrogenated oils; substitute with extra virgin olive oil and nuts.</span><span class="t-zh">徹底禁絕氫化植物油與高溫油炸物，以特級初榨橄欖油與堅果取代動物飽和脂肪。</span></p>
+              </div>
+            </div>
+          </div>
+
+          <div style="background: #EAF4EE; border-radius: 12px; padding: 14px 20px; color: var(--sage); font-weight: 700; font-size: 20px;">
+            🥗 <span class="t-en">The PREDIMED trial confirmed a 30% reduction in major adverse cardiovascular events!</span><span class="t-zh">PREDIMED 經典試驗證實：地中海飲食顯著降低 30% 主要心血管不良事件！</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="k-cite">Estruch R, et al. Primary Prevention of Cardiovascular Disease with a Mediterranean Diet (PREDIMED). N Engl J Med. 2018;378:e34.</p>
+      <template class="k-narr">
+        <p data-step="0">Before adding drugs, non-pharmacological management is the indispensable foundation for every heart attack patient.</p>
+        <p data-step="1">First, dietary changes: shifting to a Mediterranean diet, eliminating trans fats, and adding soluble fiber and plant stanols can lower circulating LDL by ten to fifteen percent.</p>
+      </template>
+    </section>
+
+    <!-- Slide 06: Non-Pharmacological 2 - Cardiac Rehabilitation -->
+    <section class="k-slide" data-chapter="3. Therapy" data-title="Cardiac Rehab" data-steps="0">
+      <div class="k-head">
+        <span class="k-tag">Non-Pharmacological Therapy • Exercise Medicine</span>
+        <h2>
+          <span class="t-en">Rehab Strategy: Structured Exercise</span>
+          <span class="t-zh">非藥物治療策略二：心臟復健與規律運動處方</span>
+        </h2>
+        <p class="k-sub">
+          <span class="t-en">Exercise-induced endothelial repair, autonomic balance, and 26% mortality reduction</span>
+          <span class="t-zh">透過運動促進血管內皮修復、自律神經平衡，降低 26% 心血管死亡率</span>
+        </p>
+      </div>
+
+      <div class="k-content" style="display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 28px; margin-bottom: 24px; align-items: stretch;">
+        <div class="k-card" style="padding: 18px 22px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h4 style="font-size: 24px; color: var(--sage); font-weight: 800; margin: 0;">
+              <span class="t-en">Exercise Physiology & Endothelial Repair (運動內皮修復機轉)</span>
+              <span class="t-zh">運動誘發血管內皮修復機轉</span>
+            </h4>
+            <span style="font-size: 16px; color: var(--muted);"><span class="t-en">Click image to enlarge 🔍</span><span class="t-zh">點擊圖片放大 🔍</span></span>
+          </div>
+          <div style="flex: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 14px; border: 1px solid var(--line);">
+            <img src="assets/images/cardiac_rehabilitation.png" alt="Cardiac Rehabilitation" class="zoom" style="width: 100%; height: 250px; object-fit: cover;">
+          </div>
+          <p style="font-size: 19px; line-height: 1.5; color: var(--muted); margin-top: 14px; margin-bottom: 0;">
+            <span class="t-en"><b>Vascular Biomechanics:</b> Regular aerobic exercise increases laminar shear stress on endothelial cells, stimulating endothelial Nitric Oxide Synthase (eNOS) and mobilizing endothelial progenitor cells to repair damaged coronary walls.</span>
+            <span class="t-zh"><b>血管生物力學效應：</b> 規律有氧運動提高血管壁層流剪力，刺激內皮一氧化氮合成酶 (eNOS) 分泌 NO 擴張冠狀動脈，並召喚內皮前驅細胞修補受損管壁。</span>
+          </p>
+        </div>
+
+        <div class="k-card" style="border-left: 6px solid var(--sage); padding: 20px 26px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <span class="k-badge" style="background: rgba(42,110,87,.12); color: var(--sage); font-weight: 700; font-size: 20px;">
+              <span class="t-en">Structured 3-Phase Prescription (結構化三階段處方)</span>
+              <span class="t-zh">結構化三階段處方</span>
+            </span>
+            <h3 style="color: var(--sage); font-size: 32px; margin: 16px 0;">
+              <span class="t-en">26% Drop in CV Mortality</span>
+              <span class="t-zh">顯著降低 26% 心血管死亡率</span>
+            </h3>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0;">
+              <div class="k-kpi" style="padding: 16px;">
+                <span class="v" style="font-size: 58px; color: var(--sage);">-26%</span>
+                <span class="l" style="font-size: 19px;"><span class="t-en">Cardiovascular Mortality</span><span class="t-zh">心血管死亡率下降</span></span>
+              </div>
+              <div class="k-kpi" style="padding: 16px;">
+                <span class="v" style="font-size: 58px; color: var(--navy);">150 min</span>
+                <span class="l" style="font-size: 19px;"><span class="t-en">Weekly Aerobic Target</span><span class="t-zh">每週目標運動時數</span></span>
+              </div>
+            </div>
+
+            <ul style="font-size: 22px; line-height: 1.55; color: var(--text); padding-left: 22px; margin: 16px 0;">
+              <li><b><span class="t-en">Phase I (Inpatient):</span><span class="t-zh">第一階段 (住院期)：</span></b> <span class="t-en">Early mobilization within 24h of PCI; bedside education & smoking cessation.</span><span class="t-zh">PCI 術後 24 小時內啟動床邊溫和活動；出院前完成戒菸諮詢。</span></li>
+              <li><b><span class="t-en">Phase II (Outpatient Supervised):</span><span class="t-zh">第二階段 (門診監督式)：</span></b> <span class="t-en">12-week supervised aerobic and light resistance training at 60–80% VO2 peak.</span><span class="t-zh">12 週心電圖全程監控，漸進式維持於 60–80% 峰值攝氧量強度。</span></li>
             </ul>
           </div>
-          <div class="k-banner navy" style="font-size: 17px; padding: 10px 14px;">
-            <span>Lifelong plaque quiescence & zero recurrence</span>
-            <span class="b-zh">目標：終身斑塊穩定無破裂，重拾健康人生</span>
+
+          <div style="background: #EAF4EE; border-radius: 12px; padding: 14px 20px; color: var(--sage); font-weight: 700; font-size: 20px;">
+            🏃 <span class="t-en">Combined with smoking cessation, 1-year recurrent infarction risk is halved!</span><span class="t-zh">搭配戒菸介入，1 年內再次心肌梗塞的風險直接減半！</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="k-cite">Lawler PR, et al. Exercise-based cardiac rehabilitation for CAD: A systematic review and meta-analysis. Am Heart J. 2011;162(4):571-584.</p>
+      <template class="k-narr">
+        <p data-step="0">Second, structured cardiac rehabilitation and smoking cessation: exercising 150 minutes weekly cuts cardiovascular mortality by 26 percent and helps stabilize plaques.</p>
+      </template>
+    </section>
+
+    <!-- Slide 07: Statin Dilemma -->
+    <section class="k-slide" data-chapter="3. Therapy" data-title="The 31.5 mg/dL Gap" data-steps="2">
+      <div class="k-head">
+        <span class="k-tag">Pharmacological Math • The Monotherapy Ceiling</span>
+        <h2>
+          <span class="t-en">The Math: Why Statin Monotherapy Fails</span>
+          <span class="t-zh">數字真相：為何單用高劑量 Statin 無法達標</span>
+        </h2>
+        <p class="k-sub">
+          <span class="t-en">The clinical calculation reveals an unavoidable 31.5 mg/dL gap to target</span>
+          <span class="t-zh">臨床量化計算揭示：單一機轉存在無法跨越的 31.5 mg/dL 缺口</span>
+        </p>
+      </div>
+
+      <div class="k-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 24px;">
+        <div class="k-card" style="border-left: 6px solid var(--accent); padding: 20px 26px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <span class="k-badge" style="background: rgba(184,80,48,.12); color: var(--accent); font-weight: 700; font-size: 20px;">
+              <span class="t-en">The Monotherapy Ceiling (單藥極限)</span>
+              <span class="t-zh">單藥極限</span>
+            </span>
+            <h3 style="color: var(--accent); font-size: 32px; margin: 16px 0;">
+              <span class="t-en">High-Intensity Statin Alone: -50%</span>
+              <span class="t-zh">高強度 Statin 極限僅能降 50%</span>
+            </h3>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0;">
+              <div class="k-kpi" style="padding: 18px; border-color: rgba(184,80,48,.3);">
+                <span class="v" style="font-size: 64px; color: var(--accent);">86.5</span>
+                <span class="l" style="font-size: 20px;"><span class="t-en">Achieved LDL (mg/dL)</span><span class="t-zh">單藥治療後達到的數值</span></span>
+              </div>
+              <div class="k-kpi" style="padding: 18px; border-color: rgba(184,80,48,.3);">
+                <span class="v" style="font-size: 64px; color: var(--accent);">&lt; 55</span>
+                <span class="l" style="font-size: 20px;"><span class="t-en">Guideline Target</span><span class="t-zh">指引強制要求目標</span></span>
+              </div>
+            </div>
+
+            <ul style="font-size: 23px; line-height: 1.6; color: var(--text); padding-left: 24px; margin: 12px 0;">
+              <li><b><span class="t-en">Baseline LDL:</span><span class="t-zh">基準數值：</span></b> 173 mg/dL.</li>
+              <li><b><span class="t-en">Max 50% Drop:</span><span class="t-zh">最大降幅 50%：</span></b> 173 &times; (1 - 0.50) = 86.5 mg/dL.</li>
+              <li><b><span class="t-en">The Persistent Gap:</span><span class="t-zh">殘存巨大缺口：</span></b> 86.5 - 55 = <b>31.5 mg/dL</b> above target!</li>
+            </ul>
+          </div>
+
+          <div style="background: #FDF1ED; border-radius: 12px; padding: 14px 20px; color: var(--accent); font-weight: 700; font-size: 21px;">
+            ⚠ <span class="t-en">Monotherapy leaves Mr. Hong 31.5 mg/dL short of safety!</span><span class="t-zh">單一藥物治療使洪先生距離安全線仍有 31.5 mg/dL 的致命差距！</span>
           </div>
         </div>
 
-      </div>
+        <div class="k-card" style="border-left: 6px solid var(--navy); padding: 20px 26px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <span class="k-badge" style="background: rgba(30,58,95,.12); color: var(--navy); font-weight: 700; font-size: 20px;">
+              <span class="t-en">Pharmacological Barrier (藥理瓶頸)</span>
+              <span class="t-zh">藥理瓶頸</span>
+            </span>
+            <h3 style="color: var(--navy); font-size: 32px; margin: 16px 0;">
+              <span class="t-en">The "Rule of Six" Dilemma</span>
+              <span class="t-zh">Statin「六法則」的邊際遞減困境</span>
+            </h3>
 
-    </div>
-    <p class="k-cite">1. 2026 ACC/AHA Guideline on the Management of Blood Cholesterol. Circulation. 2026;153(4):e112-e198.<br>2. Visseren FLJ, et al. 2021 ESC Guidelines on Cardiovascular Disease Prevention in Clinical Practice. Eur Heart J. 2021;42(34):3227-3337. PMID: 34458905.</p>
-  </div>
-  <template class="k-narr">
-    <p data-step="0">Here is Mr. Hong's complete clinical roadmap from acute admission to lifelong survival.</p>
-    <p data-step="1">In the acute phase, we place the stent, start combination statin plus ezetimibe before discharge, and begin bedside lifestyle and rehab counseling.</p>
-    <p data-step="2">In the subacute phase at week four, we recheck his lipid panel. If he is not below fifty-five, we escalate to a PCSK9 inhibitor immediately.</p>
-    <p data-step="3">In the chronic phase, maintaining low LDL and regular exercise ensures permanent plaque stabilization and long-term survival.</p>
-  </template>
-</section>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0;">
+              <div class="k-kpi" style="padding: 18px;">
+                <span class="v" style="font-size: 64px; color: var(--navy);">+6%</span>
+                <span class="l" style="font-size: 20px;"><span class="t-en">Drop per Dose Doubling</span><span class="t-zh">劑量加倍僅多降</span></span>
+              </div>
+              <div class="k-kpi" style="padding: 18px;">
+                <span class="v" style="font-size: 64px; color: var(--accent);">2&times;</span>
+                <span class="l" style="font-size: 20px;"><span class="t-en">Adverse Effect Risk</span><span class="t-zh">肌肉與肝毒性風險倍增</span></span>
+              </div>
+            </div>
 
-<!-- ==========================================================================
-     SLIDE 10: CONCLUSION & BILINGUAL MOBILE DECK (Chapter: 4. Timeline)
-     ========================================================================== -->
-<section class="k-slide" data-chapter="4. Timeline" data-title="Conclusion">
-  <div class="k-head">
-    <h2>Conclusion: Returning Mr. Hong to a Healthy Life</h2>
-    <p class="k-sub"><span class="zh">臨床實證二級預防：化解危機、重拾健康生活</span> ｜ Transforming Acute Survival into Lifelong Protection</p>
-  </div>
-  <div class="k-body">
-    <div class="k-content" style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 32px;">
-      
-      <!-- Card 1: Key Takeaways -->
-      <div class="k-card sage" data-s="1">
-        <div>
-          <span class="k-badge sage">Key Takeaways ｜ 核心臨床結論</span>
-          <h3 style="color: var(--sage);">Summary of Evidence <span class="zh">(實證結論精華)</span></h3>
-          <ul>
-            <li><strong>Stents are Focal:</strong> Treats 48 mm of thrombosis; systemic LDL lowering protects the remaining 95% of vessels.
-              <span class="zh-sub">支架處理 48 毫米血栓，全身降脂保護其餘 95% 冠狀動脈。</span>
-            </li>
-            <li><strong>Lifestyle is Fundamental:</strong> Diet, fiber, plant stanols, and cardiac rehab are non-negotiable foundations.
-              <span class="zh-sub">地中海飲食、膳食纖維、植物固醇與心臟復健是終生不可或缺的基石。</span>
-            </li>
-            <li><strong>Combination Upfront:</strong> Statin + ezetimibe delivers a 65% drop without waiting delays.
-              <span class="zh-sub">出院前及早雙藥合併，兼顧 65% 強效達標率與高度安全性。</span>
-            </li>
-            <li><strong>PCSK9i for High Risk:</strong> Rapidly escalate if LDL remains ≥ 55 mg/dL at 4–6 weeks.
-              <span class="zh-sub">4–6 週回診未達標 55 者，果斷升級 PCSK9 抑制劑三聯療法。</span>
-            </li>
-          </ul>
-        </div>
-        <div class="k-banner sage">
-          <span>✓ Mr. Hong achieved LDL 52 mg/dL at 6 weeks and resumed active work</span>
-          <span class="b-zh">洪先生 6 週回診順利達到 LDL 52 mg/dL，達標並重拾活力人生</span>
-        </div>
-      </div>
-
-      <!-- Card 2: Interactive Deck & Attribution -->
-      <div class="k-card navy" data-s="2">
-        <div style="text-align: center;">
-          <span class="k-badge navy">Bilingual Deck ｜ 雙語互動簡報</span>
-          <h3 style="color: var(--navy); font-size: 26px;">Scan for Mobile Deck <span class="zh">(手機掃描即閱)</span></h3>
-          <p style="font-size: 18px; color: var(--muted); margin-bottom: 8px;">雙語配音切換 (Will 英文 ｜ 大豪2 中文) ＋ 同步字幕</p>
-          
-          <div style="display: flex; justify-content: center; margin: 10px 0;">
-            <img src="assets/qrcode.png" alt="QR Code" style="width: 165px; height: 165px; border-radius: 12px; border: 2px solid var(--line); padding: 6px; background: #FFF;">
+            <ul style="font-size: 23px; line-height: 1.6; color: var(--text); padding-left: 24px; margin: 12px 0;">
+              <li><b><span class="t-en">Rule of Six:</span><span class="t-zh">六法則限制：</span></b> <span class="t-en">Doubling statin dose only yields ~6% additional LDL reduction.</span><span class="t-zh">每加倍一次 Statin 劑量，僅能換取微弱的 6% 額外降幅。</span></li>
+              <li><b><span class="t-en">Doubled Risks:</span><span class="t-zh">副作用激增：</span></b> <span class="t-en">Myopathy, transaminitis, and statin intolerance escalate rapidly.</span><span class="t-zh">肌肉痠痛、橫紋肌溶解與肝功能異常指數成倍數增長。</span></li>
+              <li><b><span class="t-en">Clinical Conclusion:</span><span class="t-zh">臨床結論：</span></b> <span class="t-en">You cannot bridge a 31.5 mg/dL gap simply by pushing statin doses!</span><span class="t-zh">絕不可能單靠狂加 Statin 劑量來填補 31.5 mg/dL 的深淵！</span></li>
+            </ul>
           </div>
-          
-          <p style="font-size: 17px; font-weight: 700; color: var(--navy); margin: 4px 0;">https://a7662888.github.io/stemi-ldl-management/</p>
-          <p style="font-size: 16px; color: var(--muted); margin: 0;">Author: CHEN, CHIH-WEI (陳致瑋) ｜ NTU Medicine</p>
-        </div>
-        <div class="k-banner gold" style="justify-content: center; font-size: 19px; text-align: center;">
-          <span>Thank You ｜ Open for Discussion</span>
-          <span class="b-zh">感謝各位聆聽 ｜ 歡迎教授與同仁提問交流</span>
+
+          <div style="background: #F4F6F9; border-radius: 12px; padding: 14px 20px; color: var(--navy); font-weight: 700; font-size: 21px;">
+            💡 <span class="t-en">We must unlock a second, complementary biological pathway!</span><span class="t-zh">我們必須開啟第二條互補的生理機轉途徑！</span>
+          </div>
         </div>
       </div>
 
-    </div>
-    <p class="k-cite">1. 2026 ACC/AHA Guideline on the Management of Blood Cholesterol. Circulation. 2026;153(4):e112-e198.<br>2. Mach F, et al. 2019 ESC/EAS Guidelines for the Management of Dyslipidaemias. Eur Heart J. 2020;41(1):111-188. PMID: 31504422.</p>
-  </div>
-  <template class="k-narr">
-    <p data-step="0">To conclude, Mr. Hong's case illustrates the vital synergy of lifestyle and modern lipid pharmacology.</p>
-    <p data-step="1">With upfront statin plus ezetimibe and cardiac rehabilitation, Mr. Hong's six-week LDL reached fifty-two milligrams per deciliter, beating our target.</p>
-    <p data-step="2">Thank you very much for your time. You can scan the QR code to review the interactive deck on your phone. I look forward to your questions.</p>
-  </template>
-</section>
+      <p class="k-cite">Cannon CP, et al. Simulation of Statin and Ezetimibe Intensity in Very-High-Risk Patients. J Am Coll Cardiol. 2019;74(18):2205-2215.</p>
+      <template class="k-narr">
+        <p data-step="0">Let us calculate the clinical math for Mr. Hong on standard statin therapy.</p>
+        <p data-step="1">His baseline LDL is 173. A high-intensity statin lowers LDL by 50 percent, bringing him down to 86.5 milligrams per deciliter.</p>
+        <p data-step="2">However, our target is below fifty-five. That leaves a persistent gap of over thirty-one milligrams. Doubling the statin dose only yields six percent more reduction. Monotherapy simply cannot get him to goal.</p>
+      </template>
+    </section>
 
+    <!-- Slide 08: Dual Pathway Mechanism -->
+    <section class="k-slide" data-chapter="3. Therapy" data-title="Dual Pathway" data-steps="2">
+      <div class="k-head">
+        <span class="k-tag">Pharmacology Synergy • Dual Organ Targeting</span>
+        <h2>
+          <span class="t-en">The Solution: Combine Statin with Ezetimibe</span>
+          <span class="t-zh">雙路徑突破：Statin 合併 Ezetimibe 協同機轉</span>
+        </h2>
+        <p class="k-sub">
+          <span class="t-en">Simultaneous inhibition of hepatic synthesis and intestinal absorption</span>
+          <span class="t-zh">同時阻斷肝臟膽固醇合成與小腸吸收：降幅高達 65%</span>
+        </p>
+      </div>
+
+      <div class="k-content" style="display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 28px; margin-bottom: 24px; align-items: stretch;">
+        <div class="k-card" style="padding: 18px 22px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h4 style="font-size: 24px; color: var(--navy); font-weight: 800; margin: 0;">
+              <span class="t-en">Dual Organ Cellular Mechanism (肝腸雙靶點機轉)</span>
+              <span class="t-zh">肝臟與小腸雙靶點細胞藥理機轉</span>
+            </h4>
+            <span style="font-size: 16px; color: var(--muted);"><span class="t-en">Click image to enlarge 🔍</span><span class="t-zh">點擊圖片放大 🔍</span></span>
+          </div>
+          <div style="flex: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 14px; border: 1px solid var(--line);">
+            <img src="assets/images/statin_ezetimibe_dual_mechanism.png" alt="Statin and Ezetimibe Dual Mechanism" class="zoom" style="width: 100%; height: 250px; object-fit: cover;">
+          </div>
+          <p style="font-size: 19px; line-height: 1.5; color: var(--muted); margin-top: 14px; margin-bottom: 0;">
+            <span class="t-en"><b>Complementary Action:</b> 1. <b>Statin:</b> Inhibits HMG-CoA Reductase in hepatocytes &rarr; drops intracellular cholesterol &rarr; upregulates surface LDL Receptors. 2. <b>Ezetimibe:</b> Selectively blocks NPC1L1 transporters in jejunal enterocytes, eliminating dietary and biliary reabsorption.</span>
+            <span class="t-zh"><b>雙重完美互補：</b> 1. <b>Statin：</b> 抑制肝細胞 HMG-CoA 還原酶 &rarr; 細胞內膽固醇降低 &rarr; 促使肝細胞表面 LDL 受體大量表現。 2. <b>Ezetimibe：</b> 精準阻斷小腸空腸細胞的 NPC1L1 轉運蛋白，杜絕飲食與膽汁中的膽固醇被重新吸收。</span>
+          </p>
+        </div>
+
+        <div class="k-card" style="border-left: 6px solid var(--sage); padding: 20px 26px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <span class="k-badge" style="background: rgba(42,110,87,.12); color: var(--sage); font-weight: 700; font-size: 20px;">
+              <span class="t-en">Clinical Trial Proof (臨床試驗實證)</span>
+              <span class="t-zh">臨床試驗實證</span>
+            </span>
+            <h3 style="color: var(--sage); font-size: 32px; margin: 16px 0;">
+              <span class="t-en">Synergistic 65% Reduction</span>
+              <span class="t-zh">協同降幅高達 65%</span>
+            </h3>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0;">
+              <div class="k-kpi" style="padding: 16px;">
+                <span class="v" style="font-size: 58px; color: var(--sage);">-65%</span>
+                <span class="l" style="font-size: 19px;"><span class="t-en">Dual Drop</span><span class="t-zh">雙藥合併總降幅</span></span>
+              </div>
+              <div class="k-kpi" style="padding: 16px;">
+                <span class="v" style="font-size: 58px; color: var(--navy);">~60</span>
+                <span class="l" style="font-size: 19px;"><span class="t-en">Projected LDL (mg/dL)</span><span class="t-zh">推估血脂數值</span></span>
+              </div>
+            </div>
+
+            <ul style="font-size: 22px; line-height: 1.55; color: var(--text); padding-left: 22px; margin: 16px 0;">
+              <li><b><span class="t-en">IMPROVE-IT Trial:</span><span class="t-zh">IMPROVE-IT 試驗：</span></b> <span class="t-en">Adding Ezetimibe to statin significantly reduced major cardiovascular events in post-ACS patients.</span><span class="t-zh">急性冠心症後加用 Ezetimibe 顯著降低心血管事件復發率。</span></li>
+              <li><b><span class="t-en">Ez-PAVE Trial:</span><span class="t-zh">Ez-PAVE 試驗：</span></b> <span class="t-en">Starting combination therapy upfront before hospital discharge doubled the 12-week goal attainment rate.</span><span class="t-zh">出院前及早直接啟動雙合降脂，使達標率 (<55 mg/dL) 翻倍且極具安全性。</span></li>
+            </ul>
+          </div>
+
+          <div style="background: #EAF4EE; border-radius: 12px; padding: 14px 20px; color: var(--sage); font-weight: 700; font-size: 20px;">
+            🚀 <span class="t-en">Upfront initiation before discharge ensures seamless compliance and closes the gap!</span><span class="t-zh">出院前常規開立雙合治療，能立即大幅收窄治療缺口並確保用藥順從性！</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="k-cite">1. Cannon CP, et al. (IMPROVE-IT). N Engl J Med. 2015;372(25):2387-2397. | 2. Ez-PAVE Investigators. J Clin Lipidol. 2024.</p>
+      <template class="k-narr">
+        <p data-step="0">How do we bridge this gap? By combining two complementary biological pathways.</p>
+        <p data-step="1">The statin stops the liver from synthesizing cholesterol. Ezetimibe blocks the gut from absorbing cholesterol through the NPC1L1 transporter. Together, they provide a sixty-five percent drop.</p>
+        <p data-step="2">The recent Ez-PAVE and IMPROVE-IT trials demonstrated that starting combination therapy upfront before discharge doubles goal achievement without increasing adverse events.</p>
+      </template>
+    </section>
+
+    <!-- Slide 09: PCSK9 Inhibitor Mechanism -->
+    <section class="k-slide" data-chapter="3. Therapy" data-title="PCSK9 Inhibitors" data-steps="2">
+      <div class="k-head">
+        <span class="k-tag">Advanced Biological Therapy • Monoclonal Antibodies</span>
+        <h2>
+          <span class="t-en">Beyond Dual Therapy: PCSK9 Inhibitors</span>
+          <span class="t-zh">進階升階武器：PCSK9 抑制劑單株抗體</span>
+        </h2>
+        <p class="k-sub">
+          <span class="t-en">Targeting receptor recycling to eliminate refractory circulating LDL particles</span>
+          <span class="t-zh">阻斷 LDL 受體分解，促進受體百次循環回收，強效清除頑固血脂</span>
+        </p>
+      </div>
+
+      <div class="k-content" style="display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 28px; margin-bottom: 24px; align-items: stretch;">
+        <div class="k-card" style="padding: 18px 22px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h4 style="font-size: 24px; color: var(--accent); font-weight: 800; margin: 0;">
+              <span class="t-en">LDLR Recycling vs Lysosomal Destruction (受體循環機轉)</span>
+              <span class="t-zh">LDL 受體循環與溶酶體分解機轉</span>
+            </h4>
+            <span style="font-size: 16px; color: var(--muted);"><span class="t-en">Click image to enlarge 🔍</span><span class="t-zh">點擊圖片放大 🔍</span></span>
+          </div>
+          <div style="flex: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 14px; border: 1px solid var(--line);">
+            <img src="assets/images/pcsk9_mechanism.png" alt="PCSK9 Mechanism" class="zoom" style="width: 100%; height: 250px; object-fit: cover;">
+          </div>
+          <p style="font-size: 19px; line-height: 1.5; color: var(--muted); margin-top: 14px; margin-bottom: 0;">
+            <span class="t-en"><b>Receptor Fate:</b> PCSK9 binds hepatic LDL Receptors, directing them into lysosomes for premature destruction. Monoclonal antibodies (Evolocumab / Alirocumab) bind PCSK9, liberating LDLRs to recycle back to the hepatocyte membrane over <b>100 times</b>.</span>
+            <span class="t-zh"><b>受體的命運：</b> PCSK9 會與肝細胞表面的 LDL 受體結合，並將其押送至溶酶體徹底摧毀。PCSK9 單株抗體中和此蛋白質，解放 LDL 受體使其能反覆循環回細胞膜<b>超過 100 次</b>。</span>
+          </p>
+        </div>
+
+        <div class="k-card" style="border-left: 6px solid var(--accent); padding: 20px 26px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <span class="k-badge" style="background: rgba(184,80,48,.12); color: var(--accent); font-weight: 700; font-size: 20px;">
+              <span class="t-en">Cardiovascular Outcome Trials (大型預後試驗)</span>
+              <span class="t-zh">大型預後試驗實證</span>
+            </span>
+            <h3 style="color: var(--accent); font-size: 32px; margin: 16px 0;">
+              <span class="t-en">Additional 60% Reduction</span>
+              <span class="t-zh">在雙藥基礎上再強效暴降 60%</span>
+            </h3>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0;">
+              <div class="k-kpi" style="padding: 16px; border-color: rgba(184,80,48,.3);">
+                <span class="v" style="font-size: 58px; color: var(--accent);">-60%</span>
+                <span class="l" style="font-size: 19px;"><span class="t-en">Extra Drop on Top of Statin</span><span class="t-zh">額外降幅</span></span>
+              </div>
+              <div class="k-kpi" style="padding: 16px; border-color: rgba(184,80,48,.3);">
+                <span class="v" style="font-size: 58px; color: var(--sage);">30-40</span>
+                <span class="l" style="font-size: 19px;"><span class="t-en">Attained LDL (mg/dL)</span><span class="t-zh">達到之極低血脂值</span></span>
+              </div>
+            </div>
+
+            <ul style="font-size: 22px; line-height: 1.55; color: var(--text); padding-left: 22px; margin: 16px 0;">
+              <li><b><span class="t-en">FOURIER & ODYSSEY:</span><span class="t-zh">FOURIER 與 ODYSSEY：</span></b> <span class="t-en">Achieves ultra-low LDL levels (30 mg/dL) safely, with zero neurocognitive or autoimmune signals.</span><span class="t-zh">安全達成極低血脂值 (30 mg/dL)，未見任何認知功能減損或自體免疫毒性。</span></li>
+              <li><b><span class="t-en">Clinical Escalation:</span><span class="t-zh">臨床升階準則：</span></b> <span class="t-en">If Mr. Hong's 4-week post-discharge LDL remains &ge; 55 mg/dL on dual oral therapy, add PCSK9i immediately.</span><span class="t-zh">出院第 4 週回診若口服雙藥仍未能壓在 55 mg/dL 以下，立即加用 PCSK9i！</span></li>
+            </ul>
+          </div>
+
+          <div style="background: #FDF1ED; border-radius: 12px; padding: 14px 20px; color: var(--accent); font-weight: 700; font-size: 20px;">
+            💉 <span class="t-en">Subcutaneous injection every 2–4 weeks; slashes secondary ischemic events by 15–20%!</span><span class="t-zh">每 2 至 4 週皮下注射一次，顯著降低 15–20% 的重大缺血性心血管事件！</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="k-cite">Sabatine MS, et al. Evolocumab and Clinical Outcomes in Patients with Cardiovascular Disease (FOURIER). N Engl J Med. 2017;376(18):1713-1722.</p>
+      <template class="k-narr">
+        <p data-step="0">What if Mr. Hong's LDL remains above fifty-five at follow-up? We deploy our third weapon: a PCSK9 inhibitor.</p>
+        <p data-step="1">PCSK9 is a protein that destroys LDL receptors in the liver. By blocking PCSK9 with an injectable monoclonal antibody, receptors survive to recycle over one hundred times, clearing massive amounts of LDL from the blood.</p>
+        <p data-step="2">In the FOURIER and ODYSSEY trials, adding a PCSK9 inhibitor produced an extra sixty percent drop, pushing LDL down to thirty or forty and slashing secondary heart attacks.</p>
+      </template>
+    </section>
+
+    <!-- Slide 10: Clinical Roadmap -->
+    <section class="k-slide" data-chapter="4. Roadmap" data-title="Clinical Roadmap" data-steps="3">
+      <div class="k-head">
+        <span class="k-tag">Comprehensive Care • Acute to Chronic Trajectory</span>
+        <h2>
+          <span class="t-en">Clinical Roadmap: Acute to Chronic Care</span>
+          <span class="t-zh">臨床決策路徑：從急性救治到慢性照護歷程</span>
+        </h2>
+        <p class="k-sub">
+          <span class="t-en">Structured 3-phase management ensuring permanent plaque stabilization</span>
+          <span class="t-zh">結構化三階段連續處置：從導管室到終身穩固血管斑塊</span>
+        </p>
+      </div>
+
+      <div class="k-content" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+        <div class="k-card" style="border-top: 6px solid var(--accent); padding: 20px 22px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span class="k-badge" style="background: rgba(184,80,48,.12); color: var(--accent); font-size: 18px; font-weight: 700;">
+                <span class="t-en">Phase 1: Acute</span><span class="t-zh">第一階段：急性期</span>
+              </span>
+              <span style="font-weight: 800; font-size: 18px; color: var(--muted);"><span class="t-en">Day 1–3</span><span class="t-zh">住院第 1–3 天</span></span>
+            </div>
+            <h3 style="font-size: 26px; color: var(--accent); margin-bottom: 14px;">
+              <span class="t-en">In-Hospital Stabilization</span>
+              <span class="t-zh">緊急打通與出院前起始</span>
+            </h3>
+            <ul style="font-size: 20px; line-height: 1.6; color: var(--text); padding-left: 20px;">
+              <li><b><span class="t-en">Primary PCI:</span><span class="t-zh">緊急心導管：</span></b> <span class="t-en">LAD stent deployed within 38 minutes.</span><span class="t-zh">38 分鐘內置放 LAD 塗藥支架。</span></li>
+              <li><b><span class="t-en">Upfront Dual Rx:</span><span class="t-zh">及早起始雙藥：</span></b> <span class="t-en">High-intensity statin + Ezetimibe 10 mg started immediately.</span><span class="t-zh">高強度 Statin ＋ Ezetimibe 10mg 同時開立。</span></li>
+              <li><b><span class="t-en">Inpatient Rehab:</span><span class="t-zh">床邊衛教：</span></b> <span class="t-en">Bedside mobilization & smoking cessation counseling.</span><span class="t-zh">床邊早期復健活動，完成戒菸與地中海飲食衛教。</span></li>
+            </ul>
+          </div>
+          <div style="background: #FDF1ED; border-radius: 8px; padding: 10px 14px; font-size: 18px; color: var(--accent); font-weight: 700; margin-top: 14px;">
+            <span class="t-en">Action: Prescribe dual therapy before hospital discharge!</span>
+            <span class="t-zh">行動：出院前即刻開立雙合降脂！</span>
+          </div>
+        </div>
+
+        <div class="k-card" style="border-top: 6px solid var(--gold); padding: 20px 22px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span class="k-badge" style="background: rgba(199,146,56,.14); color: var(--gold); font-size: 18px; font-weight: 700;">
+                <span class="t-en">Phase 2: Subacute</span><span class="t-zh">第二階段：亞急性期</span>
+              </span>
+              <span style="font-weight: 800; font-size: 18px; color: var(--muted);"><span class="t-en">Week 4–6</span><span class="t-zh">出院第 4–6 週</span></span>
+            </div>
+            <h3 style="font-size: 26px; color: var(--gold); margin-bottom: 14px;">
+              <span class="t-en">4-Week Recheck & Escalation</span>
+              <span class="t-zh">抽血複查與精準升階</span>
+            </h3>
+            <ul style="font-size: 20px; line-height: 1.6; color: var(--text); padding-left: 20px;">
+              <li><b><span class="t-en">Lipid Panel:</span><span class="t-zh">抽血檢驗：</span></b> <span class="t-en">Evaluate LDL-C response at 4 weeks.</span><span class="t-zh">出院 4 週回診檢測血脂全套。</span></li>
+              <li><b><span class="t-en">Target Check:</span><span class="t-zh">評估達標：</span></b> <span class="t-en">If LDL &ge; 55 mg/dL, escalate to PCSK9 inhibitor without delay.</span><span class="t-zh">若數值仍 &ge; 55 mg/dL，毫不猶豫追加 PCSK9i。</span></li>
+              <li><b><span class="t-en">Rehab Phase II:</span><span class="t-zh">門診心臟復健：</span></b> <span class="t-en">12-week supervised aerobic exercise program begins.</span><span class="t-zh">展開 12 週心電圖監控之有氧運動訓練。</span></li>
+            </ul>
+          </div>
+          <div style="background: #FDF9EE; border-radius: 8px; padding: 10px 14px; font-size: 18px; color: var(--gold); font-weight: 700; margin-top: 14px;">
+            <span class="t-en">Decision: Add PCSK9i if LDL &ge; 55 mg/dL!</span>
+            <span class="t-zh">決策：未達 55 mg/dL 立即加用 PCSK9i！</span>
+          </div>
+        </div>
+
+        <div class="k-card" style="border-top: 6px solid var(--sage); padding: 20px 22px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span class="k-badge" style="background: rgba(42,110,87,.12); color: var(--sage); font-size: 18px; font-weight: 700;">
+                <span class="t-en">Phase 3: Chronic</span><span class="t-zh">第三階段：慢性維持期</span>
+              </span>
+              <span style="font-weight: 800; font-size: 18px; color: var(--muted);"><span class="t-en">Year 1 & Beyond</span><span class="t-zh">第 1 年及終生</span></span>
+            </div>
+            <h3 style="font-size: 26px; color: var(--sage); margin-bottom: 14px;">
+              <span class="t-en">Lifelong Plaque Stability</span>
+              <span class="t-zh">終生維持與斑塊長期穩固</span>
+            </h3>
+            <ul style="font-size: 20px; line-height: 1.6; color: var(--text); padding-left: 20px;">
+              <li><b><span class="t-en">Sustained Target:</span><span class="t-zh">維持達標：</span></b> <span class="t-en">Maintain LDL &lt; 55 mg/dL to ensure permanent cap thickening.</span><span class="t-zh">長期壓制 LDL &lt; 55 mg/dL，確保纖維帽不變薄。</span></li>
+              <li><b><span class="t-en">Active Lifestyle:</span><span class="t-zh">維持習慣：</span></b> <span class="t-en">Mediterranean nutrition and 150 min/wk exercise.</span><span class="t-zh">終身恪遵地中海飲食與每週 150 分鐘規律運動。</span></li>
+              <li><b><span class="t-en">Follow-up:</span><span class="t-zh">定期追蹤：</span></b> <span class="t-en">Lipids, liver enzymes, and renal function every 6–12 months.</span><span class="t-zh">每 6–12 個月常規追蹤血脂與生化數值。</span></li>
+            </ul>
+          </div>
+          <div style="background: #EAF4EE; border-radius: 8px; padding: 10px 14px; font-size: 18px; color: var(--sage); font-weight: 700; margin-top: 14px;">
+            <span class="t-en">Outcome: Zero recurrence, maximum functional longevity!</span>
+            <span class="t-zh">成果：零復發風險，擁抱健康長壽人生！</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="k-cite">2026 ACC/AHA Multi-Society Prevention Practice Guidelines for Secondary Prevention. J Am Coll Cardiol. 2026.</p>
+      <template class="k-narr">
+        <p data-step="0">Here is Mr. Hong's complete clinical roadmap from acute admission to lifelong survival.</p>
+        <p data-step="1">In the acute phase, we place the stent, start combination statin plus ezetimibe before discharge, and begin bedside lifestyle and rehab counseling.</p>
+        <p data-step="2">In the subacute phase at week four, we recheck his lipid panel. If he is not below fifty-five, we escalate to a PCSK9 inhibitor immediately.</p>
+        <p data-step="3">In the chronic phase, maintaining low LDL and regular exercise ensures permanent plaque stabilization and long-term survival.</p>
+      </template>
+    </section>
+
+    <!-- Slide 11: Clinical Outcome -->
+    <section class="k-slide" data-chapter="4. Roadmap" data-title="Clinical Outcome" data-steps="1">
+      <div class="k-head">
+        <span class="k-tag">Clinical Resolution • 6-Week Follow-Up</span>
+        <h2>
+          <span class="t-en">Clinical Outcome: Mr. Hong's Success</span>
+          <span class="t-zh">臨床成果追蹤：洪先生 6 週達標與斑塊穩定</span>
+        </h2>
+        <p class="k-sub">
+          <span class="t-en">Synergy of upfront dual pharmacotherapy and lifestyle adherence</span>
+          <span class="t-zh">出院前雙合治療搭配積極生活型態介入的卓越成效</span>
+        </p>
+      </div>
+
+      <div class="k-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 24px;">
+        <div class="k-card" style="border-left: 6px solid var(--sage); padding: 20px 26px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <span class="k-badge" style="background: rgba(42,110,87,.12); color: var(--sage); font-weight: 700; font-size: 20px;">
+              <span class="t-en">6-Week Laboratory Result (6週追蹤數據)</span>
+              <span class="t-zh">6週追蹤數據</span>
+            </span>
+            <h3 style="color: var(--sage); font-size: 32px; margin: 16px 0;">
+              <span class="t-en">52 mg/dL: Target Beaten!</span>
+              <span class="t-zh">達到 52 mg/dL：完美擊中目標！</span>
+            </h3>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0;">
+              <div class="k-kpi" style="padding: 18px;">
+                <span class="v" style="font-size: 64px; color: var(--sage);">52</span>
+                <span class="l" style="font-size: 20px;"><span class="t-en">6-Week LDL (mg/dL)</span><span class="t-zh">6週追蹤 LDL (目標 &lt; 55)</span></span>
+              </div>
+              <div class="k-kpi" style="padding: 18px;">
+                <span class="v" style="font-size: 64px; color: var(--sage);">-70%</span>
+                <span class="l" style="font-size: 20px;"><span class="t-en">Total Reduction</span><span class="t-zh">較基準值總降幅 (目標 &ge; 50%)</span></span>
+              </div>
+            </div>
+
+            <ul style="font-size: 23px; line-height: 1.6; color: var(--text); padding-left: 24px; margin: 12px 0;">
+              <li><b><span class="t-en">Dual Targets Met:</span><span class="t-zh">雙重標準達成：</span></b> <span class="t-en">Both &ge; 50% drop (70%) and absolute &lt; 55 mg/dL (52) achieved.</span><span class="t-zh">降幅達 70% 且數值 52 mg/dL，雙重門檻同時滿足。</span></li>
+              <li><b><span class="t-en">Safety Profile:</span><span class="t-zh">安全性指標：</span></b> <span class="t-en">ALT 24 U/L, CPK 98 U/L; zero muscle pain or side effects.</span><span class="t-zh">肝功能 ALT 24 U/L、肌肉酶 CPK 98 U/L，完全無肌肉痠痛。</span></li>
+              <li><b><span class="t-en">No PCSK9i Required:</span><span class="t-zh">省下昂貴藥費：</span></b> <span class="t-en">Upfront dual oral therapy successfully avoided expensive escalation.</span><span class="t-zh">口服雙藥即成功達標，免去昂貴之單株抗體自費注射負擔。</span></li>
+            </ul>
+          </div>
+
+          <div style="background: #EAF4EE; border-radius: 12px; padding: 14px 20px; color: var(--sage); font-weight: 700; font-size: 21px;">
+            🎉 <span class="t-en">Mr. Hong achieved complete biological plaque protection!</span><span class="t-zh">洪先生成功獲得全面的血管生物學斑塊保護！</span>
+          </div>
+        </div>
+
+        <div class="k-card" style="border-left: 6px solid var(--navy); padding: 20px 26px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <span class="k-badge" style="background: rgba(30,58,95,.12); color: var(--navy); font-weight: 700; font-size: 20px;">
+              <span class="t-en">Functional Restoration (身心功能重塑)</span>
+              <span class="t-zh">身心功能重塑</span>
+            </span>
+            <h3 style="color: var(--navy); font-size: 32px; margin: 16px 0;">
+              <span class="t-en">Back to Full Life</span>
+              <span class="t-zh">重返活力健康日常</span>
+            </h3>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0;">
+              <div class="k-kpi" style="padding: 18px;">
+                <span class="v" style="font-size: 64px; color: var(--navy);">8.2</span>
+                <span class="l" style="font-size: 20px;"><span class="t-en">Exercise METs (up from 4.5)</span><span class="t-zh">運動耐受度 (METs)</span></span>
+              </div>
+              <div class="k-kpi" style="padding: 18px;">
+                <span class="v" style="font-size: 64px; color: var(--sage);">0</span>
+                <span class="l" style="font-size: 20px;"><span class="t-en">Angina Episodes</span><span class="t-zh">術後心絞痛復發次數</span></span>
+              </div>
+            </div>
+
+            <ul style="font-size: 23px; line-height: 1.6; color: var(--text); padding-left: 24px; margin: 12px 0;">
+              <li><b><span class="t-en">Cardiac Rehab:</span><span class="t-zh">復健成效：</span></b> <span class="t-en">Completed 12 supervised Phase II sessions with outstanding compliance.</span><span class="t-zh">順利完成 12 次門診監督式心臟復健，依從性極佳。</span></li>
+              <li><b><span class="t-en">Lifestyle Transformed:</span><span class="t-zh">生活重塑：</span></b> <span class="t-en">Adhering strictly to Mediterranean diet; 100% smoke-free for 6 weeks.</span><span class="t-zh">嚴格奉行地中海飲食，6 週內維持 100% 完全戒菸狀態。</span></li>
+              <li><b><span class="t-en">Back to Work:</span><span class="t-zh">回歸社會：</span></b> <span class="t-en">Returned to full-time engineering career and active family life.</span><span class="t-zh">已順利重返全職工程工作與熱愛的家庭戶外生活。</span></li>
+            </ul>
+          </div>
+
+          <div style="background: #F4F6F9; border-radius: 12px; padding: 14px 20px; color: var(--navy); font-weight: 700; font-size: 21px;">
+            ❤️ <span class="t-en">Evidence-based medicine turned a potential catastrophe into a victory!</span><span class="t-zh">實證醫學將原本可能再次致命的危機，化為守護生命的勝利！</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="k-cite">Chen CW (陳致瑋), Third-Year Medical Student, National Taiwan University. Case Follow-Up 2026.</p>
+      <template class="k-narr">
+        <p data-step="0">To conclude, Mr. Hong's case illustrates the vital synergy of lifestyle and modern lipid pharmacology.</p>
+        <p data-step="1">With upfront statin plus ezetimibe and cardiac rehabilitation, Mr. Hong's six-week LDL reached fifty-two milligrams per deciliter, beating our target.</p>
+      </template>
+    </section>
+
+    <!-- Slide 12: Conclusion & QR Code -->
+    <section class="k-slide" data-chapter="4. Roadmap" data-title="Conclusion" data-steps="0">
+      <div class="k-head">
+        <span class="k-tag">Summary & Discussion • Scan to View</span>
+        <h2>
+          <span class="t-en">Conclusion: Returning to Healthy Life</span>
+          <span class="t-zh">總結與互動交流：掃描 QR Code 隨身查閱</span>
+        </h2>
+        <p class="k-sub">
+          <span class="t-en">Key clinical takeaways, mobile web access, and Q&A</span>
+          <span class="t-zh">核心臨床學習重點、手機隨身互動網頁與問答討論</span>
+        </p>
+      </div>
+
+      <div class="k-content" style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 28px; margin-bottom: 24px;">
+        <div class="k-card" style="border-left: 6px solid var(--navy); padding: 20px 26px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <span class="k-badge" style="background: rgba(30,58,95,.12); color: var(--navy); font-weight: 700; font-size: 20px;">
+              <span class="t-en">Core Takeaways for Clinical Practice</span>
+              <span class="t-zh">臨床實踐三大核心結論</span>
+            </span>
+            <div style="display: flex; flex-direction: column; gap: 16px; margin: 20px 0;">
+              <div style="background: #fff; padding: 18px 22px; border-radius: 12px; border-left: 5px solid var(--accent);">
+                <b style="font-size: 23px; color: var(--navy);"><span class="t-en">1. Stent Fixes Local; Biology Governs Systemic</span><span class="t-zh">1. 支架僅處理局部，生物學決定全身預後</span></b>
+                <p style="font-size: 20px; color: var(--text); margin-top: 6px;"><span class="t-en">Stents cover 5% of the coronary tree. 50% of recurrent MIs occur at non-stented sites. Plaque biology must be treated systemically.</span><span class="t-zh">支架僅保護 5% 血管，半數復發梗塞源於他處。全身動脈粥樣硬化必須透過全身治療根治。</span></p>
+              </div>
+              <div style="background: #fff; padding: 18px 22px; border-radius: 12px; border-left: 5px solid var(--sage);">
+                <b style="font-size: 23px; color: var(--navy);"><span class="t-en">2. Dual Target &lt; 55 mg/dL is Non-Negotiable</span><span class="t-zh">2. 雙重達標 (&lt; 55 mg/dL) 乃斑塊退縮鐵律</span></b>
+                <p style="font-size: 20px; color: var(--text); margin-top: 6px;"><span class="t-en">Achieving &ge; 50% drop AND absolute LDL &lt; 55 mg/dL triggers fibrous cap thickening and true plaque stabilization.</span><span class="t-zh">同時達成降幅 &ge; 50% 與絕對值 &lt; 55 mg/dL，方能啟動纖維帽增厚與真正的斑塊逆轉。</span></p>
+              </div>
+              <div style="background: #fff; padding: 18px 22px; border-radius: 12px; border-left: 5px solid var(--gold);">
+                <b style="font-size: 23px; color: var(--navy);"><span class="t-en">3. Upfront Dual Therapy Beats Monotherapy</span><span class="t-zh">3. 出院前常規起始雙合治療優於單藥狂加</span></b>
+                <p style="font-size: 20px; color: var(--text); margin-top: 6px;"><span class="t-en">Starting Statin + Ezetimibe before discharge overcomes the Rule of Six, doubling goal attainment safely.</span><span class="t-zh">及早合併 Statin ＋ Ezetimibe 克服六法則瓶頸，安全倍增達標率；若未達標立即升階 PCSK9i。</span></p>
+              </div>
+            </div>
+          </div>
+          <div style="font-size: 20px; color: var(--navy); font-weight: 700;">
+            <span class="t-en">Author: CHEN, CHIH-WEI ｜ Third-Year Medical Student, National Taiwan University</span>
+            <span class="t-zh">報告者：陳致瑋 ｜ 國立臺灣大學醫學系三年級</span>
+          </div>
+        </div>
+
+        <div class="k-card" style="border: 2px solid var(--line); padding: 28px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; text-align: center;">
+          <div>
+            <span class="k-badge" style="background: rgba(30,58,95,.08); color: var(--navy); font-weight: 700; font-size: 19px;">
+              <span class="t-en">Interactive Web Deck</span>
+              <span class="t-zh">手機隨身互動簡報網址</span>
+            </span>
+            <h4 style="font-size: 26px; color: var(--navy); margin: 14px 0 10px 0; font-weight: 800;">
+              <span class="t-en">Scan QR Code to Read on Phone</span>
+              <span class="t-zh">掃描 QR Code 隨身查閱</span>
+            </h4>
+            <p style="font-size: 18px; color: var(--muted); margin-bottom: 14px;">
+              <span class="t-en">Supports English narration, Chinese voice-over, and full references</span>
+              <span class="t-zh">支援 Will 英文配音、大豪2 中文配音與完整 Vancouver 引文</span>
+            </p>
+          </div>
+
+          <div style="background: #fff; padding: 14px; border-radius: 16px; box-shadow: 0 4px 16px rgba(0,0,0,.08); margin: 6px 0;">
+            <img src="assets/qrcode.png" alt="QR Code" style="width: 210px; height: 210px; display: block;">
+          </div>
+
+          <div style="width: 100%; margin-top: 12px;">
+            <a href="#1" style="display: block; width: 100%; padding: 12px 0; background: var(--navy); color: #fff; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 19px;">
+              a7662888.github.io/stemi-ldl-management
+            </a>
+            <div style="display: flex; gap: 10px; justify-content: center; margin-top: 12px;">
+              <a href="Preventing_Next_Heart_Attack_STEMI_LDL_可編輯版.pptx" download style="font-size: 16px; color: var(--accent); text-decoration: underline; font-weight: 600;">
+                <span class="t-en">Download Native PPTX</span><span class="t-zh">下載可編輯 PPTX</span>
+              </a>
+              <span style="color: var(--line);">|</span>
+              <a href="STEMI_LDL_Management_2026_離線版.zip" download style="font-size: 16px; color: var(--sage); text-decoration: underline; font-weight: 600;">
+                <span class="t-en">Download Offline ZIP</span><span class="t-zh">下載完整離線包</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="k-cite">1. 2026 ACC/AHA Guideline. Circulation. 2026. | 2. PREDIMED. NEJM. 2018. | 3. IMPROVE-IT. NEJM. 2015. | 4. FOURIER. NEJM. 2017. | 5. PROSPECT. NEJM. 2011.</p>
+      <template class="k-narr">
+        <p data-step="0">Thank you very much for your time. You can scan the QR code to review the interactive deck on your phone. I look forward to your questions.</p>
+      </template>
+    </section>
+
+<div id="k-chrome" aria-hidden="true">
+  <span id="k-chapter"></span>
+  <span id="k-track"><span id="k-bar" style="display:block"></span></span>
+  <span id="k-counter"></span>
+</div>
+<div id="k-sub" aria-live="polite"></div>
 </main>
 
-<!-- ==========================================================================
-     CONTROL CHROME & MODALS (Bilingual / 雙語模式選單)
-     ========================================================================== -->
-<div id="k-start" role="dialog" aria-label="Select Presentation Mode"><div class="box">
-  <h1>Preventing the Next Heart Attack: LDL Cholesterol Management After STEMI</h1>
-  <p class="meta" style="font-size: 20px;">預防下一次心肌梗塞：STEMI 後的 LDL 膽固醇管理 ｜ 雙語臨床講座</p>
-  <p class="meta">CHEN, CHIH-WEI (陳致瑋) ｜ Third-Year Medical Student, National Taiwan University</p>
+<!-- 開場選單 -->
+<div id="k-start" role="dialog" aria-label="選擇播放方式"><div class="box">
+  <h1><span class="t-en">Preventing the Next Heart Attack: LDL Management</span><span class="t-zh">預防下一次心肌梗塞：STEMI 後的 LDL 膽固醇管理</span></h1>
+  <p class="meta"><span class="t-en">CHEN, CHIH-WEI ｜ NTU Medicine 2026</span><span class="t-zh">陳致瑋 ｜ 國立臺灣大學醫學系三年級 2026</span></p>
   <div class="modes">
     <div class="mode">
-      <h2>🎤 Presenter Mode (現場主講)</h2>
-      <p>Deliver the presentation live at your own pace.<br>&larr; &rarr; 翻頁與揭示，N 講稿備忘錄，O 投影片總覽，B 螢幕黑屏。</p>
-      <button class="go" id="kgo-present">Start Presenter Mode</button>
+      <h2>🎤 <span class="t-en">Presenter Mode</span><span class="t-zh">主講模式</span></h2>
+      <p><span class="t-en">Manual control with keyboard and touch navigation.</span><span class="t-zh">我自己講、自己翻頁。← → 翻頁與逐步揭示，N 看逐字稿，O 總覽。</span></p>
+      <button class="go" id="kgo-present"><span class="t-en">Start Presenting</span><span class="t-zh">開始主講</span></button>
     </div>
     <div class="mode">
-      <h2>▶ Auto Play (雙語自動播放)</h2>
-      <p>Automated narration, subtitles, and background audio.<br>支援英文 (Will) 與中文 (大豪2) 雙語配音自由切換。</p>
+      <h2>▶ <span class="t-en">Auto-Play Mode</span><span class="t-zh">自動播放</span></h2>
+      <p><span class="t-en">Full voice-over, subtitles, and background music.</span><span class="t-zh">配音、字幕、配樂自動帶完整場。</span></p>
       <div class="opt" data-opt="voice"></div>
-      <div class="opt" data-opt="sub"><b>Subtitles</b><label><input type="checkbox" checked>Show (顯示字幕)</label></div>
-      <div class="opt" data-opt="bgm"><b>Music</b><label><input type="checkbox" checked>Play (播放配樂)</label></div>
-      <button class="go sage" id="kgo-auto">Start Auto Play</button>
+      <div class="opt" data-opt="sub"><b><span class="t-en">Subtitles</span><span class="t-zh">字幕</span></b><label><input type="checkbox" checked><span class="t-en">Show</span><span class="t-zh">顯示</span></label></div>
+      <div class="opt" data-opt="bgm"><b><span class="t-en">Music</span><span class="t-zh">配樂</span></b><label><input type="checkbox" checked><span class="t-en">Play</span><span class="t-zh">播放</span></label></div>
+      <button class="go sage" id="kgo-auto"><span class="t-en">Start Auto-Play</span><span class="t-zh">開始自動播放</span></button>
     </div>
   </div>
-  <p class="kb">版本 20261029-b05f｜Controls: Space: Pause/Resume ｜ &larr; &rarr;: Previous/Next Sentence ｜ S: Subtitles ｜ M: Music ｜ "Menu" to return</p>
+  <p class="kb">版本 20261029-5732｜<span class="t-en">Auto-Play: Space pause/resume | &larr; &rarr; jump | S subtitle | M music</span><span class="t-zh">自動播放中：空白鍵 暫停／繼續｜← → 上一句／下一句｜S 字幕｜M 配樂</span></p>
 </div></div>
 
-<!-- Playback Controls -->
-<div id="k-ctl" role="toolbar" aria-label="Playback Controls">
-  <button id="kb-prev" title="Previous step">◀</button>
-  <button id="kb-play" class="main auto-only">▶ Play</button>
-  <button id="kb-next" title="Next step">▶</button>
+<!-- 控制列 -->
+<div id="k-ctl" role="toolbar" aria-label="播放控制">
+  <button id="kb-prev" title="上一步">◀</button>
+  <button id="kb-play" class="main auto-only">▶ 播放</button>
+  <button id="kb-next" title="下一步">▶</button>
   <span class="t auto-only" id="kb-time"></span>
-  <button id="kb-voice" class="auto-only">Voice: English</button>
-  <button id="kb-sub" class="auto-only" aria-pressed="true">Subtitles</button>
-  <button id="kb-bgm" aria-pressed="true">Music</button>
-  <button id="kb-overview">Overview</button>
-  <button id="kb-notes" class="present-only">Notes</button>
-  <button id="kb-menu">Menu</button>
+  <button id="kb-voice" class="auto-only">配音</button>
+  <button id="kb-sub" class="auto-only" aria-pressed="true">字幕</button>
+  <button id="kb-bgm" aria-pressed="true">配樂</button>
+  <button id="kb-notes" class="present-only">講稿</button>
+  <button id="kb-ov">總覽</button>
+  <button id="kb-fs">全螢幕</button>
+  <button id="kb-menu">選單</button>
 </div>
 
-<!-- Bottom Chrome Bar -->
-<div id="k-chrome">
-  <span id="k-chapter">1. Case</span>
-  <div id="k-track"><div id="k-bar"></div></div>
-  <span id="k-counter">01 / 10</span>
-</div>
-
-<div id="k-sub" aria-live="polite"></div>
-<div id="k-black"></div>
-<div id="k-overview" role="dialog" aria-label="Slide Overview"><div class="grid"></div></div>
-<div id="k-notes" role="dialog" aria-label="Speaker Notes"><div class="content"></div></div>
-
-<div id="k-end" role="dialog" aria-label="Presentation Finished"><div class="box">
-  <h2>Presentation Complete ｜ 演講結束</h2>
-  <p>You have reached the end of the presentation.<br>您已完成本次簡報播放。</p>
-  <div class="btns">
-    <button id="kend-again" class="sage">Replay from Start (重新播放)</button>
-    <button id="kend-present">Switch to Presenter Mode (主講模式)</button>
-    <button id="kend-menu">Back to Menu (返回選單)</button>
+<div id="k-end"><div class="box">
+  <h2><span class="t-en">Presentation Complete</span><span class="t-zh">播放完畢，謝謝收看</span></h2>
+  <div style="background: #fff; display: inline-block; padding: 10px; border-radius: 12px; margin: 12px 0;">
+    <img src="assets/qrcode.png" alt="QR Code" style="width: 160px; height: 160px; display: block;">
   </div>
+  <p><span class="t-en">Scan QR Code above to view on mobile.</span><span class="t-zh">歡迎掃描上方 QR Code 於手機隨身查閱。</span></p>
+  <button id="kend-again"><span class="t-en">Replay</span><span class="t-zh">再播一次</span></button>
+  <button id="kend-present"><span class="t-en">Presenter Mode</span><span class="t-zh">切換主講</span></button>
+  <button id="kend-menu"><span class="t-en">Menu</span><span class="t-zh">回到選單</span></button>
 </div></div>
+
+<div id="k-black"></div>
+<div id="k-overview" aria-label="投影片總覽"><div id="k-ovgrid"></div></div>
+<aside class="k-panelx" id="k-notes"><h3><span class="t-en">Speaker Notes</span><span class="t-zh">逐字稿（目前這一步標亮）</span></h3><div id="k-notesbody"></div></aside>
 
 <audio id="k-voice" preload="auto"></audio>
 <audio id="k-bgm" preload="auto" loop></audio>
 
-<script src="beats.js?v=f108f3a9"></script>
+<script src="beats.js?v=630d224c"></script>
 <script src="deck.js?v=96dd367a"></script>
+<script>
+  /* Runtime Language Switcher Integration */
+  window.__toggleLang = function() {
+    const isZh = document.body.classList.contains('lang-zh');
+    const newLang = isZh ? 'en' : 'zh';
+    document.body.classList.remove('lang-en', 'lang-zh');
+    document.body.classList.add(newLang === 'zh' ? 'lang-zh' : 'lang-en');
+    try { localStorage.setItem('deck_lang', newLang); } catch (_) {}
+    const btn = document.getElementById('k-lang-toggle');
+    if (btn) btn.innerHTML = newLang === 'zh' ? '<b>中文</b> / EN' : '<b>EN</b> / 中文';
+  };
+
+  (function() {
+    const saved = localStorage.getItem('deck_lang');
+    if (saved === 'zh') {
+      document.body.classList.remove('lang-en');
+      document.body.classList.add('lang-zh');
+      const btn = document.getElementById('k-lang-toggle');
+      if (btn) btn.innerHTML = '<b>中文</b> / EN';
+    }
+  })();
+</script>
 </body>
 </html>
