@@ -164,21 +164,34 @@
   const estDur = b => Math.max(1.6, b.text.replace(/\s/g, '').length / 4.0);   // 無Voice: 約每秒 4 字
   const beatDur = b => (voice !== 'off' && b.dur && b.dur[voice]) ? b.dur[voice] : estDur(b);
 
-  function chunks(text) {   // 字幕：依標點切成 ≤ 22 字的短行
-    const parts = text.split(/(?<=[，。；：！？、])/).reduce((acc, p) => {
-      const last = acc[acc.length - 1];
-      if (last && (last + p).length <= 22) acc[acc.length - 1] = last + p; else acc.push(p);
-      return acc;
-    }, []);
-    return parts.map(p => p.replace(/[，、；：]$/, ''));
+    function chunks(text) {
+    if (!text) return [''];
+    const isEn = !/[一-龥]/.test(text);
+    if (isEn) {
+      const parts = text.split(/(?<=[.?!,;])\s+/).reduce((acc, p) => {
+        const last = acc[acc.length - 1];
+        if (last && (last + ' ' + p).length <= 44) acc[acc.length - 1] = last + ' ' + p; else acc.push(p);
+        return acc;
+      }, []);
+      return parts.map(p => p.trim()).filter(Boolean);
+    } else {
+      const parts = text.split(/(?<=[，。！？：、])/).reduce((acc, p) => {
+        const last = acc[acc.length - 1];
+        if (last && (last + p).length <= 22) acc[acc.length - 1] = last + p; else acc.push(p);
+        return acc;
+      }, []);
+      return parts.map(p => p.replace(/[，、。！？：]$/, '').trim()).filter(Boolean);
+    }
   }
   function showSubs(b, dur) {
     clearInterval(subTimer);
     if (!subOn) { sub.classList.remove('on'); return; }
-    const cs = chunks(b.text), total = cs.reduce((a, c) => a + c.length, 0) || 1;
+    const curText = (voice === 'zh' && b.text_zh) ? b.text_zh : (b.text || '');
+    const cs = chunks(curText);
+    const total = cs.reduce((a, c) => a + c.length, 0) || 1;
     let k = 0, acc = 0; const t0 = performance.now();
     const marks = cs.map(c => (acc += c.length) / total * dur * 1000);
-    sub.textContent = cs[0]; sub.classList.add('on');
+    sub.textContent = cs[0] || ''; sub.classList.add('on');
     subTimer = setInterval(() => {
       const t = performance.now() - t0;
       while (k < cs.length - 1 && t > marks[k]) { k++; sub.textContent = cs[k]; }
