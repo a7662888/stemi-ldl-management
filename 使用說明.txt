@@ -12,4 +12,4 @@
 
 【注意】
 整個資料夾要一起帶走（index.html 旁邊的 assets、audio、fonts 都要在），不要只複製 index.html。
-內容：10 頁｜配音 Will (English Male, ~21 yo)｜配樂 有｜打包日期 2026-10-28
+內容：10 頁｜配音 Will (English Male, ~21 yo)｜配樂 有｜打包日期 2026-10-29
