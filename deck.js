@@ -47,6 +47,7 @@
         setH();
         if (!fit.ro && window.ResizeObserver) { fit.ro = new ResizeObserver(setH); fit.ro.observe(c0); }
       }
+      labelTables();
       floorFonts(z);
       return;
     }
@@ -68,6 +69,19 @@
   /* ---------- 重排模式字級下限（2026-11-08）：手機上任何文字實際字級不低於 12px ----------
      各頁常有 16–22px 的行內小字（設計寬 760 × zoom 0.47 只剩 8–10px）。逐一寫 CSS 規則補不完，
      改成進入重排時把「實際字級 < 12px」的文字元素抬到 12px／zoom（行高一併放寬）；離開重排時還原。 */
+  /* ---------- 重排模式：寬表格（≥ 4 欄）在直放時改成「每列一張卡」，每格前面加上欄名（2026-11-08） ---------- */
+  function labelTables() {
+    if (labelTables.done) return; labelTables.done = true;
+    document.querySelectorAll('.k-slide table').forEach(t => {
+      const hr = t.querySelector('thead tr') || t.querySelector('tr'); if (!hr) return;
+      const hs = [...hr.children]; if (hs.length < 4) return;
+      t.classList.add('k-rtable'); if (!t.querySelector('thead')) hr.classList.add('k-rhead');
+      t.querySelectorAll('tr').forEach(tr => { if (tr === hr) return; let i = 0;
+        [...tr.children].forEach(td => { const h = hs[i]; i += +td.colSpan || 1;
+          if (h && h.textContent.trim() && !td.querySelector(':scope > .k-rlab')) {
+            const lab = document.createElement('span'); lab.className = 'k-rlab'; lab.innerHTML = h.innerHTML; td.prepend(lab); } }); });
+    });
+  }
   function floorFonts(z) {
     if (floorFonts.z === z) return; floorFonts.z = z;
     document.querySelectorAll('[data-rfs]').forEach(el => {
