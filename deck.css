@@ -391,10 +391,10 @@ template.k-narr{display:none}
 /* 右上章節膠囊 */
 .k-nav{position:absolute;top:30px;right:var(--pad);display:flex;gap:8px;z-index:6}
 
-/* 字幕（自動播放）：放在底部章節列那一條（1028–1080px），蓋住章節列、不遮任何內容與出處 */
-#k-sub{position:absolute;left:0;right:0;bottom:0;height:52px;padding:0 var(--pad);display:flex;align-items:center;
-  justify-content:center;background:#1E2833;color:#FFFFFF;font-size:32px;font-weight:700;white-space:nowrap;
-  overflow:hidden;opacity:0;transition:opacity .2s;z-index:9;pointer-events:none}
+/* 字幕（自動播放）：放在底部章節列那一條（1028–1080px），蓋住章節列、不遮任何內容與出處；支援最多兩行換行（英文長句不裁切） */
+#k-sub{position:absolute;left:0;right:0;bottom:0;min-height:52px;max-height:108px;padding:7px var(--pad);display:flex;align-items:center;
+  justify-content:center;background:#1E2833;color:#FFFFFF;font-size:30px;font-weight:700;line-height:1.35;white-space:normal;
+  overflow:hidden;opacity:0;transition:opacity .2s;z-index:9;pointer-events:none;text-align:center}
 #k-sub.on{opacity:1}
 
 /* 黑屏（主講模式 B） */
@@ -481,3 +481,61 @@ body.ctl-tap #k-ctl{right:62px;left:auto;transform:none}
 }
 
 @media print{ #k-start,#k-ctl,#k-sub,#k-end,#k-black{display:none!important} .k-slide [data-s]{opacity:1!important;transform:none!important} }
+
+
+/* ==========================================================================
+   手機重排模式（2026-11-08）：deck.js 在手機直放（寬 < 700）或矮橫放（觸控且高 < 520）時
+   加上 body.k-reflow＋.k-port／.k-land，舞台改成設計寬度 760／1280 × zoom、可上下捲動。
+   以下規則把 1920×1080 的固定版面改成單欄（直）或雙欄（橫），字級以設計寬度計算。
+   ========================================================================== */
+html.k-reflow-root,html.k-reflow-root body{height:auto;overflow-x:hidden;overflow-y:auto}
+body.k-reflow #k-stage{position:relative;height:auto;overflow:visible;transform:none!important}
+body.k-reflow .k-slide{position:relative;inset:auto;height:auto;min-height:inherit;box-sizing:border-box;
+  padding:30px 34px 190px}
+body.k-reflow.k-land .k-slide{padding:30px 46px 120px}
+body.k-reflow .k-head{padding-right:0;margin-bottom:20px}
+body.k-reflow .k-slide h2{font-size:48px;line-height:1.25}
+body.k-reflow.k-land .k-slide h2{font-size:52px}
+body.k-reflow .k-sub{font-size:27px;line-height:1.45;white-space:normal}
+body.k-reflow .k-nav{position:static;order:-1;max-width:none;flex-wrap:wrap;margin:0 0 16px;justify-content:flex-start}
+body.k-reflow .k-nav button{font-size:22px;padding:6px 16px}
+body.k-reflow .k-body{flex:0 0 auto;min-height:0}
+body.k-reflow .k-body>*{flex:0 0 auto!important;min-height:0}
+body.k-reflow .k-take{font-size:30px;margin-top:22px}
+body.k-reflow .k-cite{font-size:21px;line-height:1.45;margin-top:18px}
+body.k-reflow.k-port .k-g2,body.k-reflow.k-port .k-g3,body.k-reflow.k-port .k-g4,body.k-reflow.k-port .k-g5,
+body.k-reflow.k-port .k-split,body.k-reflow.k-port .k-opts{grid-template-columns:1fr!important}
+body.k-reflow.k-land .k-g4,body.k-reflow.k-land .k-g5{grid-template-columns:repeat(2,1fr)!important}
+body.k-reflow .k-card h3{font-size:32px}
+body.k-reflow .k-card p{font-size:27px}
+body.k-reflow table{font-size:25px}
+body.k-reflow table td,body.k-reflow table th{white-space:normal!important;padding:10px 12px}
+body.k-reflow .k-opt{font-size:28px}
+/* 封面：圖與文字上下排 */
+body.k-reflow .k-cover .k-cover-img{position:static;width:100%;height:auto;order:2}
+body.k-reflow .k-cover-copy,body.k-reflow .k-cover-meta{position:static;width:auto}
+body.k-reflow .k-cover{padding:50px 34px 190px}
+body.k-reflow .k-cover-copy h1{font-size:76px}
+body.k-reflow .k-cover-copy .k-lede{font-size:32px}
+/* 字幕與章節列：固定在螢幕底部；直放時在控制列上方 */
+body.k-reflow #k-chrome{display:none}
+body.k-reflow #k-sub{position:fixed;bottom:calc(var(--ctlh,64px) * var(--rzi,1));height:auto;min-height:0;padding:8px 22px;
+  font-size:30px;line-height:1.35;white-space:normal;text-align:center}
+body.k-reflow.k-land #k-sub{bottom:0}
+body.k-reflow.k-port #k-ctl{position:fixed;top:auto!important;bottom:6px;left:50%;right:auto;transform:translateX(-50%)}
+
+/* 手機重排：本案補強（2026-11-08）——頁面常用行內固定寬度（style="width:1240px"、grid-template-columns:1020px 1fr），
+   重排時一律不得超過欄寬；直放所有行內格線改單欄，橫放雙欄改等寬 */
+body.k-reflow .k-slide :is(div,section,article,figure,p,h1,h2,h3,h4,ul,ol,table,img,svg,canvas,video){max-width:100%;box-sizing:border-box}
+body.k-reflow.k-port .k-slide [style*="grid-template-columns"]{grid-template-columns:1fr!important}
+body.k-reflow.k-land .k-slide .k-g2{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+/* 格線子項允許收窄（避免最小內容寬撐破欄寬）；表格改固定欄寬、允許折行 */
+body.k-reflow .k-slide :is([class*="k-g"],.k-split,.k-col,[style*="grid"],[style*="flex"])>*{min-width:0}
+body.k-reflow .k-slide table{width:100%!important;table-layout:fixed}
+body.k-reflow .k-slide :is(td,th){overflow-wrap:anywhere;white-space:normal!important}
+body.k-reflow.k-land .k-slide .k-split{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+/* 手機重排：本案元件（內容區原本限高 710px、卡片 100% 高，重排時會溢到出處上） */
+body.k-reflow .k-content{max-height:none;height:auto}
+body.k-reflow .k-card{height:auto}
+body.k-reflow .k-img-box{min-height:0;max-height:none}
+body.k-reflow .k-img-box img{height:auto}
